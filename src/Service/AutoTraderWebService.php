@@ -3,6 +3,7 @@
 namespace NorthBees\AutoTraderApi\Service;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
@@ -10,24 +11,16 @@ use NorthBees\AutoTraderApi\Enum\HttpMethods;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderClientErrorException;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderFailedConnectionException;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
+use NorthBees\AutoTraderApi\Traits\AutoTraderTaxonomyTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderVehiclesTrait;
 
 class AutoTraderWebService
 {
+    use AutoTraderVehiclesTrait;
+    use AutoTraderTaxonomyTrait;
+
     protected $authCacheKey = 'autotrader_api_auth';
-
-    public function getVehicle(string $vrm, int $advertiserId)
-    {
-
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Vehicles->value]);
-
-        return $this->performRequest(HttpMethods::GET, $url,
-            [],
-            [
-                'registration' => $vrm,
-                'advertiserId' => $advertiserId,
-            ]);
-
-    }
 
     protected function getEndpoint()
     {
@@ -39,6 +32,9 @@ class AutoTraderWebService
 
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {
+
+        throw_if(! Arr::has($data, 'advertiserId'), AutoTraderNoAdvertiserIdException::class);
+
         $response = Http::withToken($this->getAuthenticationCode())->withHeaders($headers)->{$method->value}($url, $data);
         if ($response->successful()) {
             return $response->json();
