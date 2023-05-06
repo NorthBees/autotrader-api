@@ -20,11 +20,11 @@ class AutoTraderApiServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../../config/autotrader.php' => config_path('autotrader.php'),
+            __DIR__.'/../../config/autotrader.php' => config_path('autotrader.php'),
         ]);
         $this->publishes([
-            __DIR__ . '/../../resources/public' => public_path('vendor/northbees'),
+            __DIR__.'/../../resources/public' => public_path('vendor/northbees'),
         ], 'public');
-        $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/api.php');
     }
 }
