@@ -13,7 +13,7 @@ trait AutoTraderTaxonomyTrait
 {
     public function getVehicleTypes(int $advertiserId)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::VehicleTypes->value);
+        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::VehicleTypes);
     }
 
     public function getTaxonomy(
@@ -65,19 +65,19 @@ trait AutoTraderTaxonomyTrait
         ]);
     }
 
-    public function getFeatures(int $advertiserId, string $generationId, Carbon $effectiveDate, ?string $productionStatus = null)
+    public function getFeatures(int $advertiserId, string $derivativeId, Carbon $effectiveDate, ?string $productionStatus = null)
     {
         return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Features, [
-            'generationId' => $generationId,
+            'derivativeId' => $derivativeId,
             'effectiveDate' => $effectiveDate->format('Y-m-d'),
             'productionStatus' => $productionStatus,
         ]);
     }
 
-    public function getPrices(int $advertiserId, string $generationId, ?Carbon $effectiveDate = null, ?string $productionStatus = null)
+    public function getPrices(int $advertiserId, string $derivativeId, ?Carbon $effectiveDate = null, ?string $productionStatus = null)
     {
         return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Prices, [
-            'generationId' => $generationId,
+            'derivativeId' => $derivativeId,
             'effectiveDate' => $effectiveDate ? $effectiveDate->format('Y-m-d') : null,
             'productionStatus' => $productionStatus,
         ]);
@@ -85,9 +85,16 @@ trait AutoTraderTaxonomyTrait
 
     public function getTechnicalData(int $advertiserId, string $derivativeId)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Derivatives, [
-            'derivativeId' => $derivativeId,
-        ]);
+
+        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Taxonomy->value, AutoTraderTaxonomies::Derivatives->value, $derivativeId]);
+        $options = [];
+
+        return $this->performRequest(HttpMethods::GET, $url,
+            [],
+            array_merge([
+                'advertiserId' => $advertiserId,
+            ], $options));
+
     }
 
     public function getFacets(int $advertiserId, AutoTraderTaxonomyFacets $facet, string $generationId, ?string $productionStatus = null)

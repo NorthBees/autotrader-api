@@ -12,5 +12,4 @@ enum AutoTraderTaxonomies: string
     case Features = 'features';
     case Prices = 'prices';
 
-    case TechnicalData = 'derivatives';
 }

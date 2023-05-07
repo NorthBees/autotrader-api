@@ -9,7 +9,7 @@ use NorthBees\AutoTraderApi\Exceptions\AutoTraderMissingOdometerException;
 
 trait AutoTraderVehiclesTrait
 {
-    public function getVehicle(int $advertiserId, string $vrm, ?int $odometer_value = null, array $options = [
+    public function getVehicle(int $advertiserId, string $vrm, ?int $odometerReadingMiles = null, array $options = [
         'features' => true,
         'motTests' => false,
         'basicVehicleCheck' => false,
@@ -19,7 +19,7 @@ trait AutoTraderVehiclesTrait
     ])
     {
 
-        throw_if((! $odometer_value && (Arr::get($options, 'valuations') || Arr::get($options, 'metrics'))), AutoTraderMissingOdometerException::class);
+        throw_if((! $odometerReadingMiles && (Arr::get($options, 'valuations') || Arr::get($options, 'metrics'))), AutoTraderMissingOdometerException::class);
 
         $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Vehicles->value]);
 
