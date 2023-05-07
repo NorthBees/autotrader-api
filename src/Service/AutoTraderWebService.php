@@ -36,7 +36,7 @@ class AutoTraderWebService
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {
 
-        throw_if(! Arr::has($data, 'advertiserId') && !Str::contains($url, '?advertiserId'), AutoTraderNoAdvertiserIdException::class);
+        throw_if(! Arr::has($data, 'advertiserId') && ! Str::contains($url, '?advertiserId'), AutoTraderNoAdvertiserIdException::class);
 
         $response = Http::withToken($this->getAuthenticationCode())->withHeaders($headers)->{$method->value}($url, $data);
         if ($response->successful()) {
