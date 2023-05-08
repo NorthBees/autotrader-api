@@ -1,21 +1,21 @@
 <?php
 
-namespace NorthBees\AutoTraderApi\Service;
+namespace NorthBees\AutotraderApi\Service;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderClientErrorException;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderFailedConnectionException;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
-use NorthBees\AutoTraderApi\Traits\AutoTraderTaxonomyTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderValuationsTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderVehiclesTrait;
+use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Exceptions\AutoTraderClientErrorException;
+use NorthBees\AutotraderApi\Exceptions\AutoTraderException;
+use NorthBees\AutotraderApi\Exceptions\AutoTraderFailedConnectionException;
+use NorthBees\AutotraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
+use NorthBees\AutotraderApi\Traits\AutoTraderTaxonomyTrait;
+use NorthBees\AutotraderApi\Traits\AutoTraderValuationsTrait;
+use NorthBees\AutotraderApi\Traits\AutoTraderVehiclesTrait;
 
 class AutoTraderWebService
 {

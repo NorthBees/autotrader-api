@@ -1,13 +1,13 @@
 <?php
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Carbon\Carbon;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\AutoTraderTaxonomies;
-use NorthBees\AutoTraderApi\Enum\AutoTraderTaxonomyFacets;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Enum\VehicleTypes;
+use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutotraderApi\Enum\AutoTraderTaxonomies;
+use NorthBees\AutotraderApi\Enum\AutoTraderTaxonomyFacets;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Enum\VehicleTypes;
 
 trait AutoTraderTaxonomyTrait
 {

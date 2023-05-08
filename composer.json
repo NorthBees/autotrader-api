@@ -1,30 +1,41 @@
 {
-    "name": "NorthBees/AutoTraderApi",
+    "name": "northbees/autotraderapi",
     "description": "Auto Trader API Integration",
-    "keywords": [
-        "northbees",
-        "autotrader-api"
-    ],
-    "homepage": "https://github.com/northbees/autotrader-api",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Author Name",
+            "email": "author@email.com",
+            "homepage": "http://author.com"
+        }
+    ],
+    "homepage": "https://github.com/northbees/autotraderapi",
+    "keywords": ["Laravel", "AutotraderApi"],
+    "require": {
+        "illuminate/support": "~9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~7"
+    },
     "autoload": {
         "psr-4": {
-            "NorthBees\\AutoTraderApi\\": "src/"
+            "NorthBees\\AutotraderApi\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NorthBees\\AutoTraderApi\\Tests\\": "tests/"
+            "NorthBees\\AutotraderApi\\Tests\\": "tests"
         }
     },
-    "require-dev": {},
     "extra": {
         "laravel": {
             "providers": [
-                "NorthBees\\AutoTraderApi\\Providers\\AutoTraderApiServiceProvider"
-            ]
+                "NorthBees\\AutotraderApi\\AutotraderApiServiceProvider"
+            ],
+            "aliases": {
+                "AutotraderApi": "NorthBees\\AutotraderApi\\Facades\\AutotraderApi"
+            }
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

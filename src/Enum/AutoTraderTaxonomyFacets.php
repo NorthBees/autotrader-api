@@ -1,6 +1,6 @@
 <?php
 
-namespace NorthBees\AutoTraderApi\Enum;
+namespace NorthBees\AutotraderApi\Enum;
 
 enum AutoTraderTaxonomyFacets: string
 {

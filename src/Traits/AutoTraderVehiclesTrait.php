@@ -1,11 +1,11 @@
 <?php
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Illuminate\Support\Arr;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderMissingOdometerException;
+use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Exceptions\AutoTraderMissingOdometerException;
 
 trait AutoTraderVehiclesTrait
 {

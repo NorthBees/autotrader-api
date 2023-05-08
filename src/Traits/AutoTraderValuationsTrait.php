@@ -1,11 +1,11 @@
 <?php
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
 
 trait AutoTraderValuationsTrait
 {
