@@ -21,7 +21,7 @@ trait AutoTraderTaxonomyTrait
         AutoTraderTaxonomies|AutoTraderTaxonomyFacets $taxonomy,
         array $options = []
     ) {
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Taxonomy->value, $taxonomy->value]);
+        $url = implode('/', [AutoTraderEndpoints::Taxonomy->value, $taxonomy->value]);
 
         return $this->performRequest(HttpMethods::GET, $url,
             [],
@@ -86,7 +86,7 @@ trait AutoTraderTaxonomyTrait
     public function getTechnicalData(int $advertiserId, string $derivativeId)
     {
 
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Taxonomy->value, AutoTraderTaxonomies::Derivatives->value, $derivativeId]);
+        $url = implode('/', [AutoTraderEndpoints::Taxonomy->value, AutoTraderTaxonomies::Derivatives->value, $derivativeId]);
         $options = [];
 
         return $this->performRequest(HttpMethods::GET, $url,

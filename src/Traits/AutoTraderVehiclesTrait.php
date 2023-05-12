@@ -21,9 +21,7 @@ trait AutoTraderVehiclesTrait
 
         throw_if((! $odometerReadingMiles && (Arr::get($options, 'valuations') || Arr::get($options, 'metrics'))), AutoTraderMissingOdometerException::class);
 
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Vehicles->value]);
-
-        return $this->performRequest(HttpMethods::GET, $url,
+        return $this->performRequest(HttpMethods::GET, AutoTraderEndpoints::Vehicles->value,
             [],
             array_merge([
                 'registration' => $vrm,

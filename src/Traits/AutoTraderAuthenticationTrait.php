@@ -1,51 +1,18 @@
 <?php
 
-namespace NorthBees\AutotraderApi\Service;
+namespace NorthBees\AutotraderApi\Traits;
 
-use Carbon\Carbon;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutotraderApi\Enum\HttpMethods;
 use NorthBees\AutotraderApi\Exceptions\AutoTraderClientErrorException;
 use NorthBees\AutotraderApi\Exceptions\AutoTraderException;
 use NorthBees\AutotraderApi\Exceptions\AutoTraderFailedConnectionException;
-use NorthBees\AutotraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
-use NorthBees\AutotraderApi\Traits\AutoTraderTaxonomyTrait;
-use NorthBees\AutotraderApi\Traits\AutoTraderValuationsTrait;
-use NorthBees\AutotraderApi\Traits\AutoTraderVehiclesTrait;
 
-class AutoTraderWebService
+trait AutoTraderAuthenticationTrait
 {
-    use AutoTraderValuationsTrait;
-    use AutoTraderVehiclesTrait;
-    use AutoTraderTaxonomyTrait;
-
-    protected $authCacheKey = 'autotrader_api_auth';
-
-    protected function getEndpoint()
-    {
-        return match (config('autotrader.environment')) {
-            'production' => AutoTraderEndpoints::ProductionUrl->value,
-            default => AutoTraderEndpoints::SandboxUrl->value
-        };
-    }
-
-    protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
-    {
-
-        throw_if(! Arr::has($data, 'advertiserId') && ! Str::contains($url, '?advertiserId'), AutoTraderNoAdvertiserIdException::class);
-
-        $response = Http::withToken($this->getAuthenticationCode())->withHeaders($headers)->{$method->value}($url, $data);
-        if ($response->successful()) {
-            return $response->json();
-        }
-
-        dd($response->json(), $url, $data);
-        throw new AutoTraderException($response->json('message'), $response->json('code'));
-    }
+    protected string $authCacheKey = 'autotrader_api_auth';
 
     public function getAuthenticationCode()
     {

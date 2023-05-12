@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutotraderApi\Service\AutoTraderWebService;
 
 it('can authenticate with Auto Trader', function () {
 
@@ -17,6 +17,6 @@ it('can authenticate with Auto Trader', function () {
             ], 200, ['content_type' => 'application/json']),
     ]);
 
-    $response = app(AutoTraderWebService::class)->getAuthenticationCode();
+    $response = app(AutotraderApi::class)->getAuthenticationCode();
     expect($response)->toBe($token);
 })->group('autotrader-api', 'auth');

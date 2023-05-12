@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutotraderApi\Service\AutoTraderWebService;
 
 todo('mock requests');
 it('can request vehicles data', function () {
@@ -121,7 +121,7 @@ it('can request vehicles data', function () {
     //                200, ['content_type' => 'application/json']),
     //        ]);
 
-    $response = app(AutoTraderWebService::class)->getVehicle(config('autotrader.default_advertiser_id'), 'dc64agz');
+    $response = app(AutotraderApi::class)->getVehicle(config('autotrader.default_advertiser_id'), 'dc64agz');
 
     expect($response)->toHaveKey('vehicle');
 })->group('autotrader-api', 'vehicle');

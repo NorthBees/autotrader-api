@@ -16,8 +16,6 @@ trait AutoTraderValuationsTrait
     ])
     {
 
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Valuations->value]).'?advertiserId='.$advertiserId;
-
         if (Arr::has($options, 'totalPrice')) {
             $options['adverts'] = ['retailAdverts' => [
                 'price' => [
@@ -27,7 +25,7 @@ trait AutoTraderValuationsTrait
             unset($options['totalPrice']);
         }
 
-        return $this->performRequest(HttpMethods::POST, $url,
+        return $this->performRequest(HttpMethods::POST, AutoTraderEndpoints::Valuations->value.'?advertiserId='.$advertiserId,
             [],
             array_merge(['vehicle' => ['derivativeId' => $derivativeId,
                 'odometerReadingMiles' => $odometerReadingMiles,

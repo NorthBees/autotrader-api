@@ -8,12 +8,9 @@ class AutotraderApiServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
-     *
-     * @return void
      */
     public function boot(): void
     {
-
 
         $this->publishes([
             __DIR__.'/../resources/public' => public_path('vendor/northbees'),
@@ -29,8 +26,6 @@ class AutotraderApiServiceProvider extends ServiceProvider
 
     /**
      * Register any package services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -54,8 +49,6 @@ class AutotraderApiServiceProvider extends ServiceProvider
 
     /**
      * Console-specific booting.
-     *
-     * @return void
      */
     protected function bootForConsole(): void
     {
