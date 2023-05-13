@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `AutotraderApi` will be documented in this file.
+All notable changes to `AutoTraderApi` will be documented in this file.
 
 ## Version 1.0
 

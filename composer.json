@@ -10,7 +10,7 @@
         }
     ],
     "homepage": "https://github.com/northbees/autotraderapi",
-    "keywords": ["Laravel", "AutotraderApi"],
+    "keywords": ["Laravel", "AutoTraderApi"],
     "require": {
         "illuminate/support": "~9"
     },
@@ -20,21 +20,21 @@
     },
     "autoload": {
         "psr-4": {
-            "NorthBees\\AutotraderApi\\": "src/"
+            "NorthBees\\AutoTraderApi\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NorthBees\\AutotraderApi\\Tests\\": "tests"
+            "NorthBees\\AutoTraderApi\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "NorthBees\\AutotraderApi\\AutotraderApiServiceProvider"
+                "NorthBees\\AutoTraderApi\\AutoTraderApiServiceProvider"
             ],
             "aliases": {
-                "AutotraderApi": "NorthBees\\AutotraderApi\\Facades\\AutotraderApi"
+                "AutoTraderApi": "NorthBees\\AutoTraderApi\\Facades\\AutoTraderApi"
             }
         }
     }

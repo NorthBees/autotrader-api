@@ -1,11 +1,11 @@
 <?php
 
-namespace NorthBees\AutotraderApi\Traits;
+namespace NorthBees\AutoTraderApi\Traits;
 
 use Carbon\Carbon;
-use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutotraderApi\Enum\HttpMethods;
-use NorthBees\AutotraderApi\Exceptions\AutoTraderException;
+use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutoTraderApi\Enum\HttpMethods;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 
 trait AutoTraderHistoricValuationsTrait
 {

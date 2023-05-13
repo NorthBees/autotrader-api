@@ -1,22 +1,22 @@
 <?php
 
-namespace NorthBees\AutotraderApi;
+namespace NorthBees\AutoTraderApi;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutotraderApi\Enum\HttpMethods;
-use NorthBees\AutotraderApi\Exceptions\AutoTraderException;
-use NorthBees\AutotraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
-use NorthBees\AutotraderApi\Traits\AutoTraderAuthenticationTrait;
-use NorthBees\AutotraderApi\Traits\AutoTraderFutureValuationsTrait;
-use NorthBees\AutotraderApi\Traits\AutoTraderHistoricValuationsTrait;
-use NorthBees\AutotraderApi\Traits\AutoTraderTaxonomyTrait;
-use NorthBees\AutotraderApi\Traits\AutoTraderValuationsTrait;
-use NorthBees\AutotraderApi\Traits\AutoTraderVehiclesTrait;
+use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutoTraderApi\Enum\HttpMethods;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
+use NorthBees\AutoTraderApi\Traits\AutoTraderAuthenticationTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderFutureValuationsTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderHistoricValuationsTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderTaxonomyTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderValuationsTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderVehiclesTrait;
 
-class AutotraderApi
+class AutoTraderApi
 {
     use AutoTraderAuthenticationTrait;
     use AutoTraderFutureValuationsTrait;

@@ -1,10 +1,10 @@
 <?php
 
-namespace NorthBees\AutotraderApi;
+namespace NorthBees\AutoTraderApi;
 
 use Illuminate\Support\ServiceProvider;
 
-class AutotraderApiServiceProvider extends ServiceProvider
+class AutoTraderApiServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -33,7 +33,7 @@ class AutotraderApiServiceProvider extends ServiceProvider
 
         // Register the service the package provides.
         $this->app->singleton('autotraderapi', function ($app) {
-            return new AutotraderApi;
+            return new AutoTraderApi;
         });
     }
 

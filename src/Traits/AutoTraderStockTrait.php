@@ -7,7 +7,7 @@ use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
 use NorthBees\AutoTraderApi\Enum\HttpMethods;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderMissingOdometerException;
 
-trait AutoTraderVehiclesTrait
+trait AutoTraderStockTrait
 {
     public function getVehicle(int $advertiserId, string $vrm, ?int $odometerReadingMiles = null, array $options = [
         'features' => true,

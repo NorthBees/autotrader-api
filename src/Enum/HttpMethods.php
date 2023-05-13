@@ -1,6 +1,6 @@
 <?php
 
-namespace NorthBees\AutotraderApi\Enum;
+namespace NorthBees\AutoTraderApi\Enum;
 
 enum HttpMethods: string
 {

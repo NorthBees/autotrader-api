@@ -1,14 +1,14 @@
 <?php
 
-namespace NorthBees\AutotraderApi\Traits;
+namespace NorthBees\AutoTraderApi\Traits;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use NorthBees\AutotraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutotraderApi\Exceptions\AutoTraderClientErrorException;
-use NorthBees\AutotraderApi\Exceptions\AutoTraderException;
-use NorthBees\AutotraderApi\Exceptions\AutoTraderFailedConnectionException;
+use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderClientErrorException;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderFailedConnectionException;
 
 trait AutoTraderAuthenticationTrait
 {

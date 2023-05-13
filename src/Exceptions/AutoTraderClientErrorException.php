@@ -1,6 +1,6 @@
 <?php
 
-namespace NorthBees\AutotraderApi\Exceptions;
+namespace NorthBees\AutoTraderApi\Exceptions;
 
 use Exception;
 
