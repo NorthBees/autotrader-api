@@ -3,30 +3,56 @@
 namespace NorthBees\AutoTraderApi\Traits;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
 use NorthBees\AutoTraderApi\Enum\HttpMethods;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderMissingOdometerException;
 
 trait AutoTraderStockTrait
 {
-    public function getVehicle(int $advertiserId, string $vrm, ?int $odometerReadingMiles = null, array $options = [
+    public function getStockList(int $advertiserId, array $options = [
+        'competitors' => false,
         'features' => true,
-        'motTests' => false,
-        'basicVehicleCheck' => false,
-        'fullVehicleCheck' => false,
-        'valuations' => false,
+        'responseMetrics' => false,
         'vehicleMetrics' => false,
+        'valuations' => false,
     ])
     {
-
-        throw_if((! $odometerReadingMiles && (Arr::get($options, 'valuations') || Arr::get($options, 'metrics'))), AutoTraderMissingOdometerException::class);
 
         return $this->performRequest(HttpMethods::GET, AutoTraderEndpoints::Vehicles->value,
             [],
             array_merge([
-                'registration' => $vrm,
-                'advertiserId' => $advertiserId,
             ], $options));
 
+    }
+
+    public function createStock(int $advertiserId, array $vehicleData)
+    {
+        return $this->performRequest(HttpMethods::POST, AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
+            [],
+            $vehicleData);
+    }
+
+    public function updateStock(int $advertiserId, array $vehicleData)
+    {
+        $validator = Validator::make($vehicleData, [
+            'metadata.stockId' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            throw new AutoTraderException('metadata=>stockId is required');
+        }
+
+        return $this->performRequest(HttpMethods::PATCH, AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
+            [],
+            $vehicleData);
+
+    }
+
+    public function getStockFeatures(int $advertiserId, string $stockId)
+    {
+        $url = implode('/', [AutoTraderEndpoints::Stock->value, $stockId, 'features']);
+        return $this->performRequest(HttpMethods::GET, $url . '?advertiserId=' . $advertiserId, [], []);
     }
 }
