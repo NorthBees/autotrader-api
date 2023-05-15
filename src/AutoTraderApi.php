@@ -12,6 +12,7 @@ use NorthBees\AutoTraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
 use NorthBees\AutoTraderApi\Traits\AutoTraderAuthenticationTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderFutureValuationsTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderHistoricValuationsTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderImageTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderStockTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderTaxonomyTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderValuationsTrait;
@@ -22,6 +23,7 @@ class AutoTraderApi
     use AutoTraderAuthenticationTrait;
     use AutoTraderFutureValuationsTrait;
     use AutoTraderHistoricValuationsTrait;
+    use AutoTraderImageTrait;
     use AutoTraderStockTrait;
     use AutoTraderTaxonomyTrait;
     use AutoTraderValuationsTrait;
@@ -33,7 +35,8 @@ class AutoTraderApi
 
         $url = implode('/', [$this->getEndpoint(), $url]);
 
-        $response = Http::withToken($this->getAuthenticationCode())->withHeaders($headers)->{$method->value}($url, $data);
+        $request = Http::withToken($this->getAuthenticationCode())->withHeaders($headers);
+        $response = $request->{$method->value}($url, $data);
         if ($response->successful()) {
             return $response->json();
         }

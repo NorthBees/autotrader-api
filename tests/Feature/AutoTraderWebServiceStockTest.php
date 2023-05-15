@@ -1,0 +1,14 @@
+<?php
+
+todo('mock requests');
+it('can request stock list', function () {
+
+    $response = app(\NorthBees\AutoTraderApi\AutoTraderApi::class)->getStockList(config('autotrader.default_advertiser_id'), ['lifecycleState' => 'FORECOURT']);
+    expect($response)->toHaveKey('results')->toHaveKey('totalResults');
+    expect(\Illuminate\Support\Arr::get($response, 'results.0.metadata.lifecycleState'))->toEqual('FORECOURT');
+
+    $response = app(\NorthBees\AutoTraderApi\AutoTraderApi::class)->getStockList(config('autotrader.default_advertiser_id'), ['lifecycleState' => 'WASTEBIN']);
+
+    expect(\Illuminate\Support\Arr::get($response, 'results.0.metadata.lifecycleState'))->toEqual('WASTEBIN');
+
+})->group('autotrader-api', 'stock');
