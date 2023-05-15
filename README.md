@@ -81,3 +81,8 @@ $taxonomy = app(AutoTraderApi::class)->getFacets( $advertiserId,  $facet,  $gene
 ```
 $imageId = app(AutoTraderApi::class)->addImage($advertiserId, $filePath);
 ```
+
+### Vehicle Metrics
+```
+$valuation = app(AutoTraderApi::class)->getMetrics($advertiserId, $vehicle->derivativeId, $mileage, $vehicle->firstRegistrationDate);
+```
