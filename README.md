@@ -75,3 +75,9 @@ $taxonomy = app(AutoTraderApi::class)->getTechnicalData($advertiserId, $derivati
 // Facets are: fuelTypes, transmissionTypes, bodyTypes, trims, doors, drivetrains, wheelbaseTypes, cabTypes, axleConfigurations, badgeEngineSizes, styles, subStyles, endLayouts, bedroomLayouts
 $taxonomy = app(AutoTraderApi::class)->getFacets( $advertiserId,  $facet,  $generationId,  $productionStatus);
 ```
+
+### Image Upload
+
+```
+$imageId = app(AutoTraderApi::class)->addImage($advertiserId, $filePath);
+```
