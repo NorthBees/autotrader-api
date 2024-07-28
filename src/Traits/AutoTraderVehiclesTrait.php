@@ -15,7 +15,6 @@ trait AutoTraderVehiclesTrait
         'features' => true,
         'motTests' => false,
         'history' => false,
-        'basicVehicleCheck' => false,
         'fullVehicleCheck' => false,
         'valuations' => false,
         'vehicleMetrics' => false,

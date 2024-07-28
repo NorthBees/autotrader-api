@@ -49,7 +49,7 @@ trait AutoTraderTaxonomyTrait
         ]);
     }
 
-    public function getGenerations(int $advertiserId, string $modelId = null, ?string $productionStatus = null)
+    public function getGenerations(int $advertiserId, ?string $modelId = null, ?string $productionStatus = null)
     {
         return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Generations, [
             'modelId' => $modelId,
