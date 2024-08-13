@@ -35,17 +35,23 @@ trait AutoTraderStockTrait
             throw new AutoTraderException($validator->errors());
         }
 
-        return $this->performRequest(HttpMethods::GET, AutoTraderEndpoints::Stock->value.'?advertiserId='.$advertiserId,
+        return $this->performRequest(
+            HttpMethods::GET,
+            AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
             [],
-            array_merge($filters, $options));
+            array_merge($filters, $options),
+        );
 
     }
 
     public function createStock(int $advertiserId, array $vehicleData)
     {
-        return $this->performRequest(HttpMethods::POST, AutoTraderEndpoints::Stock->value.'?advertiserId='.$advertiserId,
+        return $this->performRequest(
+            HttpMethods::POST,
+            AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
             [],
-            $vehicleData);
+            $vehicleData,
+        );
     }
 
     public function updateStock(int $advertiserId, array $vehicleData)
@@ -53,9 +59,12 @@ trait AutoTraderStockTrait
 
         throw_if(! Arr::has($vehicleData, 'metadata.stockId'), AutoTraderException::class, ('metadata=>stockId is required'));
 
-        return $this->performRequest(HttpMethods::PATCH, AutoTraderEndpoints::Stock->value.'?advertiserId='.$advertiserId,
+        return $this->performRequest(
+            HttpMethods::PATCH,
+            AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
             [],
-            $vehicleData);
+            $vehicleData,
+        );
 
     }
 
@@ -63,6 +72,6 @@ trait AutoTraderStockTrait
     {
         $url = implode('/', [AutoTraderEndpoints::Stock->value, $stockId, 'features']);
 
-        return $this->performRequest(HttpMethods::GET, $url.'?advertiserId='.$advertiserId, [], []);
+        return $this->performRequest(HttpMethods::GET, $url . '?advertiserId=' . $advertiserId, [], []);
     }
 }

@@ -16,7 +16,9 @@ trait AutoTraderFutureValuationsTrait
             throw new AutoTraderException('Future valuation date must be in the future!');
         }
 
-        return $this->performRequest(HttpMethods::POST, AutoTraderEndpoints::FutureValuations->value.'?advertiserId='.$advertiserId,
+        return $this->performRequest(
+            HttpMethods::POST,
+            AutoTraderEndpoints::FutureValuations->value . '?advertiserId=' . $advertiserId,
             [],
             ['vehicle' => [
                 'derivativeId' => $derivativeId,
@@ -24,7 +26,8 @@ trait AutoTraderFutureValuationsTrait
                 'firstRegistrationDate' => $firstRegistrationDate->format('Y-m-d'),
             ],
                 'futureValuationDate' => $futureValuationDate->format('Y-m-d'),
-            ]);
+            ],
+        );
 
     }
 }

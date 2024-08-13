@@ -20,7 +20,9 @@ trait AutoTraderHistoricValuationsTrait
             throw new AutoTraderException('Historic valuation cannot be a future date');
         }
 
-        return $this->performRequest(HttpMethods::POST, AutoTraderEndpoints::HistoricValuations->value.'?advertiserId='.$advertiserId,
+        return $this->performRequest(
+            HttpMethods::POST,
+            AutoTraderEndpoints::HistoricValuations->value . '?advertiserId=' . $advertiserId,
             [],
             ['vehicle' => [
                 'derivativeId' => $derivativeId,
@@ -28,7 +30,8 @@ trait AutoTraderHistoricValuationsTrait
                 'firstRegistrationDate' => $firstRegistrationDate->format('Y-m-d'),
             ],
                 'historicValuationDate' => $historicValuationDate->format('Y-m-d'),
-            ]);
+            ],
+        );
 
     }
 }

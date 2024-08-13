@@ -29,11 +29,14 @@ trait AutoTraderVehicleMetricsTrait
             unset($options['totalPrice']);
         }
 
-        return $this->performRequest(HttpMethods::POST, AutoTraderEndpoints::VehicleMetrics->value.'?advertiserId='.$advertiserId,
+        return $this->performRequest(
+            HttpMethods::POST,
+            AutoTraderEndpoints::VehicleMetrics->value . '?advertiserId=' . $advertiserId,
             [],
             array_merge(['vehicle' => ['derivativeId' => $derivativeId,
                 'odometerReadingMiles' => $odometerReadingMiles,
-                'firstRegistrationDate' => $firstRegistrationDate->format('Y-m-d'), ]], $options));
+                'firstRegistrationDate' => $firstRegistrationDate->format('Y-m-d'), ]], $options),
+        );
 
     }
 }

@@ -13,10 +13,10 @@ class AutoTraderApiServiceProvider extends ServiceProvider
     {
 
         $this->publishes([
-            __DIR__.'/../resources/public' => public_path('vendor/northbees'),
+            __DIR__ . '/../resources/public' => public_path('vendor/northbees'),
         ], 'public');
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -29,11 +29,11 @@ class AutoTraderApiServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/autotrader.php', 'autotrader');
+        $this->mergeConfigFrom(__DIR__ . '/../config/autotrader.php', 'autotrader');
 
         // Register the service the package provides.
         $this->app->singleton('autotraderapi', function ($app) {
-            return new AutoTraderApi;
+            return new AutoTraderApi();
         });
     }
 
@@ -54,7 +54,7 @@ class AutoTraderApiServiceProvider extends ServiceProvider
     {
         // Publishing the configuration file.
         $this->publishes([
-            __DIR__.'/../config/autotrader.php' => config_path('autotrader.php'),
+            __DIR__ . '/../config/autotrader.php' => config_path('autotrader.php'),
         ], 'autotrader.config');
 
         // Publishing the views.

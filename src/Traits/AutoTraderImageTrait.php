@@ -12,10 +12,11 @@ trait AutoTraderImageTrait
     public function addImage(int $advertiserId, $file)
     {
 
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Images->value.'?advertiserId='.$advertiserId]);
+        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Images->value . '?advertiserId=' . $advertiserId]);
 
         $response = Http::withToken($this->getAuthenticationCode())->attach(
-            'file', Utils::tryFopen($file, 'r')
+            'file',
+            Utils::tryFopen($file, 'r'),
         )->post($url);
         if ($response->successful()) {
             return $response->json();

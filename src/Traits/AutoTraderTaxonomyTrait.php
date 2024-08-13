@@ -19,25 +19,31 @@ trait AutoTraderTaxonomyTrait
     public function getTaxonomy(
         int $advertiserId,
         AutoTraderTaxonomies|AutoTraderTaxonomyFacets $taxonomy,
-        array $options = []
+        array $options = [],
     ) {
         $url = implode('/', [AutoTraderEndpoints::Taxonomy->value, $taxonomy->value]);
 
-        return $this->performRequest(HttpMethods::GET, $url,
+        return $this->performRequest(
+            HttpMethods::GET,
+            $url,
             [],
             array_merge([
                 'advertiserId' => $advertiserId,
-            ], $options));
+            ], $options),
+        );
 
     }
 
     public function getMakes(int $advertiserId, VehicleTypes $vehicleType, ?string $productionStatus = null)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Makes,
+        return $this->getTaxonomy(
+            $advertiserId,
+            AutoTraderTaxonomies::Makes,
             [
                 'vehicleType' => $vehicleType,
                 'productionStatus' => $productionStatus,
-            ]);
+            ],
+        );
     }
 
     public function getModels(int $advertiserId, string $makeId, ?string $model = null, ?string $productionStatus = null)
@@ -89,11 +95,14 @@ trait AutoTraderTaxonomyTrait
         $url = implode('/', [AutoTraderEndpoints::Taxonomy->value, AutoTraderTaxonomies::Derivatives->value, $derivativeId]);
         $options = [];
 
-        return $this->performRequest(HttpMethods::GET, $url,
+        return $this->performRequest(
+            HttpMethods::GET,
+            $url,
             [],
             array_merge([
                 'advertiserId' => $advertiserId,
-            ], $options));
+            ], $options),
+        );
 
     }
 

@@ -27,7 +27,7 @@ trait AutoTraderAuthenticationTrait
             [
                 'key' => config('autotrader.key'),
                 'secret' => config('autotrader.secret'),
-            ]
+            ],
         );
 
         if ($response->successful()) {

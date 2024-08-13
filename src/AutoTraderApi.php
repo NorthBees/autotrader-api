@@ -48,7 +48,7 @@ class AutoTraderApi
     {
         return match (config('autotrader.environment')) {
             'production' => AutoTraderEndpoints::ProductionUrl->value,
-            default => AutoTraderEndpoints::SandboxUrl->value
+            default => AutoTraderEndpoints::SandboxUrl->value,
         };
     }
 }

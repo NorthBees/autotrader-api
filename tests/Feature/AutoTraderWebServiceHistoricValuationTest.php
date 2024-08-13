@@ -32,7 +32,6 @@ it('can request history valuation', function () {
         80000,
         \Carbon\Carbon::parse('2015-01-30'),
         \Carbon\Carbon::parse('2020-01-30'),
-
     );
     expect($response)->toHaveKey('historicValuations');
 

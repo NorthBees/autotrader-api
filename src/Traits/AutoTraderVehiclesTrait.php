@@ -23,12 +23,15 @@ trait AutoTraderVehiclesTrait
 
         throw_if((! $odometerReadingMiles && (Arr::get($options, 'valuations') || Arr::get($options, 'metrics'))), AutoTraderMissingOdometerException::class);
 
-        return $this->performRequest(HttpMethods::GET, AutoTraderEndpoints::Vehicles->value,
+        return $this->performRequest(
+            HttpMethods::GET,
+            AutoTraderEndpoints::Vehicles->value,
             [],
             array_merge([
                 'registration' => $vrm,
                 'advertiserId' => $advertiserId,
-            ], $options));
+            ], $options),
+        );
 
     }
 }

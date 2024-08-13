@@ -19,7 +19,6 @@ it('can request future valuation', function () {
         90000,
         \Carbon\Carbon::parse('2015-01-30'),
         now()->addMonth(),
-
     );
     expect($response)->toHaveKey('futureValuations');
 

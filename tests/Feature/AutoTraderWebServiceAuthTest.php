@@ -9,12 +9,15 @@ it('can authenticate with Auto Trader', function () {
     $token = fake()->uuid;
     Http::preventStrayRequests();
     Http::fake([
-        AutoTraderEndpoints::ProductionUrl->value.'/*',
-        AutoTraderEndpoints::SandboxUrl->value.'/'.AutoTraderEndpoints::Authenticate->value => Http::response(
+        AutoTraderEndpoints::ProductionUrl->value . '/*',
+        AutoTraderEndpoints::SandboxUrl->value . '/' . AutoTraderEndpoints::Authenticate->value => Http::response(
             [
                 'expiry' => now()->addMonth(),
                 'access_token' => $token,
-            ], 200, ['content_type' => 'application/json']),
+            ],
+            200,
+            ['content_type' => 'application/json'],
+        ),
     ]);
 
     $response = app(AutoTraderApi::class)->getAuthenticationCode();
