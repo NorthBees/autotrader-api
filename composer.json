@@ -10,7 +10,10 @@
         }
     ],
     "homepage": "https://github.com/northbees/autotrader-api",
-    "keywords": ["Laravel", "AutoTraderApi"],
+    "keywords": [
+        "Laravel",
+        "AutoTraderApi"
+    ],
     "require": {
         "illuminate/support": "^9.21|^10.0|^11.0"
     },

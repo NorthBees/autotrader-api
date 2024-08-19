@@ -40,7 +40,7 @@ trait AutoTraderTaxonomyTrait
             $advertiserId,
             AutoTraderTaxonomies::Makes,
             [
-                'vehicleType' => $vehicleType,
+                'vehicleType' => $vehicleType->value,
                 'productionStatus' => $productionStatus,
             ],
         );

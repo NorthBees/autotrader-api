@@ -1,21 +1,23 @@
 # NorthBees Auto Trader API
+
 A Laravel wrapper for the Auto Trader API [https://developers.autotrader.co.uk/api]
 
 ## Authentication
 
 Add the following values to your .env
 
-- `AUTOTRADER_ENVIRONMENT=` either `sandbox` or `production`
-- `AUTOTRADER_KEY=""` as provided
-- `AUTOTRADER_SECRET=` as provided
+-   `AUTOTRADER_ENVIRONMENT=` either `sandbox` or `production`
+-   `AUTOTRADER_KEY=""` as provided
+-   `AUTOTRADER_SECRET=` as provided
 
 Authentication is done automatically when any other call is made. The token will be cached.
 
 ## Usage
 
-The package is a simple lightweight wrapper around the Auto Trader API. 
+The package is a simple lightweight wrapper around the Auto Trader API.
 
 ### Vehicle Request
+
 ```
 // Basic Request
 $vehicle = app(AutoTraderApi::class)->getVehicle($advertiserId, $vrm);
@@ -35,6 +37,7 @@ $vehicle = app(AutoTraderApi::class)->getVehicle($advertiserId, $vrm, $mileage, 
 ```
 
 ### Valuation Request
+
 ```
 // To request a valuation, first complete a vehicle request
 $vehicle = app(AutoTraderApi::class)->getVehicle($advertiserId, $vrm);
@@ -57,7 +60,9 @@ $historic = app(AutoTraderApi::class)->getHistoricValuation($advertiserId, $vehi
 $future = app(AutoTraderApi::class)->getFutureValuation($advertiserId, $vehicle->derivativeId, $futureOdometerReadingMiles, $firstRegistrationDate,  $futureValuationDate);
 
 ```
+
 ### Taxonomy Requests
+
 ```
 $taxonomy = app(AutoTraderApi::class)->getVehicleTypes($advertiserId);
 
@@ -83,6 +88,7 @@ $imageId = app(AutoTraderApi::class)->addImage($advertiserId, $filePath);
 ```
 
 ### Vehicle Metrics
+
 ```
 $valuation = app(AutoTraderApi::class)->getMetrics($advertiserId, $vehicle->derivativeId, $mileage, $vehicle->firstRegistrationDate);
 ```
