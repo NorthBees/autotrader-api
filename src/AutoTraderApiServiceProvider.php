@@ -73,6 +73,7 @@ class AutoTraderApiServiceProvider extends ServiceProvider
         ], 'autotraderapi.views');*/
 
         // Registering package commands.
-        // $this->commands([]);
+         $this->commands([
+         ]);
     }
 }

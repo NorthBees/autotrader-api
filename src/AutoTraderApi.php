@@ -9,6 +9,7 @@ use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
 use NorthBees\AutoTraderApi\Enum\HttpMethods;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
+use NorthBees\AutoTraderApi\Traits\AutoTraderAdvertisersTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderAuthenticationTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderFutureValuationsTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderHistoricValuationsTrait;
@@ -28,11 +29,25 @@ class AutoTraderApi
     use AutoTraderTaxonomyTrait;
     use AutoTraderValuationsTrait;
     use AutoTraderVehiclesTrait;
+    use AutoTraderAdvertisersTrait;
 
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {
         throw_if(! Arr::has($data, 'advertiserId') && ! Str::contains($url, '?advertiserId'), AutoTraderNoAdvertiserIdException::class);
 
+        $url = implode('/', [$this->getEndpoint(), $url]);
+
+        $request = Http::withToken($this->getAuthenticationCode())->withHeaders($headers);
+        $response = $request->{$method->value}($url, $data);
+        if ($response->successful()) {
+            return $response->json();
+        }
+
+        throw new AutoTraderException($response->json('message'), $response->json('code'));
+    }
+
+    protected function performRequestWithoutAdvertiserId(HttpMethods $method, string $url, array $headers = [], array $data = [])
+    {
         $url = implode('/', [$this->getEndpoint(), $url]);
 
         $request = Http::withToken($this->getAuthenticationCode())->withHeaders($headers);

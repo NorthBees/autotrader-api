@@ -39,7 +39,7 @@ trait AutoTraderStockTrait
             HttpMethods::GET,
             AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
             [],
-            array_merge($filters, $options),
+            array_merge($filters, $options, ['advertiserId'=>$advertiserId]),
         );
 
     }

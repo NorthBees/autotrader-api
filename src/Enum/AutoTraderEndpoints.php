@@ -4,6 +4,7 @@ namespace NorthBees\AutoTraderApi\Enum;
 
 enum AutoTraderEndpoints: string
 {
+
     case SandboxUrl = 'https://api-sandbox.autotrader.co.uk';
     case ProductionUrl = 'http://api-sandbox.autotrader.co.uk';
     case Authenticate = 'authenticate';
@@ -16,5 +17,6 @@ enum AutoTraderEndpoints: string
     case FutureValuations = 'future-valuations';
     case HistoricValuations = 'historic-valuations';
     case VehicleMetrics = 'vehicle-metrics';
+    case Advertisers = 'advertisers';
 
 }
