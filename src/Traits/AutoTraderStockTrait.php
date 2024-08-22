@@ -18,6 +18,9 @@ trait AutoTraderStockTrait
         'responseMetrics' => false,
         'vehicleMetrics' => false,
         'valuations' => false,
+        'media' => true,
+        'chargeTimes' => true,
+        'motHistory' => true,
     ])
     {
 
@@ -37,7 +40,7 @@ trait AutoTraderStockTrait
 
         return $this->performRequest(
             HttpMethods::GET,
-            AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
+            AutoTraderEndpoints::Stock->value,
             [],
             array_merge($filters, $options, ['advertiserId'=>$advertiserId]),
         );

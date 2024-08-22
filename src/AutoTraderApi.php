@@ -38,7 +38,9 @@ class AutoTraderApi
         $url = implode('/', [$this->getEndpoint(), $url]);
 
         $request = Http::withToken($this->getAuthenticationCode())->withHeaders($headers);
+
         $response = $request->{$method->value}($url, $data);
+
         if ($response->successful()) {
             return $response->json();
         }
