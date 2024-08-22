@@ -13,14 +13,15 @@ use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 trait AutoTraderStockTrait
 {
     public function getStockList(int $advertiserId, array $filters = [], array $options = [
-        'competitors' => false,
-        'features' => true,
-        'responseMetrics' => false,
-        'vehicleMetrics' => false,
-        'valuations' => false,
-        'media' => true,
-        'chargeTimes' => true,
-        'motHistory' => true,
+        'vehicle' => "true",
+        'advertiser' => "true",
+        'adverts' => "true",
+        'finance' => "false",
+        'metadata' => "true",
+        'features' => "false",
+        'media' => "false",
+        'responseMetrics' => "false",
+        'check' => "false",
     ])
     {
 

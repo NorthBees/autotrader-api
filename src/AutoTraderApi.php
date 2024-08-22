@@ -21,6 +21,7 @@ use NorthBees\AutoTraderApi\Traits\AutoTraderVehiclesTrait;
 
 class AutoTraderApi
 {
+
     use AutoTraderAuthenticationTrait;
     use AutoTraderFutureValuationsTrait;
     use AutoTraderHistoricValuationsTrait;
@@ -33,7 +34,10 @@ class AutoTraderApi
 
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {
-        throw_if(! Arr::has($data, 'advertiserId') && ! Str::contains($url, '?advertiserId'), AutoTraderNoAdvertiserIdException::class);
+        throw_if(
+            ! Arr::has($data, 'advertiserId') && ! Str::contains($url, '?advertiserId'),
+            AutoTraderNoAdvertiserIdException::class,
+        );
 
         $url = implode('/', [$this->getEndpoint(), $url]);
 
@@ -48,8 +52,13 @@ class AutoTraderApi
         throw new AutoTraderException($response->json('message'), $response->json('code'));
     }
 
-    protected function performRequestWithoutAdvertiserId(HttpMethods $method, string $url, array $headers = [], array $data = [])
-    {
+
+    protected function performRequestWithoutAdvertiserId(
+        HttpMethods $method,
+        string $url,
+        array $headers = [],
+        array $data = [],
+    ) {
         $url = implode('/', [$this->getEndpoint(), $url]);
 
         $request = Http::withToken($this->getAuthenticationCode())->withHeaders($headers);
@@ -60,6 +69,7 @@ class AutoTraderApi
 
         throw new AutoTraderException($response->json('message'), $response->json('code'));
     }
+
 
     protected function getEndpoint()
     {
