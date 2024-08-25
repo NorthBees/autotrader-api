@@ -21,7 +21,6 @@ use NorthBees\AutoTraderApi\Traits\AutoTraderVehiclesTrait;
 
 class AutoTraderApi
 {
-
     use AutoTraderAuthenticationTrait;
     use AutoTraderFutureValuationsTrait;
     use AutoTraderHistoricValuationsTrait;

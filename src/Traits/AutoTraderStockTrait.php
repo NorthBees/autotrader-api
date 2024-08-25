@@ -43,7 +43,7 @@ trait AutoTraderStockTrait
             HttpMethods::GET,
             AutoTraderEndpoints::Stock->value,
             [],
-            array_merge($filters, $options, ['advertiserId'=>$advertiserId]),
+            array_merge($filters, $options, ['advertiserId' => $advertiserId]),
         );
 
     }
