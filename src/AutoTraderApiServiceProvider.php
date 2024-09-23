@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NorthBees\AutoTraderApi;
 
 use Illuminate\Support\ServiceProvider;
@@ -42,7 +44,7 @@ class AutoTraderApiServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return ['autotraderapi'];
     }

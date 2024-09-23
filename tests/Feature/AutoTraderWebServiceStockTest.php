@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 todo('mock requests');
 it('can request stock list', function () {
 

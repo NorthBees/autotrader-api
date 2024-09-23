@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 todo('mock requests');
 
 it('only accepts historic dates', function () {

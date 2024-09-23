@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NorthBees\AutoTraderApi;
 
 use Illuminate\Support\Arr;
@@ -70,7 +72,7 @@ class AutoTraderApi
     }
 
 
-    protected function getEndpoint()
+    protected function getEndpoint(): string
     {
         return match (config('autotrader.environment')) {
             'production' => AutoTraderEndpoints::ProductionUrl->value,

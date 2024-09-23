@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NorthBees\AutoTraderApi\Enum;
 
 enum HttpMethods: string
