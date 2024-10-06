@@ -14,7 +14,7 @@ use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 
 trait AutoTraderStockTrait
 {
-    public function getStockList(int $advertiserId, array $filters = [], array $options = [
+    public function getStockList(string $advertiserId, array $filters = [], array $options = [
         'vehicle' => "true",
         'advertiser' => "true",
         'adverts' => "true",
