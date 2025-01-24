@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 todo('mock requests');
 
-it('only accepts historic dates', function () {
+it('only accepts historic dates', function (): void {
 
     $response = app(\NorthBees\AutoTraderApi\AutoTraderApi::class)->getFutureValuation(
         config('autotrader.default_advertiser_id'),
@@ -15,7 +15,7 @@ it('only accepts historic dates', function () {
     );
 })->throws(\NorthBees\AutoTraderApi\Exceptions\AutoTraderException::class);
 
-it('only accepts historic dates after registration date', function () {
+it('only accepts historic dates after registration date', function (): void {
 
     $response = app(\NorthBees\AutoTraderApi\AutoTraderApi::class)->getFutureValuation(
         config('autotrader.default_advertiser_id'),
@@ -26,7 +26,7 @@ it('only accepts historic dates after registration date', function () {
     );
 })->throws(\NorthBees\AutoTraderApi\Exceptions\AutoTraderException::class);
 
-it('can request history valuation', function () {
+it('can request history valuation', function (): void {
 
     $response = app(\NorthBees\AutoTraderApi\AutoTraderApi::class)->getHistoricValuation(
         config('autotrader.default_advertiser_id'),

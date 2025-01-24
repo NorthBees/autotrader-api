@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 use NorthBees\AutoTraderApi\AutoTraderApi;
 
 todo('mock requests');
-it('can request taxonomy data', function () {
+it('can request taxonomy data', function (): void {
 
     $response = app(AutoTraderApi::class)->getVehicleTypes(config('autotrader.default_advertiser_id'));
     expect($response)->toHaveKey('vehicleTypes');
@@ -33,7 +33,7 @@ it('can request taxonomy data', function () {
     $response = app(AutoTraderApi::class)->getPrices(config('autotrader.default_advertiser_id'), $derivative, null, 'current');
     expect($response)->toHaveKey('prices');
 
-    $response = app(AutoTraderApi::class)->getTechnicalData(config('autotrader.default_advertiser_id'), $derivative, 'current');
+    $response = app(AutoTraderApi::class)->getTechnicalData(config('autotrader.default_advertiser_id'), $derivative);
     expect($response)->toHaveKey('derivativeId');
 
 })->group('autotrader-api', 'taxonomy');

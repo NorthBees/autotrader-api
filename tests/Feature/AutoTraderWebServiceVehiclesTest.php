@@ -7,7 +7,7 @@ use NorthBees\AutoTraderApi\AutoTraderApi;
 use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
 
 todo('mock requests');
-it('can request vehicles data', function () {
+it('can request vehicles data', function (): void {
 
     //Http::preventStrayRequests();
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use NorthBees\AutoTraderApi\AutoTraderApi;
 
 todo('mock requests');
-it('can request valuation', function () {
+it('can request valuation', function (): void {
 
     $response = app(AutoTraderApi::class)->getValuation(
         config('autotrader.default_advertiser_id'),

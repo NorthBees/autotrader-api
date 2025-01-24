@@ -29,14 +29,13 @@ class AutoTraderApiServiceProvider extends ServiceProvider
     /**
      * Register any package services.
      */
+    #[\Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/autotrader.php', 'autotrader');
 
         // Register the service the package provides.
-        $this->app->singleton('autotraderapi', function ($app) {
-            return new AutoTraderApi();
-        });
+        $this->app->singleton('autotraderapi', fn($app): \NorthBees\AutoTraderApi\AutoTraderApi => new AutoTraderApi());
     }
 
     /**
@@ -44,6 +43,7 @@ class AutoTraderApiServiceProvider extends ServiceProvider
      *
      * @return array
      */
+    #[\Override]
     public function provides(): array
     {
         return ['autotraderapi'];

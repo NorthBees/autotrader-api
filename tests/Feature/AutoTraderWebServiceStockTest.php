@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 todo('mock requests');
-it('can request stock list', function () {
+it('can request stock list', function (): void {
 
     $response = app(\NorthBees\AutoTraderApi\AutoTraderApi::class)->getStockList(config('autotrader.default_advertiser_id'), ['lifecycleState' => 'FORECOURT']);
     expect($response)->toHaveKey('results')->toHaveKey('totalResults');
