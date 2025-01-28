@@ -33,7 +33,7 @@ trait AutoTraderAuthenticationTrait
         );
 
         if ($response->successful()) {
-            $expiry = Carbon::parse($response->json('expires'));
+            $expiry = Carbon::parse($response->json('expires_at'));
             Cache::put($this->authCacheKey, $response->json('access_token'), $expiry);
 
             return $response->json('access_token');
