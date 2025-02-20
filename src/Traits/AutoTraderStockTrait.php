@@ -38,7 +38,7 @@ trait AutoTraderStockTrait
         ]);
 
         if ($validator->fails()) {
-            throw new AutoTraderException($validator->errors());
+            throw new AutoTraderException((string) $validator->errors());
         }
 
         return $this->performRequest(
