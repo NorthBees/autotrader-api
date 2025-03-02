@@ -24,6 +24,6 @@ trait AutoTraderImageTrait
             return $response->json();
         }
 
-        throw new AutoTraderException($response->json('message'), $response->json('code'));
+        throw new AutoTraderException($response->json('warnings'), $response->json('code'));
     }
 }
