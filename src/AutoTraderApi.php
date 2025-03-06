@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace NorthBees\AutoTraderApi;
 
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -19,6 +20,7 @@ use NorthBees\AutoTraderApi\Traits\AutoTraderImageTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderStockTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderTaxonomyTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderValuationsTrait;
+use NorthBees\AutoTraderApi\Traits\AutoTraderVehicleMetricsTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderVehiclesTrait;
 
 class AutoTraderApi
@@ -32,6 +34,7 @@ class AutoTraderApi
     use AutoTraderValuationsTrait;
     use AutoTraderVehiclesTrait;
     use AutoTraderAdvertisersTrait;
+    use AutoTraderVehicleMetricsTrait;
 
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {
@@ -50,8 +53,7 @@ class AutoTraderApi
             return $response->json();
         }
 
-        $warnings = collect($response->json('warnings'))->map(fn ($warning) => $warning['message'])->implode(', ');
-        throw new AutoTraderException($warnings);
+        $this->handleUnsuccessfulResponse($response);
     }
 
 
@@ -69,8 +71,45 @@ class AutoTraderApi
             return $response->json();
         }
 
-        $warnings = collect($response->json('warnings'))->map(fn ($warning) => $warning['message'])->implode(', ');
-        throw new AutoTraderException($warnings);
+        $this->handleUnsuccessfulResponse($response);
+    }
+
+    /**
+     * Handle an unsuccessful response form the AutoTrader API.
+     *
+     * @param Response $response
+     *
+     * @throws AutoTraderException
+     */
+    protected function handleUnsuccessfulResponse(Response $response): void
+    {
+        $message = $response->json('message');
+        $code = $response->json('code');
+
+        // Most errors return a message and a code
+        if ($message !== null && $code !== null) {
+            throw new AutoTraderException($message, $code);
+        }
+
+        // If not, there are likely warnings, so ensure there is a code set
+        // and build the message from the warnings
+
+        if ($code === null) {
+            $code = $response->getStatusCode();
+        }
+
+        $warnings = $response->json('warnings');
+        if ($warnings !== null) {
+            $message = collect($warnings)->map(
+                fn($warning) => $warning['message'],
+            )->implode('; ');
+        }
+
+        if ($message === null) {
+            $message = 'An unknown error occurred';
+        }
+
+        throw new AutoTraderException($message, $code);
     }
 
 
