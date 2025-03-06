@@ -50,7 +50,8 @@ class AutoTraderApi
             return $response->json();
         }
 
-        throw new AutoTraderException($response->json('warnings'), $response->json('code'));
+        $warnings = collect($response->json('warnings'))->map(fn ($warning) => $warning['message'])->implode(', ');
+        throw new AutoTraderException($warnings);
     }
 
 
@@ -68,7 +69,8 @@ class AutoTraderApi
             return $response->json();
         }
 
-        throw new AutoTraderException($response->json('warnings'), $response->json('code'));
+        $warnings = collect($response->json('warnings'))->map(fn ($warning) => $warning['message'])->implode(', ');
+        throw new AutoTraderException($warnings);
     }
 
 
