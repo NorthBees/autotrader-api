@@ -83,7 +83,7 @@ class AutoTraderApi
      */
     protected function handleUnsuccessfulResponse(Response $response): void
     {
-        $message = $response->json('message');
+        $message = $response->json('warning', $response->json('message'));
         $code = $response->json('code');
 
         // Most errors return a message and a code
