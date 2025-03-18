@@ -40,7 +40,7 @@ trait AutoTraderTaxonomyTrait
     {
         return $this->getTaxonomy(
             $advertiserId,
-            AutoTraderTaxonomies::Makes,
+            AutoTraderTaxonomies::MAKES,
             [
                 'vehicleType' => $vehicleType->value,
                 'productionStatus' => $productionStatus,
@@ -50,7 +50,7 @@ trait AutoTraderTaxonomyTrait
 
     public function getModels(int $advertiserId, string $makeId, ?string $model = null, ?string $productionStatus = null)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Models, [
+        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::MODELS, [
             'makeId' => $makeId,
             'model' => $model,
             'productionStatus' => $productionStatus,
@@ -59,7 +59,7 @@ trait AutoTraderTaxonomyTrait
 
     public function getGenerations(int $advertiserId, ?string $modelId = null, ?string $productionStatus = null)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Generations, [
+        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::GENERATIONS, [
             'modelId' => $modelId,
             'productionStatus' => $productionStatus,
         ]);
@@ -67,7 +67,7 @@ trait AutoTraderTaxonomyTrait
 
     public function getDerivatives(int $advertiserId, string $generationId, ?string $productionStatus = null)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Derivatives, [
+        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::DERIVATIVES, [
             'generationId' => $generationId,
             'productionStatus' => $productionStatus,
         ]);
@@ -75,7 +75,7 @@ trait AutoTraderTaxonomyTrait
 
     public function getFeatures(int $advertiserId, string $derivativeId, Carbon $effectiveDate, ?string $productionStatus = null)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Features, [
+        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::FEATURES, [
             'derivativeId' => $derivativeId,
             'effectiveDate' => $effectiveDate->format('Y-m-d'),
             'productionStatus' => $productionStatus,
@@ -84,7 +84,7 @@ trait AutoTraderTaxonomyTrait
 
     public function getPrices(int $advertiserId, string $derivativeId, ?Carbon $effectiveDate = null, ?string $productionStatus = null)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::Prices, [
+        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::PRICES, [
             'derivativeId' => $derivativeId,
             'effectiveDate' => $effectiveDate ? $effectiveDate->format('Y-m-d') : null,
             'productionStatus' => $productionStatus,
@@ -94,7 +94,7 @@ trait AutoTraderTaxonomyTrait
     public function getTechnicalData(int $advertiserId, string $derivativeId)
     {
 
-        $url = implode('/', [AutoTraderEndpoints::Taxonomy->value, AutoTraderTaxonomies::Derivatives->value, $derivativeId]);
+        $url = implode('/', [AutoTraderEndpoints::Taxonomy->value, AutoTraderTaxonomies::DERIVATIVES->value, $derivativeId]);
         $options = [];
 
         return $this->performRequest(
