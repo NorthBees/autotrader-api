@@ -15,7 +15,7 @@ trait AutoTraderTaxonomyTrait
 {
     public function getVehicleTypes(int $advertiserId)
     {
-        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::VehicleTypes);
+        return $this->getTaxonomy($advertiserId, AutoTraderTaxonomies::VEHICLETYPES);
     }
 
     public function getTaxonomy(
