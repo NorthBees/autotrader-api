@@ -24,6 +24,7 @@ trait AutoTraderStockTrait
         'media' => "false",
         'responseMetrics' => "false",
         'check' => "false",
+        'motTests' => "false",
     ])
     {
 
