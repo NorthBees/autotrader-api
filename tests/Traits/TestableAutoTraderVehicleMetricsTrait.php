@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NorthBees\AutoTraderApi\Tests\Traits;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -8,7 +10,7 @@ use NorthBees\AutoTraderApi\Traits\AutoTraderVehicleMetricsTrait;
 
 /**
  * TestableAutoTraderVehicleMetricsTrait
- * that exposes the protected methods of the AutoTraderVehicleMetricsTrait
+ * that exposes the protected methods of the AutoTraderVehicleMetricsTrait.
  */
 class TestableAutoTraderVehicleMetricsTrait
 {
@@ -16,9 +18,11 @@ class TestableAutoTraderVehicleMetricsTrait
 
     /**
      * @param array $options
-     * @return array
+     *
      * @throws ValidationException
      * @throws BindingResolutionException
+     *
+     * @return array
      */
     public function publicFormatVehicleMetricOptions(array $options): array
     {

@@ -11,7 +11,7 @@ describe('AutoTraderVehicleMetricsTrait', function () use ($trait) {
     it("formatVehicleMetricOptions will transform features to the expected format", function () use ($trait) {
         $features = [
             "one",
-            "two"
+            "two",
         ];
 
         $options = ['features' => $features];

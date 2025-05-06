@@ -24,19 +24,19 @@ describe('AutoTraderVehicleMetricsOptionsValidator', function () {
                 'features' => ['feature1', 'feature2', 'feature3'],
                 'saleTargetDaysInStock' => 1,
                 'saleTargetDaysToSell' => [1, 2, 3],
-                'totalPrice' => 1
+                'totalPrice' => 1,
             ],
             // with coordinateLocations
             [
                 'coordinateLocations' => [
                     ['latitude' => 1, 'longitude' => 1],
                     ['latitude' => 2, 'longitude' => 2],
-                    ['latitude' => 3, 'longitude' => 3]
+                    ['latitude' => 3, 'longitude' => 3],
                 ],
                 'features' => ['feature1', 'feature2', 'feature3'],
                 'saleTargetDaysInStock' => 1,
                 'saleTargetDaysToSell' => [1, 2, 3],
-                'totalPrice' => 1
+                'totalPrice' => 1,
             ],
         ]);
 
@@ -57,7 +57,7 @@ describe('AutoTraderVehicleMetricsOptionsValidator', function () {
             'saleTargetDaysInStock' => 1,
             'saleTargetDaysToSell' => [1, 2, 3],
             'totalPrice' => 1,
-            'unexpectedField' => 'unexpectedValue'
+            'unexpectedField' => 'unexpectedValue',
         ];
 
         $result = $validator->validate($data);
@@ -73,7 +73,7 @@ describe('AutoTraderVehicleMetricsOptionsValidator', function () {
             'coordinateLocations' => [
                 ['latitude' => 1, 'longitude' => 1],
                 ['latitude' => 2, 'longitude' => 2],
-                ['latitude' => 3, 'longitude' => 3]
+                ['latitude' => 3, 'longitude' => 3],
             ],
         ];
 

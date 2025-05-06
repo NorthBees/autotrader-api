@@ -6,7 +6,6 @@ namespace NorthBees\AutoTraderApi\Enum;
 
 enum AutoTraderTaxonomies: string
 {
-
     case VEHICLETYPES = 'vehicleTypes';
     case MAKES = 'makes';
     case MODELS = 'models';
