@@ -68,7 +68,7 @@ trait AutoTraderStockTrait
 
         return $this->performRequest(
             HttpMethods::PATCH,
-            AutoTraderEndpoints::Stock->value  .'/'. $vehicleData['metadata']['stockId'] . '?advertiserId=' . $advertiserId ,
+            AutoTraderEndpoints::Stock->value . '/' . $vehicleData['metadata']['stockId'] . '?advertiserId=' . $advertiserId,
             [],
             $vehicleData,
         );
