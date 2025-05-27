@@ -31,6 +31,7 @@ trait AutoTraderVehiclesTrait
             [],
             array_merge([
                 'registration' => $vrm,
+                'odometerReadingMiles' => $odometerReadingMiles,
                 'advertiserId' => $advertiserId,
             ], $options),
         );
