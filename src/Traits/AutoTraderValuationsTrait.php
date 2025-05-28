@@ -21,7 +21,7 @@ trait AutoTraderValuationsTrait
         if (Arr::has($options, 'totalPrice')) {
             $options['adverts'] = ['retailAdverts' => [
                 'price' => [
-                    'amountGBP' => 14817],
+                    'amountGBP' => Arr::get($options, 'totalPrice')],
             ],
             ];
             unset($options['totalPrice']);
