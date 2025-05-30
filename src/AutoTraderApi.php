@@ -12,6 +12,7 @@ use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
 use NorthBees\AutoTraderApi\Enum\HttpMethods;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 use NorthBees\AutoTraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
+use NorthBees\AutoTraderApi\Exceptions\AutoTraderWarning;
 use NorthBees\AutoTraderApi\Traits\AutoTraderAdvertisersTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderAuthenticationTrait;
 use NorthBees\AutoTraderApi\Traits\AutoTraderFutureValuationsTrait;
@@ -71,7 +72,7 @@ class AutoTraderApi
             return $response->json();
         }
 
-        $this->handleUnsuccessfulResponse($response);
+        return $this->handleUnsuccessfulResponse($response);
     }
 
     /**
@@ -81,7 +82,7 @@ class AutoTraderApi
      *
      * @throws AutoTraderException
      */
-    protected function handleUnsuccessfulResponse(Response $response): void
+    protected function handleUnsuccessfulResponse(Response $response)
     {
         $message = $response->json('warning', $response->json('message'));
         $code = $response->json('code');
@@ -103,6 +104,7 @@ class AutoTraderApi
             $message = collect($warnings)->map(
                 fn($warning) => $warning['message'],
             )->implode('; ');
+            throw new AutoTraderWarning($message, $code);
         }
 
         if ($message === null) {

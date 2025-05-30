@@ -53,6 +53,7 @@ trait AutoTraderStockTrait
 
     public function createStock(int $advertiserId, array $vehicleData)
     {
+
         return $this->performRequest(
             HttpMethods::POST,
             AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
