@@ -6,6 +6,4 @@ namespace NorthBees\AutoTraderApi\Exceptions;
 
 use Exception;
 
-class AutoTraderWarning extends Exception
-{
-}
+class AutoTraderWarning extends Exception {}

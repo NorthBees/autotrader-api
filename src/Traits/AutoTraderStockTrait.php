@@ -51,7 +51,7 @@ trait AutoTraderStockTrait
 
     }
 
-    public function createStock(int $advertiserId, array $vehicleData)
+    public function createStock(string $advertiserId, array $vehicleData)
     {
 
         return $this->performRequest(
@@ -62,7 +62,7 @@ trait AutoTraderStockTrait
         );
     }
 
-    public function updateStock(int $advertiserId, array $vehicleData)
+    public function updateStock(string $advertiserId, array $vehicleData)
     {
 
         throw_if(! Arr::has($vehicleData, 'metadata.stockId'), AutoTraderException::class, ('metadata=>stockId is required'));
@@ -76,7 +76,7 @@ trait AutoTraderStockTrait
 
     }
 
-    public function getStockFeatures(int $advertiserId, string $stockId)
+    public function getStockFeatures(string $advertiserId, string $stockId)
     {
         $url = implode('/', [AutoTraderEndpoints::Stock->value, $stockId, 'features']);
 

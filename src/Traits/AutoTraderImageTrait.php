@@ -11,7 +11,7 @@ use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 
 trait AutoTraderImageTrait
 {
-    public function addImage(int $advertiserId, $file)
+    public function addImage(string $advertiserId, $file)
     {
 
         $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Images->value . '?advertiserId=' . $advertiserId]);
