@@ -19,5 +19,6 @@ enum AutoTraderEndpoints: string
     case HistoricValuations = 'historic-valuations';
     case VehicleMetrics = 'vehicle-metrics';
     case Advertisers = 'advertisers';
+    case CoDriver = 'co-driver/stock';
 
 }
