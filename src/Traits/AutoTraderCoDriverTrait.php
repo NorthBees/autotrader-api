@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace NorthBees\AutoTraderApi\Traits;
 
-use GuzzleHttp\Psr7\Utils;
-use Illuminate\Support\Facades\Http;
 use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
 use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
 use NorthBees\Vehicles\Models\Vehicle;
 
 trait AutoTraderCoDriverTrait
@@ -18,7 +15,7 @@ trait AutoTraderCoDriverTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::CoDriver->value .'/' . $vehicle->stock_id . '?description=true&advertiserId=' . $advertiserId,
+            AutoTraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?description=true&advertiserId=' . $advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,
@@ -27,8 +24,8 @@ trait AutoTraderCoDriverTrait
                 'batteryRangeMiles' => $vehicle->technicalData->battery_range_miles,
                 'owners' => $vehicle->technicalData->owners,
                 'odometerReadingMiles' => $vehicle->mileage,
-            ]
-           );
+            ],
+        );
     }
 
     public function imageOrder(string $advertiserId, Vehicle $vehicle)
@@ -36,11 +33,11 @@ trait AutoTraderCoDriverTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::CoDriver->value .'/' . $vehicle->stock_id . '?images=true&advertiserId=' . $advertiserId,
+            AutoTraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?images=true&advertiserId=' . $advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,
-            ]
+            ],
         );
     }
 }
