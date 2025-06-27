@@ -6,6 +6,9 @@ namespace NorthBees\AutotraderApi;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * This is the service provider for the Autotrader API package.
+ */
 class AutotraderApiServiceProvider extends ServiceProvider
 {
     /**
