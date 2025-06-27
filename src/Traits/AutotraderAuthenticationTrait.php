@@ -46,6 +46,6 @@ trait AutotraderAuthenticationTrait
             throw new AutotraderClientErrorException($response->json('message'), $response->json('code'));
         }
 
-        throw new AutotraderException('Unable to connect to Auto Trader');
+        throw new AutotraderException('Unable to connect to Autotrader');
     }
 }

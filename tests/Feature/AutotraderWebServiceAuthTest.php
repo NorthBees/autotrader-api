@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 
-it('can authenticate with Auto Trader', function (): void {
+it('can authenticate with Autotrader', function (): void {
 
     $token = fake()->uuid;
     Http::preventStrayRequests();

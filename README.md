@@ -1,6 +1,6 @@
-# NorthBees Auto Trader API
+# NorthBees Autotrader API
 
-A Laravel wrapper for the Auto Trader API [https://developers.autotrader.co.uk/api]
+A Laravel wrapper for the Autotrader API [https://developers.autotrader.co.uk/api]
 
 ## Authentication
 
@@ -14,7 +14,7 @@ Authentication is done automatically when any other call is made. The token will
 
 ## Usage
 
-The package is a simple lightweight wrapper around the Auto Trader API.
+The package is a simple lightweight wrapper around the Autotrader API.
 
 ### Vehicle Request
 
