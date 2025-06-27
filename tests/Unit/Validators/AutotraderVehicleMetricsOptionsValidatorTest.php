@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Validation\ValidationException;
 use NorthBees\AutotraderApi\Validators\AutotraderVehicleMetricsOptionsValidator;
 
-describe('AutoTraderVehicleMetricsOptionsValidator', function () {
+describe('AutotraderVehicleMetricsOptionsValidator', function () {
     it("should return an empty array when the input is empty", function () {
         $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 

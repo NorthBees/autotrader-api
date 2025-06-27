@@ -9,10 +9,10 @@ use Illuminate\Validation\ValidationException;
 use NorthBees\AutotraderApi\Traits\AutotraderVehicleMetricsTrait;
 
 /**
- * TestableAutoTraderVehicleMetricsTrait
- * that exposes the protected methods of the AutoTraderVehicleMetricsTrait.
+ * TestableAutotraderVehicleMetricsTrait
+ * that exposes the protected methods of the AutotraderVehicleMetricsTrait.
  */
-class TestableAutoTraderVehicleMetricsTrait
+class TestableAutotraderVehicleMetricsTrait
 {
     use AutotraderVehicleMetricsTrait;
 

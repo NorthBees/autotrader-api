@@ -12,14 +12,14 @@ it('can request vehicles data', function (): void {
     //Http::preventStrayRequests();
 
     //       Http::fake([
-    //            AutoTraderEndpoints::ProductionUrl->value.'/*',
-    //            AutoTraderEndpoints::SandboxUrl->value.'/'.AutoTraderEndpoints::Authenticate->value => Http::response(
+    //            AutotraderEndpoints::ProductionUrl->value.'/*',
+    //            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response(
     //                [
     //                    'expiry' => now()->addMonth(),
     //                    'access_token' => fake()->uuid,
     //                ], 200, ['content_type' => 'application/json']),
     //
-    //            AutoTraderEndpoints::SandboxUrl->value.'/'.AutoTraderEndpoints::Vehicles->value  => Http::response(
+    //            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Vehicles->value  => Http::response(
     //                ['vehicle' => [
     //                    'ownershipCondition' => 'Used',
     //                    'registration' => 'DC64AGZ',

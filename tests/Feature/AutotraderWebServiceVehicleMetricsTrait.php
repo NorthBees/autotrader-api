@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Arr;
-use NorthBees\AutotraderApi\Tests\Traits\TestableAutoTraderVehicleMetricsTrait;
+use NorthBees\AutotraderApi\Tests\Traits\TestableAutotraderVehicleMetricsTrait;
 
-$trait = new TestableAutoTraderVehicleMetricsTrait();
+$trait = new TestableAutotraderVehicleMetricsTrait();
 
-describe('AutoTraderVehicleMetricsTrait', function () use ($trait) {
+describe('AutotraderVehicleMetricsTrait', function () use ($trait) {
     it("formatVehicleMetricOptions will transform features to the expected format", function () use ($trait) {
         $features = [
             "one",

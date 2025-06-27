@@ -78,7 +78,7 @@ class AutotraderApi
     }
 
     /**
-     * Handle an unsuccessful response form the AutoTrader API.
+     * Handle an unsuccessful response form the Autotrader API.
      *
      * @param Response $response
      *
