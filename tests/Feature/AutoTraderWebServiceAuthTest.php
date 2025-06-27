@@ -3,16 +3,16 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Http;
-use NorthBees\AutoTraderApi\AutoTraderApi;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
+use NorthBees\AutotraderApi\AutotraderApi;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 
 it('can authenticate with Auto Trader', function (): void {
 
     $token = fake()->uuid;
     Http::preventStrayRequests();
     Http::fake([
-        AutoTraderEndpoints::ProductionUrl->value . '/*',
-        AutoTraderEndpoints::SandboxUrl->value . '/' . AutoTraderEndpoints::Authenticate->value => Http::response(
+        AutotraderEndpoints::ProductionUrl->value . '/*',
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response(
             [
                 'expiry' => now()->addMonth(),
                 'access_token' => $token,
@@ -22,6 +22,6 @@ it('can authenticate with Auto Trader', function (): void {
         ),
     ]);
 
-    $response = app(AutoTraderApi::class)->getAuthenticationCode();
+    $response = app(AutotraderApi::class)->getAuthenticationCode();
     expect($response)->toBe($token);
 })->group('autotrader-api', 'auth');

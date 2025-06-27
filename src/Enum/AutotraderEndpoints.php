@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Enum;
+namespace NorthBees\AutotraderApi\Enum;
 
-enum AutoTraderEndpoints: string
+enum AutotraderEndpoints: string
 {
     case SandboxUrl = 'https://api-sandbox.autotrader.co.uk';
     case ProductionUrl = 'http://api-sandbox.autotrader.co.uk';

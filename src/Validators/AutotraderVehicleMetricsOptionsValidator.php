@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Validators;
+namespace NorthBees\AutotraderApi\Validators;
 
-class AutoTraderVehicleMetricsOptionsValidator extends AbstractAutoTraderValidator
+class AutotraderVehicleMetricsOptionsValidator extends AbstractAutotraderValidator
 {
     /**
      * @inheritDoc

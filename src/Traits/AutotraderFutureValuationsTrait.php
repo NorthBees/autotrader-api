@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Carbon\Carbon;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
-trait AutoTraderFutureValuationsTrait
+trait AutotraderFutureValuationsTrait
 {
     public function getFutureValuation(int $advertiserId, string $derivativeId, int $futureOdometerReadingMiles, Carbon $firstRegistrationDate, Carbon $futureValuationDate)
     {
 
         if (now()->isAfter($futureValuationDate)) {
-            throw new AutoTraderException('Future valuation date must be in the future!');
+            throw new AutotraderException('Future valuation date must be in the future!');
         }
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::FutureValuations->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::FutureValuations->value . '?advertiserId=' . $advertiserId,
             [],
             ['vehicle' => [
                 'derivativeId' => $derivativeId,

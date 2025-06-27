@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use Illuminate\Validation\ValidationException;
-use NorthBees\AutoTraderApi\Validators\AutoTraderVehicleMetricsOptionsValidator;
+use NorthBees\AutotraderApi\Validators\AutotraderVehicleMetricsOptionsValidator;
 
 describe('AutoTraderVehicleMetricsOptionsValidator', function () {
     it("should return an empty array when the input is empty", function () {
-        $validator = app(AutoTraderVehicleMetricsOptionsValidator::class);
+        $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $result = $validator->validate([]);
 
@@ -15,7 +15,7 @@ describe('AutoTraderVehicleMetricsOptionsValidator', function () {
     });
 
     it("should return the validated array when the input is valid", function () {
-        $validator = app(AutoTraderVehicleMetricsOptionsValidator::class);
+        $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $dataValidations = collect([
             // with advertiserIdLocations
@@ -49,7 +49,7 @@ describe('AutoTraderVehicleMetricsOptionsValidator', function () {
     });
 
     it("should return the validated array with any unexpected fields removed", function () {
-        $validator = app(AutoTraderVehicleMetricsOptionsValidator::class);
+        $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $data = [
             'advertiserIdLocations' => [1, 2, 3],
@@ -66,7 +66,7 @@ describe('AutoTraderVehicleMetricsOptionsValidator', function () {
     });
 
     it("should throw a validation exception when advertiserIdLocations and coordinateLocations are both set", function () {
-        $validator = app(AutoTraderVehicleMetricsOptionsValidator::class);
+        $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $data = [
             'advertiserIdLocations' => [1, 2, 3],
@@ -82,7 +82,7 @@ describe('AutoTraderVehicleMetricsOptionsValidator', function () {
     });
 
     it("should throw a validation exception when saleTargetDaysInStock is set without saleTargetDaysToSell", function () {
-        $validator = app(AutoTraderVehicleMetricsOptionsValidator::class);
+        $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $data = [
             'saleTargetDaysInStock' => 1,

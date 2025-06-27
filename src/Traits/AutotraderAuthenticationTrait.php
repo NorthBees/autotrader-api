@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderClientErrorException;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderFailedConnectionException;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Exceptions\AutotraderClientErrorException;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
+use NorthBees\AutotraderApi\Exceptions\AutotraderFailedConnectionException;
 
-trait AutoTraderAuthenticationTrait
+trait AutotraderAuthenticationTrait
 {
     protected string $authCacheKey = 'autotrader_api_auth';
 
@@ -23,7 +23,7 @@ trait AutoTraderAuthenticationTrait
             return Cache::get($this->authCacheKey);
         }
 
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Authenticate->value]);
+        $url = implode('/', [$this->getEndpoint(), AutotraderEndpoints::Authenticate->value]);
         $response = Http::asForm()->post(
             $url,
             [
@@ -40,12 +40,12 @@ trait AutoTraderAuthenticationTrait
         }
 
         if ($response->failed()) {
-            throw new AutoTraderFailedConnectionException($response->json('message'), $response->json('code'));
+            throw new AutotraderFailedConnectionException($response->json('message'), $response->json('code'));
         }
         if ($response->clientError()) {
-            throw new AutoTraderClientErrorException($response->json('message'), $response->json('code'));
+            throw new AutotraderClientErrorException($response->json('message'), $response->json('code'));
         }
 
-        throw new AutoTraderException('Unable to connect to Auto Trader');
+        throw new AutotraderException('Unable to connect to Auto Trader');
     }
 }

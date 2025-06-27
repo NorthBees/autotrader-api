@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi;
+namespace NorthBees\AutotraderApi;
 
 use Illuminate\Support\ServiceProvider;
 
-class AutoTraderApiServiceProvider extends ServiceProvider
+class AutotraderApiServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -35,7 +35,7 @@ class AutoTraderApiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/autotrader.php', 'autotrader');
 
         // Register the service the package provides.
-        $this->app->singleton('autotraderapi', fn($app): \NorthBees\AutoTraderApi\AutoTraderApi => new AutoTraderApi());
+        $this->app->singleton('autotraderapi', fn($app): \NorthBees\AutotraderApi\AutotraderApi => new AutotraderApi());
     }
 
     /**

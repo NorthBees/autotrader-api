@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Tests\Traits;
+namespace NorthBees\AutotraderApi\Tests\Traits;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Validation\ValidationException;
-use NorthBees\AutoTraderApi\Traits\AutoTraderVehicleMetricsTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderVehicleMetricsTrait;
 
 /**
  * TestableAutoTraderVehicleMetricsTrait
@@ -14,7 +14,7 @@ use NorthBees\AutoTraderApi\Traits\AutoTraderVehicleMetricsTrait;
  */
 class TestableAutoTraderVehicleMetricsTrait
 {
-    use AutoTraderVehicleMetricsTrait;
+    use AutotraderVehicleMetricsTrait;
 
     /**
      * @param array $options

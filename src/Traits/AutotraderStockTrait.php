@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Enum;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\AutoTraderLifecycleStates;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\AutotraderLifecycleStates;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
-trait AutoTraderStockTrait
+trait AutotraderStockTrait
 {
     public function getStockList(string $advertiserId, array $filters = [], array $options = [
         'vehicle' => "true",
@@ -29,7 +29,7 @@ trait AutoTraderStockTrait
     {
 
         $validator = Validator::make($filters, [
-            'lifecycleState' => ['nullable', new Enum(AutoTraderLifecycleStates::class)],
+            'lifecycleState' => ['nullable', new Enum(AutotraderLifecycleStates::class)],
             'page' => 'nullable|integer|min:1',
             'pageSize' => 'nullable|integer|min:1|max:200',
             'registration' => 'nullable|string',
@@ -39,12 +39,12 @@ trait AutoTraderStockTrait
         ]);
 
         if ($validator->fails()) {
-            throw new AutoTraderException((string) $validator->errors());
+            throw new AutotraderException((string) $validator->errors());
         }
 
         return $this->performRequest(
             HttpMethods::GET,
-            AutoTraderEndpoints::Stock->value,
+            AutotraderEndpoints::Stock->value,
             [],
             array_merge($filters, $options, ['advertiserId' => $advertiserId]),
         );
@@ -56,7 +56,7 @@ trait AutoTraderStockTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
             [],
             $vehicleData,
         );
@@ -65,11 +65,11 @@ trait AutoTraderStockTrait
     public function updateStock(string $advertiserId, array $vehicleData)
     {
 
-        throw_if(! Arr::has($vehicleData, 'metadata.stockId'), AutoTraderException::class, ('metadata=>stockId is required'));
+        throw_if(! Arr::has($vehicleData, 'metadata.stockId'), AutotraderException::class, ('metadata=>stockId is required'));
 
         return $this->performRequest(
             HttpMethods::PATCH,
-            AutoTraderEndpoints::Stock->value . '/' . $vehicleData['metadata']['stockId'] . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Stock->value . '/' . $vehicleData['metadata']['stockId'] . '?advertiserId=' . $advertiserId,
             [],
             $vehicleData,
         );
@@ -78,7 +78,7 @@ trait AutoTraderStockTrait
 
     public function getStockFeatures(string $advertiserId, string $stockId)
     {
-        $url = implode('/', [AutoTraderEndpoints::Stock->value, $stockId, 'features']);
+        $url = implode('/', [AutotraderEndpoints::Stock->value, $stockId, 'features']);
 
         return $this->performRequest(HttpMethods::GET, $url . '?advertiserId=' . $advertiserId, [], []);
     }

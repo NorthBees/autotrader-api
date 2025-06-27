@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
 
-trait AutoTraderAdvertisersTrait
+trait AutotraderAdvertisersTrait
 {
     public function getAdvertisers(array $options = [])
     {
 
         return $this->performRequestWithoutAdvertiserId(
             HttpMethods::GET,
-            AutoTraderEndpoints::Advertisers->value,
+            AutotraderEndpoints::Advertisers->value,
             [],
             array_merge([
             ], $options),

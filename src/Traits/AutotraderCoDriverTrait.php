@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
 use NorthBees\Vehicles\Models\Vehicle;
 
-trait AutoTraderCoDriverTrait
+trait AutotraderCoDriverTrait
 {
     public function generateDescription(string $advertiserId, Vehicle $vehicle)
     {
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?description=true&advertiserId=' . $advertiserId,
+            AutotraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?description=true&advertiserId=' . $advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,
@@ -33,7 +33,7 @@ trait AutoTraderCoDriverTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?images=true&advertiserId=' . $advertiserId,
+            AutotraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?images=true&advertiserId=' . $advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Validators;
+namespace NorthBees\AutotraderApi\Validators;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Validation\Factory as ValidatorFactory;
 use Illuminate\Validation\ValidationException;
 
-abstract class AbstractAutoTraderValidator
+abstract class AbstractAutotraderValidator
 {
     protected ValidatorFactory $factory;
 

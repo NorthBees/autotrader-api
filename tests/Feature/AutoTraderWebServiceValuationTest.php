@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use NorthBees\AutoTraderApi\AutoTraderApi;
+use NorthBees\AutotraderApi\AutotraderApi;
 
 todo('mock requests');
 it('can request valuation', function (): void {
 
-    $response = app(AutoTraderApi::class)->getValuation(
+    $response = app(AutotraderApi::class)->getValuation(
         config('autotrader.default_advertiser_id'),
         '8d0933dd565e328caa7152688f3b18ce',
         85000,

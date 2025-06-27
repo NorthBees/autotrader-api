@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Validators\AutoTraderVehicleMetricsOptionsValidator;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Validators\AutotraderVehicleMetricsOptionsValidator;
 
-trait AutoTraderVehicleMetricsTrait
+trait AutotraderVehicleMetricsTrait
 {
     /**
      * Calls the Vehicle Metrics endpoint
@@ -47,7 +47,7 @@ trait AutoTraderVehicleMetricsTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::VehicleMetrics->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::VehicleMetrics->value . '?advertiserId=' . $advertiserId,
             [],
             array_merge(['vehicle' => ['derivativeId' => $derivativeId,
                 'odometerReadingMiles' => $odometerReadingMiles,
@@ -64,7 +64,7 @@ trait AutoTraderVehicleMetricsTrait
      */
     protected function formatVehicleMetricOptions(array $options): array
     {
-        $validator = new AutoTraderVehicleMetricsOptionsValidator();
+        $validator = new AutotraderVehicleMetricsOptionsValidator();
 
         $options = $validator->validate($options);
 

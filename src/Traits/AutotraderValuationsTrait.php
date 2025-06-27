@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
 
-trait AutoTraderValuationsTrait
+trait AutotraderValuationsTrait
 {
     public function getValuation(int $advertiserId, string $derivativeId, int $odometerReadingMiles, Carbon $firstRegistrationDate, array $options = [
         'totalPrice' => null,
@@ -29,7 +29,7 @@ trait AutoTraderValuationsTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutoTraderEndpoints::Valuations->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Valuations->value . '?advertiserId=' . $advertiserId,
             [],
             array_merge(['vehicle' => ['derivativeId' => $derivativeId,
                 'odometerReadingMiles' => $odometerReadingMiles,

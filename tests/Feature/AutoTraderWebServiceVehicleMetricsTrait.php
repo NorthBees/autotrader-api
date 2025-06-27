@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Arr;
-use NorthBees\AutoTraderApi\Tests\Traits\TestableAutoTraderVehicleMetricsTrait;
+use NorthBees\AutotraderApi\Tests\Traits\TestableAutoTraderVehicleMetricsTrait;
 
 $trait = new TestableAutoTraderVehicleMetricsTrait();
 

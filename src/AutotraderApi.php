@@ -2,48 +2,48 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi;
+namespace NorthBees\AutotraderApi;
 
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderNoAdvertiserIdException;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderWarning;
-use NorthBees\AutoTraderApi\Traits\AutoTraderAdvertisersTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderAuthenticationTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderCoDriverTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderFutureValuationsTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderHistoricValuationsTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderImageTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderStockTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderTaxonomyTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderValuationsTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderVehicleMetricsTrait;
-use NorthBees\AutoTraderApi\Traits\AutoTraderVehiclesTrait;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
+use NorthBees\AutotraderApi\Exceptions\AutotraderNoAdvertiserIdException;
+use NorthBees\AutotraderApi\Exceptions\AutotraderWarning;
+use NorthBees\AutotraderApi\Traits\AutotraderAdvertisersTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderAuthenticationTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderCoDriverTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderFutureValuationsTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderHistoricValuationsTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderImageTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderStockTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderTaxonomyTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderValuationsTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderVehicleMetricsTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderVehiclesTrait;
 
-class AutoTraderApi
+class AutotraderApi
 {
-    use AutoTraderAuthenticationTrait;
-    use AutoTraderFutureValuationsTrait;
-    use AutoTraderHistoricValuationsTrait;
-    use AutoTraderImageTrait;
-    use AutoTraderStockTrait;
-    use AutoTraderTaxonomyTrait;
-    use AutoTraderValuationsTrait;
-    use AutoTraderVehiclesTrait;
-    use AutoTraderAdvertisersTrait;
-    use AutoTraderVehicleMetricsTrait;
-    use AutoTraderCoDriverTrait;
+    use AutotraderAuthenticationTrait;
+    use AutotraderFutureValuationsTrait;
+    use AutotraderHistoricValuationsTrait;
+    use AutotraderImageTrait;
+    use AutotraderStockTrait;
+    use AutotraderTaxonomyTrait;
+    use AutotraderValuationsTrait;
+    use AutotraderVehiclesTrait;
+    use AutotraderAdvertisersTrait;
+    use AutotraderVehicleMetricsTrait;
+    use AutotraderCoDriverTrait;
 
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {
         throw_if(
             ! Arr::has($data, 'advertiserId') && ! Str::contains($url, '?advertiserId'),
-            AutoTraderNoAdvertiserIdException::class,
+            AutotraderNoAdvertiserIdException::class,
         );
 
         $url = implode('/', [$this->getEndpoint(), $url]);
@@ -82,7 +82,7 @@ class AutoTraderApi
      *
      * @param Response $response
      *
-     * @throws AutoTraderException
+     * @throws AutotraderException
      */
     protected function handleUnsuccessfulResponse(Response $response)
     {
@@ -91,7 +91,7 @@ class AutoTraderApi
 
         // Most errors return a message and a code
         if ($message !== null && $code !== null) {
-            throw new AutoTraderException($message, $code);
+            throw new AutotraderException($message, $code);
         }
 
         // If not, there are likely warnings, so ensure there is a code set
@@ -106,22 +106,22 @@ class AutoTraderApi
             $message = collect($warnings)->map(
                 fn($warning) => $warning['message'],
             )->implode('; ');
-            throw new AutoTraderWarning($message, $code);
+            throw new AutotraderWarning($message, $code);
         }
 
         if ($message === null) {
             $message = 'An unknown error occurred';
         }
 
-        throw new AutoTraderException($message, $code);
+        throw new AutotraderException($message, $code);
     }
 
 
     protected function getEndpoint(): string
     {
         return match (config('autotrader.environment')) {
-            'production' => AutoTraderEndpoints::ProductionUrl->value,
-            default => AutoTraderEndpoints::SandboxUrl->value,
+            'production' => AutotraderEndpoints::ProductionUrl->value,
+            default => AutotraderEndpoints::SandboxUrl->value,
         };
     }
 }

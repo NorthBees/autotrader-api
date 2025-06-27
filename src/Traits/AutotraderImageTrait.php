@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Support\Facades\Http;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderException;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
-trait AutoTraderImageTrait
+trait AutotraderImageTrait
 {
     public function addImage(string $advertiserId, $file)
     {
 
-        $url = implode('/', [$this->getEndpoint(), AutoTraderEndpoints::Images->value . '?advertiserId=' . $advertiserId]);
+        $url = implode('/', [$this->getEndpoint(), AutotraderEndpoints::Images->value . '?advertiserId=' . $advertiserId]);
 
         $response = Http::withToken($this->getAuthenticationCode())->attach(
             'file',
@@ -24,6 +24,6 @@ trait AutoTraderImageTrait
             return $response->json();
         }
 
-        throw new AutoTraderException($response->json('warnings'), $response->json('code'));
+        throw new AutotraderException($response->json('warnings'), $response->json('code'));
     }
 }

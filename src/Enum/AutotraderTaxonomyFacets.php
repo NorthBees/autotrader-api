@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Enum;
+namespace NorthBees\AutotraderApi\Enum;
 
-enum AutoTraderTaxonomyFacets: string
+enum AutotraderTaxonomyFacets: string
 {
     case fuelTypes = 'fuelTypes';
     case transmissionTypes = 'transmissionTypes';

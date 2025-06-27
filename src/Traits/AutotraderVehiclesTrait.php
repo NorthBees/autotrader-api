@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Traits;
+namespace NorthBees\AutotraderApi\Traits;
 
 use Illuminate\Support\Arr;
-use NorthBees\AutoTraderApi\Enum\AutoTraderEndpoints;
-use NorthBees\AutoTraderApi\Enum\HttpMethods;
-use NorthBees\AutoTraderApi\Exceptions\AutoTraderMissingOdometerException;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Exceptions\AutotraderMissingOdometerException;
 
-trait AutoTraderVehiclesTrait
+trait AutotraderVehiclesTrait
 {
     public function getVehicle(int $advertiserId, string $vrm, ?int $odometerReadingMiles = null, array $options = [
         'chargeTimes' => "false",
@@ -23,11 +23,11 @@ trait AutoTraderVehiclesTrait
     ])
     {
 
-        throw_if((! $odometerReadingMiles && (Arr::get($options, 'valuations') || Arr::get($options, 'metrics'))), AutoTraderMissingOdometerException::class);
+        throw_if((! $odometerReadingMiles && (Arr::get($options, 'valuations') || Arr::get($options, 'metrics'))), AutotraderMissingOdometerException::class);
 
         return $this->performRequest(
             HttpMethods::GET,
-            AutoTraderEndpoints::Vehicles->value,
+            AutotraderEndpoints::Vehicles->value,
             [],
             array_merge([
                 'registration' => $vrm,

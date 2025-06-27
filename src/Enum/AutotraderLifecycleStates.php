@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NorthBees\AutoTraderApi\Enum;
+namespace NorthBees\AutotraderApi\Enum;
 
-enum AutoTraderLifecycleStates: string
+enum AutotraderLifecycleStates: string
 {
     case DUE_IN = 'DUE_IN';
     case FORECOURT = 'FORECOURT';
