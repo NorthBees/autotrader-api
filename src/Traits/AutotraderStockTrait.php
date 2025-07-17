@@ -25,6 +25,9 @@ trait AutotraderStockTrait
         'responseMetrics' => "false",
         'check' => "false",
         'motTests' => "false",
+        'factoryCodes' => "false",
+        'priceIndicatorRatingBands' => "false",
+        'wheelbaseMM' => "false",
     ])
     {
 

@@ -33,6 +33,31 @@ $vehicle = app(AutotraderApi::class)->getVehicle($advertiserId, $vrm, $mileage, 
     'fullVehicleCheck' => false,
     'valuations' => false,
     'vehicleMetrics' => false,
+    'factoryCodes' => true,
+]);
+```
+
+### Search Request
+
+```
+// Basic search
+$results = app(AutotraderApi::class)->searchVehicles($advertiserId);
+
+// Search with criteria
+$results = app(AutotraderApi::class)->searchVehicles($advertiserId, [
+    'make' => 'BMW',
+    'model' => 'X5',
+    'priceFrom' => 10000,
+    'priceTo' => 50000,
+    'factoryCodes' => ['FC123', 'FC456'],
+    'wheelbaseMM' => 2975,
+]);
+
+// Search with additional options
+$results = app(AutotraderApi::class)->searchVehicles($advertiserId, $searchCriteria, [
+    'features' => true,
+    'factoryCodes' => true,
+    'wheelbaseMM' => true,
 ]);
 ```
 
@@ -50,6 +75,7 @@ $valuation = app(AutotraderApi::class)->getValuation($advertiserId, $vehicle->de
         'totalPrice' => null,
         'features' => null,
         'conditionRating' => null,
+        'priceIndicatorRatingBands' => true,
     ]));
 ```
 
@@ -73,7 +99,9 @@ $taxonomy = app(AutotraderApi::class)->getGenerations($advertiserId, $modelId, $
 $taxonomy = app(AutotraderApi::class)->getDerivatives($advertiserId, $generationId, $productionStatus);
 
 //Effective date is optional
-$taxonomy = app(AutotraderApi::class)->getFeatures($advertiserId, $derivativeId, $effectiveDate, $productionStatus);
+$taxonomy = app(AutotraderApi::class)->getFeatures($advertiserId, $derivativeId, $effectiveDate, $productionStatus, [
+    'factoryCodes' => true,
+]);
 $taxonomy = app(AutotraderApi::class)->getPrices($advertiserId, $derivativeId, $effectiveDate, $productionStatus);
 $taxonomy = app(AutotraderApi::class)->getTechnicalData($advertiserId, $derivativeId);
 
@@ -91,4 +119,33 @@ $imageId = app(AutotraderApi::class)->addImage($advertiserId, $filePath);
 
 ```
 $valuation = app(AutotraderApi::class)->getMetrics($advertiserId, $vehicle->derivativeId, $mileage, $vehicle->firstRegistrationDate);
+```
+
+### Finance Requests
+
+```
+// Get finance options
+$financeOptions = app(AutotraderApi::class)->getFinanceOptions($advertiserId, $vehicleData);
+
+// Submit finance application (note: only months fields are used, not years)
+$application = app(AutotraderApi::class)->submitFinanceApplication($advertiserId, [
+    'monthsAtBank' => 40, // Previously would be yearsAtBank: 3, monthsAtBank: 4
+    'monthsAtEmployer' => 36,
+    'monthsAtAddress' => 48,
+    // ... other finance data
+]);
+
+// Update finance application
+$updated = app(AutotraderApi::class)->updateFinanceApplication($advertiserId, $applicationId, $financeData);
+```
+
+### Stock Requests
+
+```
+// Get stock list with new features
+$stock = app(AutotraderApi::class)->getStockList($advertiserId, $filters, [
+    'factoryCodes' => true,
+    'priceIndicatorRatingBands' => true,
+    'wheelbaseMM' => true,
+]);
 ```

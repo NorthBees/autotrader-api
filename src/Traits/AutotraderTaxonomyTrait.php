@@ -73,13 +73,15 @@ trait AutotraderTaxonomyTrait
         ]);
     }
 
-    public function getFeatures(int $advertiserId, string $derivativeId, Carbon $effectiveDate, ?string $productionStatus = null)
+    public function getFeatures(int $advertiserId, string $derivativeId, Carbon $effectiveDate, ?string $productionStatus = null, array $options = [
+        'factoryCodes' => "false",
+    ])
     {
-        return $this->getTaxonomy($advertiserId, AutotraderTaxonomies::FEATURES, [
+        return $this->getTaxonomy($advertiserId, AutotraderTaxonomies::FEATURES, array_merge([
             'derivativeId' => $derivativeId,
             'effectiveDate' => $effectiveDate->format('Y-m-d'),
             'productionStatus' => $productionStatus,
-        ]);
+        ], $options));
     }
 
     public function getPrices(int $advertiserId, string $derivativeId, ?Carbon $effectiveDate = null, ?string $productionStatus = null)

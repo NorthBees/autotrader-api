@@ -20,6 +20,7 @@ trait AutotraderVehiclesTrait
         'fullVehicleCheck' => "false",
         'valuations' => "false",
         'vehicleMetrics' => "false",
+        'factoryCodes' => "false",
     ])
     {
 

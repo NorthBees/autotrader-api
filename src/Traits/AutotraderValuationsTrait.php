@@ -15,6 +15,7 @@ trait AutotraderValuationsTrait
         'totalPrice' => null,
         'features' => null,
         'conditionRating' => null,
+        'priceIndicatorRatingBands' => "false",
     ])
     {
 
