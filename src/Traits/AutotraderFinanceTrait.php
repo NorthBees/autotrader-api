@@ -44,8 +44,8 @@ trait AutotraderFinanceTrait
     {
         return $this->performRequest(
             HttpMethods::PATCH,
-            AutotraderEndpoints::Finance->value . '/' . $applicationId . '?advertiserId=' . $advertiserId,
-            [],
+            AutotraderEndpoints::Finance->value . '/' . $applicationId,
+            ['advertiserId' => $advertiserId],
             $financeData
         );
     }
