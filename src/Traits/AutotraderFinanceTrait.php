@@ -17,7 +17,8 @@ trait AutotraderFinanceTrait
     {
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::Finance->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Finance->value,
+            ['advertiserId' => $advertiserId],
             [],
             $financeData
         );
