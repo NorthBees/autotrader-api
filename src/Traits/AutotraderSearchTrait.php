@@ -82,8 +82,8 @@ trait AutotraderSearchTrait
     {
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::Search->value . '/saved?advertiserId=' . $advertiserId,
-            [],
+            AutotraderEndpoints::Search->value . '/saved',
+            ['advertiserId' => $advertiserId],
             $searchData
         );
     }
