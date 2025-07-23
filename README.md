@@ -149,3 +149,12 @@ $stock = app(AutotraderApi::class)->getStockList($advertiserId, $filters, [
     'wheelbaseMM' => true,
 ]);
 ```
+
+### Delivery Requests
+
+```php
+// Get delivery details
+$delivery = app(AutotraderApi::class)->getDelivery($advertiserId, $deliveryId);
+// Get call details
+$calls = app(AutotraderApi::class)->getCalls($advertiserId, $callId);
+```
