@@ -201,6 +201,7 @@ $response = app(AutotraderApi::class)->sendMessage($advertiserId, [
     'messagesId' => 'e00a1a0a-162d-459b-a23a-0f04adcbb111',
     'message' => 'Your reply message here'
 ]);
+```
 ### Delivery Requests
 
 ```php
