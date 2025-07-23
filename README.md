@@ -150,6 +150,36 @@ $stock = app(AutotraderApi::class)->getStockList($advertiserId, $filters, [
 ]);
 ```
 
+### Deals Requests
+
+```
+// Get all deals for an advertiser
+$deals = app(AutotraderApi::class)->getDeals($advertiserId);
+
+// Get deals with filters
+$deals = app(AutotraderApi::class)->getDeals($advertiserId, [
+    'page' => 1,
+    'from' => '2023-05-05',
+    'to' => '2023-05-07',
+]);
+
+// Get a specific deal
+$deal = app(AutotraderApi::class)->getDeal($advertiserId, $dealId);
+
+// Complete a deal
+$response = app(AutotraderApi::class)->completeDeal($advertiserId, $dealId);
+
+// Cancel a deal with reason
+$response = app(AutotraderApi::class)->cancelDeal($advertiserId, $dealId, 'Unaffordable', 'Customer cannot afford the deposit');
+
+// Update a deal with custom data
+$response = app(AutotraderApi::class)->updateDeal($advertiserId, $dealId, [
+    'advertiserDealStatus' => 'Complete'
+]);
+
+// Remove deal components
+$response = app(AutotraderApi::class)->removeDealPartExchange($advertiserId, $dealId);
+$response = app(AutotraderApi::class)->removeDealFinanceApplication($advertiserId, $dealId);
 ### Messages Requests
 
 ```

@@ -17,6 +17,7 @@ use NorthBees\AutotraderApi\Traits\AutotraderAdvertisersTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderAuthenticationTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderCallsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderCoDriverTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderDealsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderDeliveryTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderFinanceTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderFutureValuationsTrait;
@@ -34,6 +35,7 @@ class AutotraderApi
 {
     use AutotraderAdvertisersTrait;
     use AutotraderAuthenticationTrait;
+    use AutotraderDealsTrait;
     use AutotraderCallsTrait;
     use AutotraderCoDriverTrait;
     use AutotraderDeliveryTrait;
