@@ -1,0 +1,157 @@
+<?php
+
+declare(strict_types=1);
+
+namespace NorthBees\AutotraderApi\Traits;
+
+use Illuminate\Support\Facades\Validator;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Enum\HttpMethods;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
+
+trait AutotraderDealsTrait
+{
+    /**
+     * Get a list of deals for an advertiser with optional filtering
+     *
+     * @param string $advertiserId The advertiser ID
+     * @param array $filters Optional filters (page, from, to)
+     * @return array
+     * @throws AutotraderException
+     */
+    public function getDeals(string $advertiserId, array $filters = [])
+    {
+        $validator = Validator::make($filters, [
+            'page' => 'nullable|integer|min:1',
+            'from' => 'nullable|date_format:Y-m-d',
+            'to' => 'nullable|date_format:Y-m-d',
+        ]);
+
+        if ($validator->fails()) {
+            throw new AutotraderException((string) $validator->errors());
+        }
+
+        return $this->performRequest(
+            HttpMethods::GET,
+            AutotraderEndpoints::Deals->value,
+            [],
+            array_merge($filters, ['advertiserId' => $advertiserId])
+        );
+    }
+
+    /**
+     * Get a specific deal by ID
+     *
+     * @param string $advertiserId The advertiser ID
+     * @param string $dealId The deal ID
+     * @return array
+     */
+    public function getDeal(string $advertiserId, string $dealId)
+    {
+        return $this->performRequest(
+            HttpMethods::GET,
+            AutotraderEndpoints::Deals->value . '/' . $dealId,
+            [],
+            ['advertiserId' => $advertiserId]
+        );
+    }
+
+    /**
+     * Complete a deal by updating its status to Complete
+     *
+     * @param string $advertiserId The advertiser ID
+     * @param string $dealId The deal ID
+     * @return array
+     */
+    public function completeDeal(string $advertiserId, string $dealId)
+    {
+        return $this->updateDeal($advertiserId, $dealId, [
+            'advertiserDealStatus' => 'Complete'
+        ]);
+    }
+
+    /**
+     * Cancel a deal with a cancellation reason
+     *
+     * @param string $advertiserId The advertiser ID
+     * @param string $dealId The deal ID
+     * @param string $reason The cancellation reason (Different Vehicle, Unaffordable, etc.)
+     * @param string|null $notes Optional cancellation notes
+     * @return array
+     * @throws AutotraderException
+     */
+    public function cancelDeal(string $advertiserId, string $dealId, string $reason, ?string $notes = null)
+    {
+        $validReasons = [
+            'Different Vehicle',
+            'Unaffordable',
+            'Not Interested',
+            'Went Elsewhere',
+            'Not Available',
+            'Condition',
+            'Poor Customer Service',
+            'Other'
+        ];
+
+        if (!in_array($reason, $validReasons)) {
+            throw new AutotraderException('Invalid cancellation reason. Must be one of: ' . implode(', ', $validReasons));
+        }
+
+        $data = [
+            'advertiserDealStatus' => 'Cancelled',
+            'advertiserCancellationReason' => $reason,
+        ];
+
+        if ($notes !== null) {
+            $data['advertiserCancellationNotes'] = $notes;
+        }
+
+        return $this->updateDeal($advertiserId, $dealId, $data);
+    }
+
+    /**
+     * Update a deal with custom data
+     *
+     * @param string $advertiserId The advertiser ID
+     * @param string $dealId The deal ID
+     * @param array $data The update data
+     * @return array
+     */
+    public function updateDeal(string $advertiserId, string $dealId, array $data)
+    {
+        return $this->performRequest(
+            HttpMethods::PATCH,
+            AutotraderEndpoints::Deals->value . '/' . $dealId . '?advertiserId=' . $advertiserId,
+            [],
+            $data
+        );
+    }
+
+    /**
+     * Remove part exchange from a deal
+     *
+     * @param string $advertiserId The advertiser ID
+     * @param string $dealId The deal ID
+     * @return array
+     */
+    public function removeDealPartExchange(string $advertiserId, string $dealId)
+    {
+        return $this->updateDeal($advertiserId, $dealId, [
+            'partExchange' => null
+        ]);
+    }
+
+    /**
+     * Remove finance application from a deal
+     *
+     * @param string $advertiserId The advertiser ID
+     * @param string $dealId The deal ID
+     * @return array
+     */
+    public function removeDealFinanceApplication(string $advertiserId, string $dealId)
+    {
+        return $this->updateDeal($advertiserId, $dealId, [
+            'financeApplication' => null
+        ]);
+    }
+}
