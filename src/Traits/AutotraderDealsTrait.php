@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace NorthBees\AutotraderApi\Traits;
 
 use Illuminate\Support\Facades\Validator;
+use NorthBees\AutotraderApi\Enum\AutotraderDealCancellationReasons;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 use NorthBees\AutotraderApi\Enum\HttpMethods;
 use NorthBees\AutotraderApi\Exceptions\AutotraderException;
@@ -82,16 +83,7 @@ trait AutotraderDealsTrait
      */
     public function cancelDeal(string $advertiserId, string $dealId, string $reason, ?string $notes = null)
     {
-        $validReasons = [
-            'Different Vehicle',
-            'Unaffordable',
-            'Not Interested',
-            'Went Elsewhere',
-            'Not Available',
-            'Condition',
-            'Poor Customer Service',
-            'Other'
-        ];
+        $validReasons = AutotraderDealCancellationReasons::values();
 
         if (!in_array($reason, $validReasons)) {
             throw new AutotraderException('Invalid cancellation reason. Must be one of: ' . implode(', ', $validReasons));
