@@ -21,5 +21,7 @@ enum AutotraderEndpoints: string
     case Advertisers = 'advertisers';
     case CoDriver = 'co-driver/stock';
     case Finance = 'finance';
+    case Delivery = 'delivery';
+    case Calls = 'calls';
 
 }
