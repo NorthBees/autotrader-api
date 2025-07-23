@@ -7,7 +7,7 @@ use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 describe('AutotraderEndpoints enum', function () {
     it('has correct URL values', function () {
         expect(AutotraderEndpoints::SandboxUrl->value)->toBe('https://api-sandbox.autotrader.co.uk');
-        expect(AutotraderEndpoints::ProductionUrl->value)->toBe('http://api-sandbox.autotrader.co.uk'); // Note: This looks like a bug in the source
+        expect(AutotraderEndpoints::ProductionUrl->value)->toBe('https://api.autotrader.co.uk'); // Updated to correct production URL
     });
 
     it('has correct endpoint values', function () {
