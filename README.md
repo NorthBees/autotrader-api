@@ -180,6 +180,7 @@ $response = app(AutotraderApi::class)->updateDeal($advertiserId, $dealId, [
 // Remove deal components
 $response = app(AutotraderApi::class)->removeDealPartExchange($advertiserId, $dealId);
 $response = app(AutotraderApi::class)->removeDealFinanceApplication($advertiserId, $dealId);
+```
 ### Messages Requests
 
 ```
