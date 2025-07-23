@@ -15,11 +15,15 @@ use NorthBees\AutotraderApi\Exceptions\AutotraderNoAdvertiserIdException;
 use NorthBees\AutotraderApi\Exceptions\AutotraderWarning;
 use NorthBees\AutotraderApi\Traits\AutotraderAdvertisersTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderAuthenticationTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderCallsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderCoDriverTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderDealsTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderDeliveryTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderFinanceTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderFutureValuationsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderHistoricValuationsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderImageTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderMessagesTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderSearchTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderStockTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderTaxonomyTrait;
@@ -29,19 +33,23 @@ use NorthBees\AutotraderApi\Traits\AutotraderVehiclesTrait;
 
 class AutotraderApi
 {
+    use AutotraderAdvertisersTrait;
     use AutotraderAuthenticationTrait;
+    use AutotraderDealsTrait;
+    use AutotraderCallsTrait;
+    use AutotraderCoDriverTrait;
+    use AutotraderDeliveryTrait;
     use AutotraderFinanceTrait;
     use AutotraderFutureValuationsTrait;
     use AutotraderHistoricValuationsTrait;
     use AutotraderImageTrait;
+    use AutotraderMessagesTrait;
     use AutotraderSearchTrait;
     use AutotraderStockTrait;
     use AutotraderTaxonomyTrait;
     use AutotraderValuationsTrait;
-    use AutotraderVehiclesTrait;
-    use AutotraderAdvertisersTrait;
     use AutotraderVehicleMetricsTrait;
-    use AutotraderCoDriverTrait;
+    use AutotraderVehiclesTrait;
 
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {

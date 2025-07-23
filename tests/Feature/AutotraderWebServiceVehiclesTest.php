@@ -6,124 +6,37 @@ use Illuminate\Support\Facades\Http;
 use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 
-todo('mock requests');
 it('can request vehicles data', function (): void {
 
-    //Http::preventStrayRequests();
+    $token = fake()->uuid;
+    $mockVehicleResponse = [
+        'vehicle' => [
+            'ownershipCondition' => 'Used',
+            'registration' => 'DC64AGZ',
+            'vin' => 'YV1MV8461F2194079',
+            'make' => 'Volvo',
+            'model' => 'V40',
+            'generation' => 'Hatchback (2012 - 2016)',
+            'derivative' => '1.6 D2 R-Design Hatchback 5dr Diesel Manual (88 g/km, 115 bhp)',
+            'derivativeId' => '8d0933dd565e328caa7152688f3b18ce',
+            'vehicleType' => 'Car',
+        ]
+    ];
 
-    //       Http::fake([
-    //            AutotraderEndpoints::ProductionUrl->value.'/*',
-    //            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response(
-    //                [
-    //                    'expiry' => now()->addMonth(),
-    //                    'access_token' => fake()->uuid,
-    //                ], 200, ['content_type' => 'application/json']),
-    //
-    //            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Vehicles->value  => Http::response(
-    //                ['vehicle' => [
-    //                    'ownershipCondition' => 'Used',
-    //                    'registration' => 'DC64AGZ',
-    //                    'vin' => 'YV1MV8461F2194079',
-    //                    'make' => 'Volvo',
-    //                    'model' => 'V40',
-    //                    'generation' => 'Hatchback (2012 - 2016)',
-    //                    'derivative' => '1.6 D2 R-Design Hatchback 5dr Diesel Manual (88 g/km, 115 bhp)',
-    //                    'derivativeId' => '8d0933dd565e328caa7152688f3b18ce',
-    //                    'vehicleType' => 'Car',
-    //                    'trim' => 'R-Design',
-    //                    'bodyType' => 'Hatchback',
-    //                    'fuelType' => 'Diesel',
-    //                    'cabType' => null,
-    //                    'transmissionType' => 'Manual',
-    //                    'wheelbaseType' => null,
-    //                    'roofHeightType' => null,
-    //                    'drivetrain' => 'Front Wheel Drive',
-    //                    'seats' => 5,
-    //                    'doors' => 5,
-    //                    'cylinders' => 4,
-    //                    'valves' => 8,
-    //                    'engineTorqueNM' => 270,
-    //                    'co2EmissionGPKM' => 88,
-    //                    'topSpeedMPH' => 118,
-    //                    'zeroToSixtyMPHSeconds' => 11.2,
-    //                    'zeroToOneHundredKMPHSeconds' => null,
-    //                    'badgeEngineSizeLitres' => 1.6,
-    //                    'engineCapacityCC' => 1560,
-    //                    'enginePowerBHP' => 115,
-    //                    'fuelCapacityLitres' => 52.0,
-    //                    'emissionClass' => 'Euro 5',
-    //                    'owners' => 3,
-    //                    'fuelEconomyNEDCExtraUrbanMPG' => 91.1,
-    //                    'fuelEconomyNEDCUrbanMPG' => 74.3,
-    //                    'fuelEconomyNEDCCombinedMPG' => 83.1,
-    //                    'fuelEconomyWLTPLowMPG' => null,
-    //                    'fuelEconomyWLTPMediumMPG' => null,
-    //                    'fuelEconomyWLTPHighMPG' => null,
-    //                    'fuelEconomyWLTPExtraHighMPG' => null,
-    //                    'fuelEconomyWLTPCombinedMPG' => null,
-    //                    'bootSpaceSeatsUpLitres' => 402.0,
-    //                    'insuranceGroup' => '17',
-    //                    'insuranceSecurityCode' => 'E',
-    //                    'firstRegistrationDate' => '2015-01-30',
-    //                    'colour' => 'Silver',
-    //                    'style' => null,
-    //                    'subStyle' => null,
-    //                    'lengthMM' => 4369,
-    //                    'heightMM' => 1420,
-    //                    'widthMM' => 1802,
-    //                    'payloadLengthMM' => null,
-    //                    'payloadWidthMM' => null,
-    //                    'payloadHeightMM' => null,
-    //                    'payloadWeightKG' => null,
-    //                    'minimumKerbWeightKG' => 1343,
-    //                    'grossVehicleWeightKG' => null,
-    //                    'engineNumber' => '3018931',
-    //                    'fuelDelivery' => 'Direct Injection',
-    //                    'gears' => 6,
-    //                    'startStop' => true,
-    //                    'enginePowerPS' => null,
-    //                    'engineTorqueLBFT' => 199.12,
-    //                    'bootSpaceSeatsDownLitres' => 1032.0,
-    //                    'batteryChargeTime' => null,
-    //                    'batteryQuickChargeTime' => null,
-    //                    'batteryRangeMiles' => null,
-    //                    'batteryCapacityKWH' => null,
-    //                    'batteryUsableCapacityKWH' => null,
-    //                    'wheelbaseMM' => 2647,
-    //                    'grossCombinedWeightKG' => null,
-    //                    'grossTrainWeightKG' => null,
-    //                    'boreMM' => 75,
-    //                    'strokeMM' => 88,
-    //                    'cylinderArrangement' => 'Inline',
-    //                    'engineMake' => 'Volvo Cars',
-    //                    'valveGear' => 'Double Overhead Camshaft',
-    //                    'axles' => 2,
-    //                    'countryOfOrigin' => 'Belgium',
-    //                    'driveType' => '4X2',
-    //                    'payloadVolumeCubicMetres' => null,
-    //                    'rde2Compliant' => null,
-    //                    'sector' => 'Premium Lower Medium',
-    //                    'oem' => [
-    //                        'make' => 'Volvo',
-    //                        'model' => 'V40',
-    //                        'derivative' => 'R-Design D2 (115hp)',
-    //                        'bodyType' => null,
-    //                        'transmissionType' => 'Manual',
-    //                        'drivetrain' => null,
-    //                        'wheelbaseType' => null,
-    //                        'roofHeightType' => null,
-    //                        'engineType' => 'D2',
-    //                        'engineTechnology' => null,
-    //                        'engineMarketing' => null,
-    //                        'editionDescription' => null,
-    //                        'colour' => 'Electric Silver',
-    //                    ],
-    //                ],
-    //                ],
-    //                200, ['content_type' => 'application/json']),
-    //        ]);
+    Http::preventStrayRequests();
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expiry' => now()->addMonth(),
+            'access_token' => $token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Vehicles->value . '*' => Http::response(
+            $mockVehicleResponse,
+            200,
+            ['content_type' => 'application/json']
+        ),
+    ]);
 
-    $response = app(AutotraderApi::class)->getVehicle(config('autotrader.default_advertiser_id'), 'dc64agz');
+    $response = app(AutotraderApi::class)->getVehicle('test-advertiser-id', 'dc64agz');
 
     expect($response)->toHaveKey('vehicle');
 })->group('autotrader-api', 'vehicle');

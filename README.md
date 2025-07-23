@@ -149,3 +149,64 @@ $stock = app(AutotraderApi::class)->getStockList($advertiserId, $filters, [
     'wheelbaseMM' => true,
 ]);
 ```
+
+### Deals Requests
+
+```
+// Get all deals for an advertiser
+$deals = app(AutotraderApi::class)->getDeals($advertiserId);
+
+// Get deals with filters
+$deals = app(AutotraderApi::class)->getDeals($advertiserId, [
+    'page' => 1,
+    'from' => '2023-05-05',
+    'to' => '2023-05-07',
+]);
+
+// Get a specific deal
+$deal = app(AutotraderApi::class)->getDeal($advertiserId, $dealId);
+
+// Complete a deal
+$response = app(AutotraderApi::class)->completeDeal($advertiserId, $dealId);
+
+// Cancel a deal with reason
+$response = app(AutotraderApi::class)->cancelDeal($advertiserId, $dealId, 'Unaffordable', 'Customer cannot afford the deposit');
+
+// Update a deal with custom data
+$response = app(AutotraderApi::class)->updateDeal($advertiserId, $dealId, [
+    'advertiserDealStatus' => 'Complete'
+]);
+
+// Remove deal components
+$response = app(AutotraderApi::class)->removeDealPartExchange($advertiserId, $dealId);
+$response = app(AutotraderApi::class)->removeDealFinanceApplication($advertiserId, $dealId);
+```
+### Messages Requests
+
+```
+// Get messages for a specific message ID
+$messages = app(AutotraderApi::class)->getMessages($advertiserId, $messagesId);
+
+// Mark messages as read
+$response = app(AutotraderApi::class)->markMessagesAsRead($advertiserId, $messagesId);
+
+// Send a new message for a new conversation
+$response = app(AutotraderApi::class)->sendMessage($advertiserId, [
+    'dealId' => '1a0e00aa-459b-162d-a23a-adcbb1110f04',
+    'message' => 'Your message here (max 1500 characters)'
+]);
+
+// Send a message to an existing conversation
+$response = app(AutotraderApi::class)->sendMessage($advertiserId, [
+    'messagesId' => 'e00a1a0a-162d-459b-a23a-0f04adcbb111',
+    'message' => 'Your reply message here'
+]);
+```
+### Delivery Requests
+
+```php
+// Get delivery details
+$delivery = app(AutotraderApi::class)->getDelivery($advertiserId, $deliveryId);
+// Get call details
+$calls = app(AutotraderApi::class)->getCalls($advertiserId, $callId);
+```
