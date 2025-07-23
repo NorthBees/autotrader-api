@@ -2,11 +2,27 @@
 
 declare(strict_types=1);
 
-todo('mock requests');
+use Illuminate\Support\Facades\Http;
+use NorthBees\AutotraderApi\AutotraderApi;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+
 it('only accepts future dates', function (): void {
 
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->getFutureValuation(
-        config('autotrader.default_advertiser_id'),
+    $token = fake()->uuid;
+    Http::preventStrayRequests();
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expiry' => now()->addMonth(),
+            'access_token' => $token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::FutureValuations->value . '*' => Http::response([
+            'message' => 'Future date required',
+            'code' => 400
+        ], 400),
+    ]);
+
+    $response = app(AutotraderApi::class)->getFutureValuation(
+        'test-advertiser-id',
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
         \Carbon\Carbon::parse('2015-01-30'),
@@ -15,8 +31,33 @@ it('only accepts future dates', function (): void {
 })->throws(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
 
 it('can request future valuation', function (): void {
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->getFutureValuation(
-        config('autotrader.default_advertiser_id'),
+    
+    $token = fake()->uuid;
+    $mockFutureValuationResponse = [
+        'futureValuations' => [
+            'valuation' => [
+                'retail' => 4500,
+                'trade' => 3500,
+                'average' => 4000
+            ]
+        ]
+    ];
+
+    Http::preventStrayRequests();
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expiry' => now()->addMonth(),
+            'access_token' => $token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::FutureValuations->value . '*' => Http::response(
+            $mockFutureValuationResponse,
+            200,
+            ['content_type' => 'application/json']
+        ),
+    ]);
+
+    $response = app(AutotraderApi::class)->getFutureValuation(
+        'test-advertiser-id',
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
         \Carbon\Carbon::parse('2015-01-30'),

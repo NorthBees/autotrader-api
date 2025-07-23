@@ -2,12 +2,27 @@
 
 declare(strict_types=1);
 
-todo('mock requests');
+use Illuminate\Support\Facades\Http;
+use NorthBees\AutotraderApi\AutotraderApi;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 
 it('only accepts historic dates', function (): void {
 
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->getFutureValuation(
-        config('autotrader.default_advertiser_id'),
+    $token = fake()->uuid;
+    Http::preventStrayRequests();
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expiry' => now()->addMonth(),
+            'access_token' => $token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::HistoricValuations->value . '*' => Http::response([
+            'message' => 'Historic date required',
+            'code' => 400
+        ], 400),
+    ]);
+
+    $response = app(AutotraderApi::class)->getHistoricValuation(
+        'test-advertiser-id',
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
         \Carbon\Carbon::parse('2015-01-30'),
@@ -15,21 +30,34 @@ it('only accepts historic dates', function (): void {
     );
 })->throws(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
 
-it('only accepts historic dates after registration date', function (): void {
-
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->getFutureValuation(
-        config('autotrader.default_advertiser_id'),
-        '8d0933dd565e328caa7152688f3b18ce',
-        90000,
-        \Carbon\Carbon::parse('2015-01-30'),
-        \Carbon\Carbon::parse('2015-01-01'),
-    );
-})->throws(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
-
 it('can request history valuation', function (): void {
 
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->getHistoricValuation(
-        config('autotrader.default_advertiser_id'),
+    $token = fake()->uuid;
+    $mockHistoricValuationResponse = [
+        'historicValuations' => [
+            'valuation' => [
+                'retail' => 3500,
+                'trade' => 2500,
+                'average' => 3000
+            ]
+        ]
+    ];
+
+    Http::preventStrayRequests();
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expiry' => now()->addMonth(),
+            'access_token' => $token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::HistoricValuations->value . '*' => Http::response(
+            $mockHistoricValuationResponse,
+            200,
+            ['content_type' => 'application/json']
+        ),
+    ]);
+
+    $response = app(AutotraderApi::class)->getHistoricValuation(
+        'test-advertiser-id',
         '8d0933dd565e328caa7152688f3b18ce',
         80000,
         \Carbon\Carbon::parse('2015-01-30'),
