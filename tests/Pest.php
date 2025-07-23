@@ -44,7 +44,4 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
-{
-    // ..
-}
+// Removed the unnecessary `something()` function.
