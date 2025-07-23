@@ -152,14 +152,9 @@ $stock = app(AutotraderApi::class)->getStockList($advertiserId, $filters, [
 
 ### Delivery Requests
 
-```
+```php
 // Get delivery details
 $delivery = app(AutotraderApi::class)->getDelivery($advertiserId, $deliveryId);
-```
-
-### Calls Requests
-
-```
 // Get call details
 $calls = app(AutotraderApi::class)->getCalls($advertiserId, $callId);
 ```
