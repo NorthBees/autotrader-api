@@ -42,4 +42,47 @@ describe('AutotraderApi class', function () {
         // Should return sandbox URL by default in tests
         expect($endpoint)->toBe('https://api-sandbox.autotrader.co.uk');
     });
+
+    it('has consistent int advertiserId parameter types across all trait methods', function () {
+        $api = new AutotraderApi();
+        
+        $reflection = new ReflectionClass($api);
+        $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+        
+        // List of methods that should have advertiserId parameter as int
+        $methodsWithAdvertiserId = [
+            'getCalls', 'getDelivery', 'getDeals', 'getDeal', 'completeDeal', 'cancelDeal', 
+            'updateDeal', 'removeDealPartExchange', 'removeDealFinanceApplication',
+            'getMessages', 'markMessagesAsRead', 'sendMessage',
+            'submitFinanceApplication', 'getFinanceOptions', 'updateFinanceApplication',
+            'generateDescription', 'imageOrder', 'addImage',
+            'searchVehicles', 'getSavedSearches', 'saveSearch',
+            'getStockList', 'createStock', 'updateStock', 'getStockFeatures',
+            'getVehicleTypes', 'getMakes', 'getModels', 'getGenerations', 'getDerivatives', 
+            'getFeatures', 'getPrices', 'getTechnicalData', 'getFacets', 'getTaxonomy',
+            'getValuation', 'getFutureValuation', 'getHistoricValuation', 'getVehicle', 'getVehicleMetrics'
+        ];
+        
+        foreach ($methods as $method) {
+            if (in_array($method->getName(), $methodsWithAdvertiserId)) {
+                $parameters = $method->getParameters();
+                
+                // Find the advertiserId parameter
+                $advIdParam = null;
+                foreach ($parameters as $param) {
+                    if ($param->getName() === 'advertiserId') {
+                        $advIdParam = $param;
+                        break;
+                    }
+                }
+                
+                if ($advIdParam !== null) {
+                    $paramType = $advIdParam->getType();
+                    expect($paramType)->not()->toBeNull();
+                    expect($paramType->getName())->toBe('int', 
+                        "Method {$method->getName()} should have int advertiserId parameter, got {$paramType->getName()}");
+                }
+            }
+        }
+    });
 })->group('main-class', 'autotrader-api');

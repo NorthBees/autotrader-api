@@ -13,7 +13,7 @@ trait AutotraderFinanceTrait
      * Submit finance application data
      * Note: Years fields have been removed - only months fields are used
      */
-    public function submitFinanceApplication(string $advertiserId, array $financeData)
+    public function submitFinanceApplication(int $advertiserId, array $financeData)
     {
         return $this->performRequest(
             HttpMethods::POST,
@@ -27,7 +27,7 @@ trait AutotraderFinanceTrait
     /**
      * Get finance options for a vehicle
      */
-    public function getFinanceOptions(string $advertiserId, array $vehicleData)
+    public function getFinanceOptions(int $advertiserId, array $vehicleData)
     {
         return $this->performRequest(
             HttpMethods::GET,
@@ -40,7 +40,7 @@ trait AutotraderFinanceTrait
     /**
      * Update finance application
      */
-    public function updateFinanceApplication(string $advertiserId, string $applicationId, array $financeData)
+    public function updateFinanceApplication(int $advertiserId, string $applicationId, array $financeData)
     {
         return $this->performRequest(
             HttpMethods::PATCH,

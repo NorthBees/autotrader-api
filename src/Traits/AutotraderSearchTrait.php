@@ -15,7 +15,7 @@ trait AutotraderSearchTrait
      * Search for vehicles
      * Supports factoryCodes and wheelbaseMM fields
      */
-    public function searchVehicles(string $advertiserId, array $searchCriteria = [], array $options = [
+    public function searchVehicles(int $advertiserId, array $searchCriteria = [], array $options = [
         'vehicle' => "true",
         'advertiser' => "true",
         'adverts' => "true",
@@ -65,7 +65,7 @@ trait AutotraderSearchTrait
     /**
      * Get saved searches
      */
-    public function getSavedSearches(string $advertiserId)
+    public function getSavedSearches(int $advertiserId)
     {
         return $this->performRequest(
             HttpMethods::GET,
@@ -78,7 +78,7 @@ trait AutotraderSearchTrait
     /**
      * Save a search
      */
-    public function saveSearch(string $advertiserId, array $searchData)
+    public function saveSearch(int $advertiserId, array $searchData)
     {
         return $this->performRequest(
             HttpMethods::POST,

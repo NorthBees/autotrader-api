@@ -15,12 +15,12 @@ trait AutotraderDealsTrait
     /**
      * Get a list of deals for an advertiser with optional filtering
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param array $filters Optional filters (page, from, to)
      * @return array
      * @throws AutotraderException
      */
-    public function getDeals(string $advertiserId, array $filters = [])
+    public function getDeals(int $advertiserId, array $filters = [])
     {
         $validator = Validator::make($filters, [
             'page' => 'nullable|integer|min:1',
@@ -43,11 +43,11 @@ trait AutotraderDealsTrait
     /**
      * Get a specific deal by ID
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $dealId The deal ID
      * @return array
      */
-    public function getDeal(string $advertiserId, string $dealId)
+    public function getDeal(int $advertiserId, string $dealId)
     {
         return $this->performRequest(
             HttpMethods::GET,
@@ -60,11 +60,11 @@ trait AutotraderDealsTrait
     /**
      * Complete a deal by updating its status to Complete
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $dealId The deal ID
      * @return array
      */
-    public function completeDeal(string $advertiserId, string $dealId)
+    public function completeDeal(int $advertiserId, string $dealId)
     {
         return $this->updateDeal($advertiserId, $dealId, [
             'advertiserDealStatus' => 'Complete'
@@ -74,14 +74,14 @@ trait AutotraderDealsTrait
     /**
      * Cancel a deal with a cancellation reason
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $dealId The deal ID
      * @param string $reason The cancellation reason (Different Vehicle, Unaffordable, etc.)
      * @param string|null $notes Optional cancellation notes
      * @return array
      * @throws AutotraderException
      */
-    public function cancelDeal(string $advertiserId, string $dealId, string $reason, ?string $notes = null)
+    public function cancelDeal(int $advertiserId, string $dealId, string $reason, ?string $notes = null)
     {
         $validReasons = AutotraderDealCancellationReasons::values();
 
@@ -104,12 +104,12 @@ trait AutotraderDealsTrait
     /**
      * Update a deal with custom data
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $dealId The deal ID
      * @param array $data The update data
      * @return array
      */
-    public function updateDeal(string $advertiserId, string $dealId, array $data)
+    public function updateDeal(int $advertiserId, string $dealId, array $data)
     {
         return $this->performRequest(
             HttpMethods::PATCH,
@@ -122,11 +122,11 @@ trait AutotraderDealsTrait
     /**
      * Remove part exchange from a deal
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $dealId The deal ID
      * @return array
      */
-    public function removeDealPartExchange(string $advertiserId, string $dealId)
+    public function removeDealPartExchange(int $advertiserId, string $dealId)
     {
         return $this->updateDeal($advertiserId, $dealId, [
             'partExchange' => null
@@ -136,11 +136,11 @@ trait AutotraderDealsTrait
     /**
      * Remove finance application from a deal
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $dealId The deal ID
      * @return array
      */
-    public function removeDealFinanceApplication(string $advertiserId, string $dealId)
+    public function removeDealFinanceApplication(int $advertiserId, string $dealId)
     {
         return $this->updateDeal($advertiserId, $dealId, [
             'financeApplication' => null
