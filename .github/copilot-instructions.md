@@ -172,7 +172,7 @@ php --version
 sed -i 's/"php": "\^8.4"/"php": "^8.3"/' composer.json
 
 # Enable Pest plugin and install
-composer config --no-plugins allow-plugins.pestphp/pest-plugin true
+composer config allow-plugins.pestphp/pest-plugin true
 timeout 600 composer install --no-interaction
 
 # Run tests to verify installation
