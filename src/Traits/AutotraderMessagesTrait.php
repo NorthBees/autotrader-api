@@ -14,12 +14,12 @@ trait AutotraderMessagesTrait
     /**
      * Get messages for a specific message ID.
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $messagesId The messages ID to retrieve
      * @return array The messages response
      * @throws AutotraderException
      */
-    public function getMessages(string $advertiserId, string $messagesId): array
+    public function getMessages(int $advertiserId, string $messagesId): array
     {
         $url = AutotraderEndpoints::Messages->value . '/' . $messagesId . '?advertiserId=' . $advertiserId;
 
@@ -29,12 +29,12 @@ trait AutotraderMessagesTrait
     /**
      * Mark messages as read by updating the advertiser last read status.
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param string $messagesId The messages ID to mark as read
      * @return array The response
      * @throws AutotraderException
      */
-    public function markMessagesAsRead(string $advertiserId, string $messagesId): array
+    public function markMessagesAsRead(int $advertiserId, string $messagesId): array
     {
         $url = AutotraderEndpoints::Messages->value . '/' . $messagesId . '?advertiserId=' . $advertiserId;
         
@@ -48,12 +48,12 @@ trait AutotraderMessagesTrait
     /**
      * Send a new message.
      *
-     * @param string $advertiserId The advertiser ID
+     * @param int $advertiserId The advertiser ID
      * @param array $messageData The message data (must contain either 'dealId' for new conversation or 'messagesId' for existing, plus 'message')
      * @return array The response
      * @throws AutotraderException
      */
-    public function sendMessage(string $advertiserId, array $messageData): array
+    public function sendMessage(int $advertiserId, array $messageData): array
     {
         $validator = Validator::make($messageData, [
             'message' => 'required|string|max:1500',

@@ -10,7 +10,7 @@ use NorthBees\Vehicles\Models\Vehicle;
 
 trait AutotraderCoDriverTrait
 {
-    public function generateDescription(string $advertiserId, Vehicle $vehicle)
+    public function generateDescription(int $advertiserId, Vehicle $vehicle)
     {
 
         return $this->performRequest(
@@ -28,7 +28,7 @@ trait AutotraderCoDriverTrait
         );
     }
 
-    public function imageOrder(string $advertiserId, Vehicle $vehicle)
+    public function imageOrder(int $advertiserId, Vehicle $vehicle)
     {
 
         return $this->performRequest(
