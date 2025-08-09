@@ -204,7 +204,7 @@ ls -la tests/TestCase.php                      # Check test base exists
 
 ### "Pest plugin blocked by allow-plugins"
 - **Problem**: Composer installation fails due to plugin restrictions
-- **Solution**: Run `composer config --no-plugins allow-plugins.pestphp/pest-plugin true`
+- **Solution**: Run `composer config allow-plugins.pestphp/pest-plugin true`
 - **When**: Run this before every fresh installation
 
 ### "Connection timeout during installation"
