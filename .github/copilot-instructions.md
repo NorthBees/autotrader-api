@@ -19,7 +19,7 @@ A Laravel PHP package providing a comprehensive wrapper for the Autotrader API (
 php --version  # Should be 8.4+, may work with 8.3
 
 # Enable Pest plugin (required before installation)
-composer config --no-plugins allow-plugins.pestphp/pest-plugin true
+composer config allow-plugins.pestphp/pest-plugin true
 
 # Install dependencies - NEVER CANCEL, takes 60-90 seconds
 timeout 600 composer install --no-interaction
