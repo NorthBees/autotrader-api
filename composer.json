@@ -40,5 +40,10 @@
               "NorthBees\\AutotraderApi\\AutotraderApiServiceProvider"
             ]
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
