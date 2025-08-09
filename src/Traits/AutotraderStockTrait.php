@@ -14,7 +14,7 @@ use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
 trait AutotraderStockTrait
 {
-    public function getStockList(string $advertiserId, array $filters = [], array $options = [
+    public function getStockList(int $advertiserId, array $filters = [], array $options = [
         'vehicle' => "true",
         'advertiser' => "true",
         'adverts' => "true",
@@ -54,7 +54,7 @@ trait AutotraderStockTrait
 
     }
 
-    public function createStock(string $advertiserId, array $vehicleData)
+    public function createStock(int $advertiserId, array $vehicleData)
     {
 
         return $this->performRequest(
@@ -65,7 +65,7 @@ trait AutotraderStockTrait
         );
     }
 
-    public function updateStock(string $advertiserId, array $vehicleData)
+    public function updateStock(int $advertiserId, array $vehicleData)
     {
 
         throw_if(! Arr::has($vehicleData, 'metadata.stockId'), AutotraderException::class, ('metadata=>stockId is required'));
@@ -79,7 +79,7 @@ trait AutotraderStockTrait
 
     }
 
-    public function getStockFeatures(string $advertiserId, string $stockId)
+    public function getStockFeatures(int $advertiserId, string $stockId)
     {
         $url = implode('/', [AutotraderEndpoints::Stock->value, $stockId, 'features']);
 
