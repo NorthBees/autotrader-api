@@ -7,7 +7,7 @@ namespace NorthBees\AutotraderApi\Validators;
 class AutotraderVehicleMetricsOptionsValidator extends AbstractAutotraderValidator
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getRules(): array
     {
@@ -25,7 +25,6 @@ class AutotraderVehicleMetricsOptionsValidator extends AbstractAutotraderValidat
             'saleTargetDaysInStock' => 'nullable|numeric|min:0|required_with:saleTargetDaysToSell',
             'saleTargetDaysToSell' => 'nullable|array|required_with:saleTargetDaysInStock',
             'saleTargetDaysToSell.*' => 'required_with:saleTargetDaysInStock|numeric|min:0',
-
 
             'totalPrice' => 'nullable|numeric|min:0',
 

@@ -15,7 +15,7 @@ trait AutotraderValuationsTrait
         'totalPrice' => null,
         'features' => null,
         'conditionRating' => null,
-        'priceIndicatorRatingBands' => "false",
+        'priceIndicatorRatingBands' => 'false',
     ])
     {
 
@@ -30,7 +30,7 @@ trait AutotraderValuationsTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::Valuations->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Valuations->value.'?advertiserId='.$advertiserId,
             [],
             array_merge(['vehicle' => ['derivativeId' => $derivativeId,
                 'odometerReadingMiles' => $odometerReadingMiles,

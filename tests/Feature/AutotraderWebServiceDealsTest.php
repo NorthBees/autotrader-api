@@ -16,11 +16,11 @@ beforeEach(function () {
 
 it('can get deals list', function (): void {
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $this->token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Deals->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Deals->value.'*' => Http::response([
             'results' => [
                 ['dealId' => 'deal-001', 'status' => 'InProgress'],
             ],
@@ -34,11 +34,11 @@ it('can get deals list', function (): void {
 
 it('can get deals list with filters', function (): void {
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $this->token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Deals->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Deals->value.'*' => Http::response([
             'results' => [
                 ['dealId' => 'deal-001', 'status' => 'InProgress'],
             ],
@@ -60,11 +60,11 @@ it('can get a specific deal', function (): void {
     $dealId = 'deal-001';
 
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $this->token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Deals->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Deals->value.'*' => Http::response([
             'dealId' => $dealId,
             'status' => 'InProgress',
         ], 200),

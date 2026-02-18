@@ -1,4 +1,4 @@
-# The MIT License (MIT)
+com# The MIT License (MIT)
 
 Copyright (c) 2024-2026 Steve Smith <steven@sd-smith.co.uk>
 

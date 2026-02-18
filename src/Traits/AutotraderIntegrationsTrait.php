@@ -17,7 +17,7 @@ trait AutotraderIntegrationsTrait
      * If the integration is an API, the response will show all the capabilities
      * the integration has access to, including which APIs and methods can be accessed.
      *
-     * @param array $options Optional query parameters
+     * @param  array  $options  Optional query parameters
      * @return array
      */
     public function getIntegrations(array $options = [])

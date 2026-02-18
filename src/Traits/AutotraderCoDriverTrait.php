@@ -15,7 +15,7 @@ trait AutotraderCoDriverTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?description=true&advertiserId=' . $advertiserId,
+            AutotraderEndpoints::CoDriver->value.'/'.$vehicle->stock_id.'?description=true&advertiserId='.$advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,
@@ -33,7 +33,7 @@ trait AutotraderCoDriverTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?images=true&advertiserId=' . $advertiserId,
+            AutotraderEndpoints::CoDriver->value.'/'.$vehicle->stock_id.'?images=true&advertiserId='.$advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,

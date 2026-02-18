@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
-use NorthBees\AutotraderApi\Exceptions\AutotraderException;
-use NorthBees\AutotraderApi\Exceptions\AutotraderFailedConnectionException;
 use NorthBees\AutotraderApi\Exceptions\AutotraderClientErrorException;
+use NorthBees\AutotraderApi\Exceptions\AutotraderFailedConnectionException;
 use NorthBees\AutotraderApi\Traits\AutotraderAuthenticationTrait;
 
 // Create a test class that uses the trait
@@ -23,7 +21,7 @@ class TestClassWithAuthTrait
 
 describe('AutotraderAuthenticationTrait', function () {
     beforeEach(function () {
-        $this->testInstance = new TestClassWithAuthTrait();
+        $this->testInstance = new TestClassWithAuthTrait;
         Cache::flush(); // Clear cache before each test
     });
 
@@ -38,7 +36,7 @@ describe('AutotraderAuthenticationTrait', function () {
 
     it('fetches new token when cache is empty', function () {
         $newToken = 'new-token-456';
-        
+
         Http::preventStrayRequests();
         Http::fake([
             'https://api-sandbox.autotrader.co.uk/authenticate' => Http::response([

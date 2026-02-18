@@ -18,11 +18,11 @@ it('can get messages', function (): void {
     $messagesId = '4ae0fc61-f92f-4fa6-9cd5-a8f31a2616c7';
 
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $this->token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Messages->value.'*' => Http::response([
             'messagesId' => $messagesId,
             'consumerLastRead' => '2024-01-15T10:30:00Z',
             'consumerLastReadStatus' => 'Read',
@@ -59,11 +59,11 @@ it('can mark messages as read', function (): void {
     $messagesId = '4ae0fc61-f92f-4fa6-9cd5-a8f31a2616c7';
 
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $this->token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Messages->value.'*' => Http::response([
             'advertiserLastReadStatus' => 'Read',
         ], 200),
     ]);
@@ -75,11 +75,11 @@ it('can mark messages as read', function (): void {
 
 it('can send a new message with dealId', function (): void {
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $this->token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Messages->value.'*' => Http::response([
             'messagesId' => 'new-messages-id',
         ], 200),
     ]);
@@ -96,11 +96,11 @@ it('can send a new message with dealId', function (): void {
 
 it('can send a new message with messagesId', function (): void {
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $this->token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Messages->value.'*' => Http::response([
             'messagesId' => 'e00a1a0a-162d-459b-a23a-0f04adcbb111',
         ], 200),
     ]);

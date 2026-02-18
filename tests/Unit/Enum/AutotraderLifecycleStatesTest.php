@@ -16,10 +16,10 @@ describe('AutotraderLifecycleStates enum', function () {
 
     it('has all expected lifecycle states', function () {
         $cases = AutotraderLifecycleStates::cases();
-        $values = array_map(fn($case) => $case->value, $cases);
-        
+        $values = array_map(fn ($case) => $case->value, $cases);
+
         expect($values)->toContain(
-            'DUE_IN', 'FORECOURT', 'SALE_IN_PROGRESS', 
+            'DUE_IN', 'FORECOURT', 'SALE_IN_PROGRESS',
             'WASTEBIN', 'DELETED', 'SOLD'
         );
         expect($cases)->toHaveCount(6);

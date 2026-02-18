@@ -26,11 +26,11 @@ it('can request call details', function (): void {
 
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expires_at' => now()->addMonth()->toISOString(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Calls->value . '*' => Http::response(
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Calls->value.'*' => Http::response(
             $mockCallResponse,
             200,
             ['content_type' => 'application/json']

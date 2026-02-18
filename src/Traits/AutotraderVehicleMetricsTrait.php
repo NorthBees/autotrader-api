@@ -18,16 +18,9 @@ trait AutotraderVehicleMetricsTrait
      * Calls the Vehicle Metrics endpoint
      * see: https://developers.autotrader.co.uk/api#vehicle-metrics-api.
      *
-     * @param int $advertiserId
-     * @param string $derivativeId
-     * @param int $odometerReadingMiles
-     * @param Carbon $firstRegistrationDate
-     * @param array $options
      *
      * @throws BindingResolutionException
      * @throws ValidationException
-     *
-     * @return mixed
      */
     public function getVehicleMetrics(
         int $advertiserId,
@@ -48,7 +41,7 @@ trait AutotraderVehicleMetricsTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::VehicleMetrics->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::VehicleMetrics->value.'?advertiserId='.$advertiserId,
             [],
             array_merge(['vehicle' => ['derivativeId' => $derivativeId,
                 'odometerReadingMiles' => $odometerReadingMiles,
@@ -65,7 +58,7 @@ trait AutotraderVehicleMetricsTrait
      */
     protected function formatVehicleMetricOptions(array $options): array
     {
-        $validator = new AutotraderVehicleMetricsOptionsValidator();
+        $validator = new AutotraderVehicleMetricsOptionsValidator;
 
         $options = $validator->validate($options);
 

@@ -11,13 +11,13 @@ it('only accepts future dates', function (): void {
     $token = fake()->uuid;
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expiry' => now()->addMonth(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::FutureValuations->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::FutureValuations->value.'*' => Http::response([
             'message' => 'Future date required',
-            'code' => 400
+            'code' => 400,
         ], 400),
     ]);
 
@@ -31,25 +31,25 @@ it('only accepts future dates', function (): void {
 })->throws(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
 
 it('can request future valuation', function (): void {
-    
+
     $token = fake()->uuid;
     $mockFutureValuationResponse = [
         'futureValuations' => [
             'valuation' => [
                 'retail' => 4500,
                 'trade' => 3500,
-                'average' => 4000
-            ]
-        ]
+                'average' => 4000,
+            ],
+        ],
     ];
 
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expiry' => now()->addMonth(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::FutureValuations->value . '*' => Http::response(
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::FutureValuations->value.'*' => Http::response(
             $mockFutureValuationResponse,
             200,
             ['content_type' => 'application/json']

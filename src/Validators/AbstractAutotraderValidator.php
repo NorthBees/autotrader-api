@@ -20,8 +20,6 @@ abstract class AbstractAutotraderValidator
     /**
      * The rules to validate against
      * see: https://laravel.com/docs/11.x/validation#available-validation-rules.
-     *
-     * @return array
      */
     abstract protected function getRules(): array;
 
@@ -29,12 +27,9 @@ abstract class AbstractAutotraderValidator
      * Perform the validation against the given data
      * returns the validated data.
      *
-     * @param array $data
      *
      * @throws BindingResolutionException
      * @throws ValidationException
-     *
-     * @return array
      */
     public function validate(array $data): array
     {
@@ -50,8 +45,6 @@ abstract class AbstractAutotraderValidator
     /**
      * Get the validation message overrides for any fields
      * This should be overridden in the child class.
-     *
-     * @return array
      */
     protected function getMessages(): array
     {

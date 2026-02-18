@@ -20,7 +20,7 @@ trait AutotraderFutureValuationsTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::FutureValuations->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::FutureValuations->value.'?advertiserId='.$advertiserId,
             [],
             ['vehicle' => [
                 'derivativeId' => $derivativeId,

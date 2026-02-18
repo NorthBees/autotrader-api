@@ -12,15 +12,15 @@ use NorthBees\AutotraderApi\Exceptions\AutotraderMissingOdometerException;
 trait AutotraderVehiclesTrait
 {
     public function getVehicle(int $advertiserId, string $vrm, ?int $odometerReadingMiles = null, array $options = [
-        'chargeTimes' => "false",
-        'competitors' => "false",
-        'features' => "false",
-        'motTests' => "false",
-        'history' => "false",
-        'fullVehicleCheck' => "false",
-        'valuations' => "false",
-        'vehicleMetrics' => "false",
-        'factoryCodes' => "false",
+        'chargeTimes' => 'false',
+        'competitors' => 'false',
+        'features' => 'false',
+        'motTests' => 'false',
+        'history' => 'false',
+        'fullVehicleCheck' => 'false',
+        'valuations' => 'false',
+        'vehicleMetrics' => 'false',
+        'factoryCodes' => 'false',
     ])
     {
 

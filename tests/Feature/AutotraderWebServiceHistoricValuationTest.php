@@ -11,13 +11,13 @@ it('only accepts historic dates', function (): void {
     $token = fake()->uuid;
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expiry' => now()->addMonth(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::HistoricValuations->value . '*' => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::HistoricValuations->value.'*' => Http::response([
             'message' => 'Historic date required',
-            'code' => 400
+            'code' => 400,
         ], 400),
     ]);
 
@@ -38,18 +38,18 @@ it('can request history valuation', function (): void {
             'valuation' => [
                 'retail' => 3500,
                 'trade' => 2500,
-                'average' => 3000
-            ]
-        ]
+                'average' => 3000,
+            ],
+        ],
     ];
 
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expiry' => now()->addMonth(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::HistoricValuations->value . '*' => Http::response(
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::HistoricValuations->value.'*' => Http::response(
             $mockHistoricValuationResponse,
             200,
             ['content_type' => 'application/json']

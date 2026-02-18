@@ -24,7 +24,7 @@ trait AutotraderHistoricValuationsTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::HistoricValuations->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::HistoricValuations->value.'?advertiserId='.$advertiserId,
             [],
             ['vehicle' => [
                 'derivativeId' => $derivativeId,

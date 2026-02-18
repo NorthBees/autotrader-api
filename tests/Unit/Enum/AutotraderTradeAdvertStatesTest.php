@@ -12,8 +12,8 @@ describe('AutotraderTradeAdvertStates enum', function () {
 
     it('has all expected trade advert states', function () {
         $cases = AutotraderTradeAdvertStates::cases();
-        $values = array_map(fn($case) => $case->value, $cases);
-        
+        $values = array_map(fn ($case) => $case->value, $cases);
+
         expect($values)->toContain('PUBLISHED', 'NOT_PUBLISHED');
         expect($cases)->toHaveCount(2);
     });

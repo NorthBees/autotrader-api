@@ -23,9 +23,10 @@ trait AutotraderDealsTrait
      * - consumerReservationFeeStatus is @deprecated - use reservation object instead
      * The reservation object provides reservation status values including Requested and Reserved.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param array $filters Optional filters (page, from, to)
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $filters  Optional filters (page, from, to)
      * @return array
+     *
      * @throws AutotraderException
      */
     public function getDeals(int $advertiserId, array $filters = [])
@@ -59,15 +60,15 @@ trait AutotraderDealsTrait
      * - consumerReservationFeeStatus is @deprecated - use reservation object instead
      * The reservation object provides reservation status values including Requested and Reserved.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $dealId The deal ID
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $dealId  The deal ID
      * @return array
      */
     public function getDeal(int $advertiserId, string $dealId)
     {
         return $this->performRequest(
             HttpMethods::GET,
-            AutotraderEndpoints::Deals->value . '/' . $dealId,
+            AutotraderEndpoints::Deals->value.'/'.$dealId,
             [],
             ['advertiserId' => $advertiserId]
         );
@@ -76,33 +77,34 @@ trait AutotraderDealsTrait
     /**
      * Complete a deal by updating its status to Complete
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $dealId The deal ID
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $dealId  The deal ID
      * @return array
      */
     public function completeDeal(int $advertiserId, string $dealId)
     {
         return $this->updateDeal($advertiserId, $dealId, [
-            'advertiserDealStatus' => 'Complete'
+            'advertiserDealStatus' => 'Complete',
         ]);
     }
 
     /**
      * Cancel a deal with a cancellation reason
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $dealId The deal ID
-     * @param string $reason The cancellation reason (Different Vehicle, Unaffordable, etc.)
-     * @param string|null $notes Optional cancellation notes
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $dealId  The deal ID
+     * @param  string  $reason  The cancellation reason (Different Vehicle, Unaffordable, etc.)
+     * @param  string|null  $notes  Optional cancellation notes
      * @return array
+     *
      * @throws AutotraderException
      */
     public function cancelDeal(int $advertiserId, string $dealId, string $reason, ?string $notes = null)
     {
         $validReasons = AutotraderDealCancellationReasons::values();
 
-        if (!in_array($reason, $validReasons)) {
-            throw new AutotraderException('Invalid cancellation reason. Must be one of: ' . implode(', ', $validReasons));
+        if (! in_array($reason, $validReasons)) {
+            throw new AutotraderException('Invalid cancellation reason. Must be one of: '.implode(', ', $validReasons));
         }
 
         $data = [
@@ -120,16 +122,16 @@ trait AutotraderDealsTrait
     /**
      * Update a deal with custom data
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $dealId The deal ID
-     * @param array $data The update data
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $dealId  The deal ID
+     * @param  array  $data  The update data
      * @return array
      */
     public function updateDeal(int $advertiserId, string $dealId, array $data)
     {
         return $this->performRequest(
             HttpMethods::PATCH,
-            AutotraderEndpoints::Deals->value . '/' . $dealId . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Deals->value.'/'.$dealId.'?advertiserId='.$advertiserId,
             [],
             $data
         );
@@ -138,28 +140,28 @@ trait AutotraderDealsTrait
     /**
      * Remove part exchange from a deal
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $dealId The deal ID
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $dealId  The deal ID
      * @return array
      */
     public function removeDealPartExchange(int $advertiserId, string $dealId)
     {
         return $this->updateDeal($advertiserId, $dealId, [
-            'partExchange' => null
+            'partExchange' => null,
         ]);
     }
 
     /**
      * Remove finance application from a deal
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $dealId The deal ID
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $dealId  The deal ID
      * @return array
      */
     public function removeDealFinanceApplication(int $advertiserId, string $dealId)
     {
         return $this->updateDeal($advertiserId, $dealId, [
-            'financeApplication' => null
+            'financeApplication' => null,
         ]);
     }
 
@@ -169,15 +171,15 @@ trait AutotraderDealsTrait
      * Allows retailers to create Deals which have originated outside of the Autotrader consumer journey.
      * Following creation, the deal can be managed via the Deals API.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param array $dealData The deal data
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $dealData  The deal data
      * @return array
      */
     public function createDeal(int $advertiserId, array $dealData)
     {
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::Deals->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Deals->value.'?advertiserId='.$advertiserId,
             [],
             $dealData
         );

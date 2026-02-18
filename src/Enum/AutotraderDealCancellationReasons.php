@@ -17,11 +17,9 @@ enum AutotraderDealCancellationReasons: string
 
     /**
      * Get all valid cancellation reason values
-     *
-     * @return array
      */
     public static function values(): array
     {
-        return array_map(fn($case) => $case->value, self::cases());
+        return array_map(fn ($case) => $case->value, self::cases());
     }
 }
