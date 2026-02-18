@@ -65,12 +65,27 @@ trait AutotraderTaxonomyTrait
         ]);
     }
 
-    public function getDerivatives(int $advertiserId, string $generationId, ?string $productionStatus = null)
+    /**
+     * Get derivatives for a generation.
+     *
+     * @param int $advertiserId The advertiser ID
+     * @param string $generationId The generation ID
+     * @param string|null $productionStatus Optional production status filter (Current, Discontinued, Future)
+     * @param string|null $oemModelCode Optional OEM model code to search for a specific derivative (e.g. Volvo derivatives)
+     * @return array
+     */
+    public function getDerivatives(int $advertiserId, string $generationId, ?string $productionStatus = null, ?string $oemModelCode = null)
     {
-        return $this->getTaxonomy($advertiserId, AutotraderTaxonomies::DERIVATIVES, [
+        $options = [
             'generationId' => $generationId,
             'productionStatus' => $productionStatus,
-        ]);
+        ];
+
+        if ($oemModelCode !== null) {
+            $options['oemModelCode'] = $oemModelCode;
+        }
+
+        return $this->getTaxonomy($advertiserId, AutotraderTaxonomies::DERIVATIVES, $options);
     }
 
     public function getFeatures(int $advertiserId, string $derivativeId, Carbon $effectiveDate, ?string $productionStatus = null, array $options = [

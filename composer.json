@@ -1,6 +1,7 @@
 {
     "name": "northbees/autotrader-api",
-    "description": "Autotrader API Integration",
+    "description": "A Laravel SDK for the Autotrader API - vehicles, valuations, stock management, finance, deals, and more.",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -11,9 +12,23 @@
     ],
     "homepage": "https://github.com/northbees/autotrader-api",
     "keywords": [
-        "Laravel",
-        "AutotraderApi"
+        "laravel",
+        "autotrader",
+        "api",
+        "vehicles",
+        "valuations",
+        "stock",
+        "finance",
+        "deals",
+        "sdk",
+        "taxonomy"
     ],
+    "support": {
+        "issues": "https://github.com/northbees/autotrader-api/issues",
+        "source": "https://github.com/northbees/autotrader-api"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
         "php": "^8.4",
         "illuminate/support": "^11.0|^12.0"
@@ -22,7 +37,9 @@
         "roave/security-advisories": "dev-latest",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "orchestra/testbench": "^9.0"
+        "orchestra/testbench": "^9.0",
+        "laravel/pint": "^1.0",
+        "larastan/larastan": "^2.0|^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -33,6 +50,11 @@
         "psr-4": {
             "NorthBees\\AutotraderApi\\Tests\\": "tests"
         }
+    },
+    "scripts": {
+        "test": "pest",
+        "lint": "pint",
+        "analyse": "phpstan analyse"
     },
     "extra": {
         "laravel": {

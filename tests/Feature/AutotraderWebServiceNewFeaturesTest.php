@@ -28,7 +28,7 @@ it('can search vehicles with new features', function (): void {
         ),
     ]);
     
-    $response = app(AutotraderApi::class)->searchVehicles('test-advertiser-id', [
+    $response = app(AutotraderApi::class)->searchVehicles(123456, [
         'make' => 'BMW',
         'model' => 'X5',
     ]);
@@ -58,7 +58,7 @@ it('can get stock list with new features', function (): void {
         ),
     ]);
     
-    $response = app(AutotraderApi::class)->getStockList('test-advertiser-id', []);
+    $response = app(AutotraderApi::class)->getStockList(123456, []);
     
     expect($response)->toHaveKey('results');
 })->group('autotrader-api', 'stock');

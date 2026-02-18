@@ -23,6 +23,7 @@ use NorthBees\AutotraderApi\Traits\AutotraderFinanceTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderFutureValuationsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderHistoricValuationsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderImageTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderIntegrationsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderMessagesTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderSearchTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderStockTrait;
@@ -43,6 +44,7 @@ class AutotraderApi
     use AutotraderFutureValuationsTrait;
     use AutotraderHistoricValuationsTrait;
     use AutotraderImageTrait;
+    use AutotraderIntegrationsTrait;
     use AutotraderMessagesTrait;
     use AutotraderSearchTrait;
     use AutotraderStockTrait;

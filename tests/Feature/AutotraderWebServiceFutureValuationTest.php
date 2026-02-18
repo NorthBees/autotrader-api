@@ -22,7 +22,7 @@ it('only accepts future dates', function (): void {
     ]);
 
     $response = app(AutotraderApi::class)->getFutureValuation(
-        'test-advertiser-id',
+        123456,
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
         \Carbon\Carbon::parse('2015-01-30'),
@@ -57,7 +57,7 @@ it('can request future valuation', function (): void {
     ]);
 
     $response = app(AutotraderApi::class)->getFutureValuation(
-        'test-advertiser-id',
+        123456,
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
         \Carbon\Carbon::parse('2015-01-30'),

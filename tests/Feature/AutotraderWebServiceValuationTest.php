@@ -33,7 +33,7 @@ it('can request valuation', function (): void {
     ]);
 
     $response = app(AutotraderApi::class)->getValuation(
-        'test-advertiser-id',
+        123456,
         '8d0933dd565e328caa7152688f3b18ce',
         85000,
         \Carbon\Carbon::parse('2015-01-30'),

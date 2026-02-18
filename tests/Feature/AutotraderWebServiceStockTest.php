@@ -33,7 +33,7 @@ it('can request stock list', function (): void {
         ),
     ]);
 
-    $response = app(AutotraderApi::class)->getStockList('test-advertiser-id', ['lifecycleState' => 'FORECOURT']);
+    $response = app(AutotraderApi::class)->getStockList(123456, ['lifecycleState' => 'FORECOURT']);
     expect($response)->toHaveKey('results')->toHaveKey('totalResults');
     expect(\Illuminate\Support\Arr::get($response, 'results.0.metadata.lifecycleState'))->toEqual('FORECOURT');
 

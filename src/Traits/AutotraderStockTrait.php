@@ -14,6 +14,20 @@ use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
 trait AutotraderStockTrait
 {
+    /**
+     * Get a list of stock items for an advertiser
+     *
+     * Response includes (as of Aug 2025):
+     * - eligibleContractAllowances: Stock allowances the item is eligible for
+     * - allocatedContractAllowance: The allowance allocated for the published stock item
+     * - rarityRating, valueRating: Autotrader intelligence ratings for vehicle features
+     *
+     * Response includes (as of Oct 2025):
+     * - vehicle.origin: Indicates if the vehicle is UK or Non UK specification
+     *
+     * When updating stock lifecycle state to SOLD with a published tradeAdvert,
+     * you can now set tradeAdvert to NOT_PUBLISHED to unpublish the record (as of Feb 2026).
+     */
     public function getStockList(int $advertiserId, array $filters = [], array $options = [
         'vehicle' => "true",
         'advertiser' => "true",
@@ -65,6 +79,18 @@ trait AutotraderStockTrait
         );
     }
 
+    /**
+     * Update a stock item
+     *
+     * When updating lifecycle state to SOLD and the vehicle has a published tradeAdvert,
+     * you can include tradeAdvert status as NOT_PUBLISHED to unpublish the record.
+     * Use AutotraderTradeAdvertStates::NOT_PUBLISHED for the tradeAdvert.status value.
+     *
+     * @param int $advertiserId The advertiser ID
+     * @param array $vehicleData The vehicle data including metadata.stockId
+     * @return array
+     * @throws AutotraderException
+     */
     public function updateStock(int $advertiserId, array $vehicleData)
     {
 
@@ -82,6 +108,20 @@ trait AutotraderStockTrait
     public function getStockFeatures(int $advertiserId, string $stockId)
     {
         $url = implode('/', [AutotraderEndpoints::Stock->value, $stockId, 'features']);
+
+        return $this->performRequest(HttpMethods::GET, $url . '?advertiserId=' . $advertiserId, [], []);
+    }
+
+    /**
+     * Get a real-time summary of state related information for a given stock ID
+     *
+     * @param int $advertiserId The advertiser ID
+     * @param string $stockId The stock ID
+     * @return array
+     */
+    public function getStockSummary(int $advertiserId, string $stockId)
+    {
+        $url = implode('/', [AutotraderEndpoints::Stock->value, $stockId, 'summary']);
 
         return $this->performRequest(HttpMethods::GET, $url . '?advertiserId=' . $advertiserId, [], []);
     }

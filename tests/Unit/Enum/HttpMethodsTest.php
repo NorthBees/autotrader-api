@@ -14,8 +14,8 @@ describe('HttpMethods enum', function () {
     });
 
     it('can be converted to string', function () {
-        expect((string) HttpMethods::GET)->toBe('get');
-        expect((string) HttpMethods::POST)->toBe('post');
+        expect(HttpMethods::GET->value)->toBe('get');
+        expect(HttpMethods::POST->value)->toBe('post');
     });
 
     it('has all expected cases', function () {

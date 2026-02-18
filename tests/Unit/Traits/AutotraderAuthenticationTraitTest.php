@@ -80,9 +80,12 @@ describe('AutotraderAuthenticationTrait', function () {
     it('throws AutotraderException for other errors', function () {
         Http::preventStrayRequests();
         Http::fake([
-            'https://api-sandbox.autotrader.co.uk/authenticate' => Http::response([], 999),
+            'https://api-sandbox.autotrader.co.uk/authenticate' => Http::response([
+                'message' => 'Service Unavailable',
+                'code' => 503,
+            ], 503),
         ]);
 
         $this->testInstance->getAuthenticationCode();
-    })->throws(AutotraderException::class);
+    })->throws(AutotraderFailedConnectionException::class);
 })->group('traits', 'authentication');
