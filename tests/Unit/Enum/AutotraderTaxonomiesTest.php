@@ -28,11 +28,11 @@ describe('AutotraderTaxonomies enum', function () {
             'vehicleTypes', 'makes', 'models', 'generations', 'derivatives',
             'features', 'prices', 'fuelTypes', 'transmissionTypes', 'bodyTypes'
         );
-        expect($cases)->toHaveCount(22); // All the cases defined in the enum
+        expect($cases)->toHaveCount(21); // All the cases defined in the enum
     });
 
     it('can be used in string context', function () {
-        expect((string) AutotraderTaxonomies::VEHICLETYPES)->toBe('vehicleTypes');
-        expect((string) AutotraderTaxonomies::MAKES)->toBe('makes');
+        expect(AutotraderTaxonomies::VEHICLETYPES->value)->toBe('vehicleTypes');
+        expect(AutotraderTaxonomies::MAKES->value)->toBe('makes');
     });
 })->group('enum', 'taxonomies');

@@ -22,7 +22,7 @@ it('only accepts historic dates', function (): void {
     ]);
 
     $response = app(AutotraderApi::class)->getHistoricValuation(
-        'test-advertiser-id',
+        123456,
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
         \Carbon\Carbon::parse('2015-01-30'),
@@ -57,7 +57,7 @@ it('can request history valuation', function (): void {
     ]);
 
     $response = app(AutotraderApi::class)->getHistoricValuation(
-        'test-advertiser-id',
+        123456,
         '8d0933dd565e328caa7152688f3b18ce',
         80000,
         \Carbon\Carbon::parse('2015-01-30'),

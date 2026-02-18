@@ -24,7 +24,7 @@ describe('VehicleTypes enum', function () {
     });
 
     it('can be used in string context', function () {
-        expect((string) VehicleTypes::Car)->toBe('Car');
-        expect((string) VehicleTypes::Bike)->toBe('Bike');
+        expect(VehicleTypes::Car->value)->toBe('Car');
+        expect(VehicleTypes::Bike->value)->toBe('Bike');
     });
 })->group('enum', 'vehicle-types');

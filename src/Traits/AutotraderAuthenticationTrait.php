@@ -39,11 +39,11 @@ trait AutotraderAuthenticationTrait
             return $response->json('access_token');
         }
 
-        if ($response->failed()) {
-            throw new AutotraderFailedConnectionException($response->json('message'), $response->json('code'));
-        }
         if ($response->clientError()) {
             throw new AutotraderClientErrorException($response->json('message'), $response->json('code'));
+        }
+        if ($response->failed()) {
+            throw new AutotraderFailedConnectionException($response->json('message'), $response->json('code'));
         }
 
         throw new AutotraderException('Unable to connect to Autotrader');

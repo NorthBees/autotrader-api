@@ -36,7 +36,7 @@ it('can request vehicles data', function (): void {
         ),
     ]);
 
-    $response = app(AutotraderApi::class)->getVehicle('test-advertiser-id', 'dc64agz');
+    $response = app(AutotraderApi::class)->getVehicle(123456, 'dc64agz', 85000);
 
     expect($response)->toHaveKey('vehicle');
 })->group('autotrader-api', 'vehicle');

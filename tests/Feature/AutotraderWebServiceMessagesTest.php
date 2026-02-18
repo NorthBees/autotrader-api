@@ -2,95 +2,145 @@
 
 declare(strict_types=1);
 
-todo('mock requests');
+use Illuminate\Support\Facades\Http;
+use NorthBees\AutotraderApi\AutotraderApi;
+use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
+
+beforeEach(function () {
+    $this->token = fake()->uuid;
+    $this->advertiserId = 123456;
+
+    Http::preventStrayRequests();
+});
+
 it('can get messages', function (): void {
     $messagesId = '4ae0fc61-f92f-4fa6-9cd5-a8f31a2616c7';
-    $advertiserId = config('autotrader.default_advertiser_id');
-    
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->getMessages($advertiserId, $messagesId);
-    
+
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expires_at' => now()->addMonth()->toISOString(),
+            'access_token' => $this->token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+            'messagesId' => $messagesId,
+            'consumerLastRead' => '2024-01-15T10:30:00Z',
+            'consumerLastReadStatus' => 'Read',
+            'advertiserLastRead' => '2024-01-15T11:00:00Z',
+            'advertiserLastReadStatus' => 'Read',
+            'messages' => [
+                [
+                    'from' => 'consumer',
+                    'at' => '2024-01-15T10:30:00Z',
+                    'message' => 'Hello, is this vehicle still available?',
+                ],
+            ],
+        ], 200),
+    ]);
+
+    $response = app(AutotraderApi::class)->getMessages($this->advertiserId, $messagesId);
+
     expect($response)->toHaveKey('messagesId')
         ->toHaveKey('consumerLastRead')
         ->toHaveKey('consumerLastReadStatus')
         ->toHaveKey('advertiserLastRead')
         ->toHaveKey('advertiserLastReadStatus')
         ->toHaveKey('messages');
-        
+
     expect($response['messagesId'])->toEqual($messagesId);
     expect($response['messages'])->toBeArray();
-    
-    if (!empty($response['messages'])) {
-        expect($response['messages'][0])->toHaveKey('from')
-            ->toHaveKey('at')
-            ->toHaveKey('message');
-    }
+
+    expect($response['messages'][0])->toHaveKey('from')
+        ->toHaveKey('at')
+        ->toHaveKey('message');
 })->group('autotrader-api', 'messages');
 
 it('can mark messages as read', function (): void {
     $messagesId = '4ae0fc61-f92f-4fa6-9cd5-a8f31a2616c7';
-    $advertiserId = config('autotrader.default_advertiser_id');
-    
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->markMessagesAsRead($advertiserId, $messagesId);
-    
-    // A 200 OK response is returned on success
+
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expires_at' => now()->addMonth()->toISOString(),
+            'access_token' => $this->token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+            'advertiserLastReadStatus' => 'Read',
+        ], 200),
+    ]);
+
+    $response = app(AutotraderApi::class)->markMessagesAsRead($this->advertiserId, $messagesId);
+
     expect($response)->toBeArray();
 })->group('autotrader-api', 'messages');
 
 it('can send a new message with dealId', function (): void {
-    $advertiserId = config('autotrader.default_advertiser_id');
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expires_at' => now()->addMonth()->toISOString(),
+            'access_token' => $this->token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+            'messagesId' => 'new-messages-id',
+        ], 200),
+    ]);
+
     $messageData = [
         'dealId' => '1a0e00aa-459b-162d-a23a-adcbb1110f04',
-        'message' => 'The new message to send'
+        'message' => 'The new message to send',
     ];
-    
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->sendMessage($advertiserId, $messageData);
-    
-    // A 200 OK response is returned on success
+
+    $response = app(AutotraderApi::class)->sendMessage($this->advertiserId, $messageData);
+
     expect($response)->toBeArray();
 })->group('autotrader-api', 'messages');
 
 it('can send a new message with messagesId', function (): void {
-    $advertiserId = config('autotrader.default_advertiser_id');
+    Http::fake([
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            'expires_at' => now()->addMonth()->toISOString(),
+            'access_token' => $this->token,
+        ], 200),
+        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Messages->value . '*' => Http::response([
+            'messagesId' => 'e00a1a0a-162d-459b-a23a-0f04adcbb111',
+        ], 200),
+    ]);
+
     $messageData = [
         'messagesId' => 'e00a1a0a-162d-459b-a23a-0f04adcbb111',
-        'message' => 'The new message to send'
+        'message' => 'The new message to send',
     ];
-    
-    $response = app(\NorthBees\AutotraderApi\AutotraderApi::class)->sendMessage($advertiserId, $messageData);
-    
-    // A 200 OK response is returned on success
+
+    $response = app(AutotraderApi::class)->sendMessage($this->advertiserId, $messageData);
+
     expect($response)->toBeArray();
 })->group('autotrader-api', 'messages');
 
 it('validates message length', function (): void {
-    $advertiserId = config('autotrader.default_advertiser_id');
     $longMessage = str_repeat('a', 1501); // Exceeds 1500 character limit
-    
+
     $messageData = [
         'dealId' => '1a0e00aa-459b-162d-a23a-adcbb1110f04',
-        'message' => $longMessage
+        'message' => $longMessage,
     ];
-    
-    expect(fn() => app(\NorthBees\AutotraderApi\AutotraderApi::class)->sendMessage($advertiserId, $messageData))
-        ->toThrow(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
+
+    expect(fn () => app(AutotraderApi::class)->sendMessage($this->advertiserId, $messageData))
+        ->toThrow(AutotraderException::class);
 })->group('autotrader-api', 'messages');
 
 it('validates required message data', function (): void {
-    $advertiserId = config('autotrader.default_advertiser_id');
-    
     // Missing message content
     $messageData = [
-        'dealId' => '1a0e00aa-459b-162d-a23a-adcbb1110f04'
+        'dealId' => '1a0e00aa-459b-162d-a23a-adcbb1110f04',
     ];
-    
-    expect(fn() => app(\NorthBees\AutotraderApi\AutotraderApi::class)->sendMessage($advertiserId, $messageData))
-        ->toThrow(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
-        
+
+    expect(fn () => app(AutotraderApi::class)->sendMessage($this->advertiserId, $messageData))
+        ->toThrow(AutotraderException::class);
+
     // Missing both dealId and messagesId
     $messageData = [
-        'message' => 'Test message'
+        'message' => 'Test message',
     ];
-    
-    expect(fn() => app(\NorthBees\AutotraderApi\AutotraderApi::class)->sendMessage($advertiserId, $messageData))
-        ->toThrow(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
+
+    expect(fn () => app(AutotraderApi::class)->sendMessage($this->advertiserId, $messageData))
+        ->toThrow(AutotraderException::class);
 })->group('autotrader-api', 'messages');

@@ -37,7 +37,7 @@ it('can request taxonomy data', function (): void {
         ),
     ]);
 
-    $response = app(AutotraderApi::class)->getVehicleTypes('test-advertiser-id');
+    $response = app(AutotraderApi::class)->getVehicleTypes(123456);
     expect($response)->toHaveKey('vehicleTypes');
 
 })->group('autotrader-api', 'taxonomy');

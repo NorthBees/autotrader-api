@@ -26,7 +26,7 @@ describe('AutotraderLifecycleStates enum', function () {
     });
 
     it('can be used in string context', function () {
-        expect((string) AutotraderLifecycleStates::FORECOURT)->toBe('FORECOURT');
-        expect((string) AutotraderLifecycleStates::SOLD)->toBe('SOLD');
+        expect(AutotraderLifecycleStates::FORECOURT->value)->toBe('FORECOURT');
+        expect(AutotraderLifecycleStates::SOLD->value)->toBe('SOLD');
     });
 })->group('enum', 'lifecycle-states');
