@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Traits\AutotraderAuthenticationTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderDealsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderFinanceTrait;
+use NorthBees\AutotraderApi\Traits\AutotraderIntegrationsTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderStockTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderTaxonomyTrait;
 use NorthBees\AutotraderApi\Traits\AutotraderValuationsTrait;
@@ -52,12 +54,12 @@ describe('AutotraderApi class', function () {
         // List of methods that should have advertiserId parameter as int
         $methodsWithAdvertiserId = [
             'getCalls', 'getDelivery', 'getDeals', 'getDeal', 'completeDeal', 'cancelDeal', 
-            'updateDeal', 'removeDealPartExchange', 'removeDealFinanceApplication',
+            'updateDeal', 'removeDealPartExchange', 'removeDealFinanceApplication', 'createDeal',
             'getMessages', 'markMessagesAsRead', 'sendMessage',
             'submitFinanceApplication', 'getFinanceOptions', 'updateFinanceApplication',
             'generateDescription', 'imageOrder', 'addImage',
             'searchVehicles', 'getSavedSearches', 'saveSearch',
-            'getStockList', 'createStock', 'updateStock', 'getStockFeatures',
+            'getStockList', 'createStock', 'updateStock', 'getStockFeatures', 'getStockSummary',
             'getVehicleTypes', 'getMakes', 'getModels', 'getGenerations', 'getDerivatives', 
             'getFeatures', 'getPrices', 'getTechnicalData', 'getFacets', 'getTaxonomy',
             'getValuation', 'getFutureValuation', 'getHistoricValuation', 'getVehicle', 'getVehicleMetrics'

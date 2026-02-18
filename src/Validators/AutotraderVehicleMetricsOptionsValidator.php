@@ -28,6 +28,8 @@ class AutotraderVehicleMetricsOptionsValidator extends AbstractAutotraderValidat
 
 
             'totalPrice' => 'nullable|numeric|min:0',
+
+            'vatStatus' => 'nullable|string',
         ];
     }
 }

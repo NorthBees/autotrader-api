@@ -25,5 +25,6 @@ enum AutotraderEndpoints: string
     case Messages = 'messages';
     case Delivery = 'delivery';
     case Calls = 'calls';
+    case Integrations = 'integrations';
 
 }

@@ -26,7 +26,7 @@ describe('AutotraderEndpoints enum', function () {
             'authenticate', 'vehicles', 'taxonomy', 'stock', 
             'images', 'search', 'valuations', 'future-valuations',
             'historic-valuations', 'vehicle-metrics', 'advertisers',
-            'co-driver/stock', 'finance'
+            'co-driver/stock', 'finance', 'integrations'
         );
     });
 })->group('enum', 'endpoints');

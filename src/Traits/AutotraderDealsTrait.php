@@ -15,6 +15,14 @@ trait AutotraderDealsTrait
     /**
      * Get a list of deals for an advertiser with optional filtering
      *
+     * Response includes (as of Nov 2025):
+     * - buyingSignals: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences
+     *
+     * Response field deprecations (as of Jan 2026):
+     * - stock.reservationStatus is @deprecated - use reservation object instead
+     * - consumerReservationFeeStatus is @deprecated - use reservation object instead
+     * The reservation object provides reservation status values including Requested and Reserved.
+     *
      * @param int $advertiserId The advertiser ID
      * @param array $filters Optional filters (page, from, to)
      * @return array
@@ -42,6 +50,14 @@ trait AutotraderDealsTrait
 
     /**
      * Get a specific deal by ID
+     *
+     * Response includes (as of Nov 2025):
+     * - buyingSignals: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences
+     *
+     * Response field deprecations (as of Jan 2026):
+     * - stock.reservationStatus is @deprecated - use reservation object instead
+     * - consumerReservationFeeStatus is @deprecated - use reservation object instead
+     * The reservation object provides reservation status values including Requested and Reserved.
      *
      * @param int $advertiserId The advertiser ID
      * @param string $dealId The deal ID
@@ -145,5 +161,25 @@ trait AutotraderDealsTrait
         return $this->updateDeal($advertiserId, $dealId, [
             'financeApplication' => null
         ]);
+    }
+
+    /**
+     * Create a new deal for an advertiser
+     *
+     * Allows retailers to create Deals which have originated outside of the Autotrader consumer journey.
+     * Following creation, the deal can be managed via the Deals API.
+     *
+     * @param int $advertiserId The advertiser ID
+     * @param array $dealData The deal data
+     * @return array
+     */
+    public function createDeal(int $advertiserId, array $dealData)
+    {
+        return $this->performRequest(
+            HttpMethods::POST,
+            AutotraderEndpoints::Deals->value . '?advertiserId=' . $advertiserId,
+            [],
+            $dealData
+        );
     }
 }

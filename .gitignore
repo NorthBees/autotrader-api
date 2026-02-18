@@ -7,6 +7,7 @@ storage/*.key
 .env
 Homestead.yaml
 Homestead.json
+/.idea
 /.vagrant
 .phpunit.result.cache
 composer.lock

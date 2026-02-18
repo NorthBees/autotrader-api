@@ -41,6 +41,7 @@ trait AutotraderVehicleMetricsTrait
             'features' => null,
             'saleTargetDaysInStock' => null,
             'saleTargetDaysToSell' => null,
+            'vatStatus' => null,
         ],
     ): mixed {
         $formattedOptions = $this->formatVehicleMetricOptions($options);

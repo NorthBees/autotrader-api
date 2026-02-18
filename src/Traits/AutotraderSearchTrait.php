@@ -13,7 +13,16 @@ trait AutotraderSearchTrait
 {
     /**
      * Search for vehicles
-     * Supports factoryCodes and wheelbaseMM fields
+     * Supports factoryCodes, wheelbaseMM, and financeOffers fields
+     *
+     * Search criteria supports the following finance parameters:
+     * - monthlyPriceOption: New finance search parameter supporting additional mileages, deposits, terms
+     * - financeOption: @deprecated Use monthlyPriceOption instead
+     *
+     * Response includes:
+     * - financeOffers.headlineOffer: Available when financeOffers option is enabled
+     * - vehicle.origin: Indicates if the vehicle is UK or Non UK specification
+     * - rarityRating, valueRating: Autotrader intelligence ratings for vehicle features
      */
     public function searchVehicles(int $advertiserId, array $searchCriteria = [], array $options = [
         'vehicle' => "true",
@@ -26,6 +35,7 @@ trait AutotraderSearchTrait
         'responseMetrics' => "false",
         'factoryCodes' => "false",
         'wheelbaseMM' => "false",
+        'financeOffers' => "false",
     ])
     {
         $validator = Validator::make($searchCriteria, [
@@ -48,6 +58,11 @@ trait AutotraderSearchTrait
             'postcode' => 'nullable|string',
             'factoryCodes' => 'nullable|array',
             'wheelbaseMM' => 'nullable|integer|min:0',
+            'monthlyPriceOption' => 'nullable|array',
+            'monthlyPriceOption.mileage' => 'nullable|integer|min:0',
+            'monthlyPriceOption.deposit' => 'nullable|numeric|min:0',
+            'monthlyPriceOption.term' => 'nullable|integer|min:0',
+            'financeOption' => 'nullable|array',
         ]);
 
         if ($validator->fails()) {
