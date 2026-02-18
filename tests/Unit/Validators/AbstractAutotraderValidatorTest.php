@@ -13,7 +13,7 @@ class TestValidator extends AbstractAutotraderValidator
         return [
             'name' => 'required|string',
             'email' => 'required|email',
-            'age' => 'integer|min:18'
+            'age' => 'integer|min:18',
         ];
     }
 
@@ -21,21 +21,21 @@ class TestValidator extends AbstractAutotraderValidator
     {
         return [
             'name.required' => 'Name is mandatory',
-            'email.email' => 'Invalid email format'
+            'email.email' => 'Invalid email format',
         ];
     }
 }
 
 describe('AbstractAutotraderValidator', function () {
     beforeEach(function () {
-        $this->validator = new TestValidator();
+        $this->validator = new TestValidator;
     });
 
     it('can validate correct data', function () {
         $data = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
-            'age' => 25
+            'age' => 25,
         ];
 
         $result = $this->validator->validate($data);
@@ -47,7 +47,7 @@ describe('AbstractAutotraderValidator', function () {
         $data = [
             'name' => '',
             'email' => 'invalid-email',
-            'age' => 15
+            'age' => 15,
         ];
 
         $this->validator->validate($data);
@@ -58,7 +58,7 @@ describe('AbstractAutotraderValidator', function () {
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'age' => 25,
-            'extra_field' => 'should be removed'
+            'extra_field' => 'should be removed',
         ];
 
         $result = $this->validator->validate($data);
@@ -69,11 +69,12 @@ describe('AbstractAutotraderValidator', function () {
 
     it('can validate empty data when no required fields', function () {
         // Create a validator with no required rules
-        $validator = new class extends AbstractAutotraderValidator {
+        $validator = new class extends AbstractAutotraderValidator
+        {
             protected function getRules(): array
             {
                 return [
-                    'optional_field' => 'string'
+                    'optional_field' => 'string',
                 ];
             }
         };
@@ -86,7 +87,7 @@ describe('AbstractAutotraderValidator', function () {
     it('uses custom messages', function () {
         $data = [
             'name' => '',
-            'email' => 'invalid-email'
+            'email' => 'invalid-email',
         ];
 
         try {

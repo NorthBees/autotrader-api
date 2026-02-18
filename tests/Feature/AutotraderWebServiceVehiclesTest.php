@@ -20,16 +20,16 @@ it('can request vehicles data', function (): void {
             'derivative' => '1.6 D2 R-Design Hatchback 5dr Diesel Manual (88 g/km, 115 bhp)',
             'derivativeId' => '8d0933dd565e328caa7152688f3b18ce',
             'vehicleType' => 'Car',
-        ]
+        ],
     ];
 
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expiry' => now()->addMonth(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Vehicles->value . '*' => Http::response(
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Vehicles->value.'*' => Http::response(
             $mockVehicleResponse,
             200,
             ['content_type' => 'application/json']

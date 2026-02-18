@@ -25,17 +25,17 @@ trait AutotraderSearchTrait
      * - rarityRating, valueRating: Autotrader intelligence ratings for vehicle features
      */
     public function searchVehicles(int $advertiserId, array $searchCriteria = [], array $options = [
-        'vehicle' => "true",
-        'advertiser' => "true",
-        'adverts' => "true",
-        'finance' => "false",
-        'metadata' => "true",
-        'features' => "false",
-        'media' => "false",
-        'responseMetrics' => "false",
-        'factoryCodes' => "false",
-        'wheelbaseMM' => "false",
-        'financeOffers' => "false",
+        'vehicle' => 'true',
+        'advertiser' => 'true',
+        'adverts' => 'true',
+        'finance' => 'false',
+        'metadata' => 'true',
+        'features' => 'false',
+        'media' => 'false',
+        'responseMetrics' => 'false',
+        'factoryCodes' => 'false',
+        'wheelbaseMM' => 'false',
+        'financeOffers' => 'false',
     ])
     {
         $validator = Validator::make($searchCriteria, [
@@ -84,7 +84,7 @@ trait AutotraderSearchTrait
     {
         return $this->performRequest(
             HttpMethods::GET,
-            AutotraderEndpoints::Search->value . '/saved',
+            AutotraderEndpoints::Search->value.'/saved',
             [],
             ['advertiserId' => $advertiserId]
         );
@@ -97,7 +97,7 @@ trait AutotraderSearchTrait
     {
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::Search->value . '/saved',
+            AutotraderEndpoints::Search->value.'/saved',
             ['advertiserId' => $advertiserId],
             $searchData
         );

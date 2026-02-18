@@ -11,14 +11,10 @@ trait AutotraderCallsTrait
 {
     /**
      * Get call details by call ID
-     *
-     * @param int $advertiserId
-     * @param string $callId
-     * @return array
      */
     public function getCalls(int $advertiserId, string $callId): array
     {
-        $url = AutotraderEndpoints::Calls->value . '/' . $callId . '?advertiserId=' . $advertiserId;
+        $url = AutotraderEndpoints::Calls->value.'/'.$callId.'?advertiserId='.$advertiserId;
 
         return $this->performRequest(HttpMethods::GET, $url, [], []);
     }

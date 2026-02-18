@@ -6,7 +6,7 @@ use Illuminate\Validation\ValidationException;
 use NorthBees\AutotraderApi\Validators\AutotraderVehicleMetricsOptionsValidator;
 
 describe('AutotraderVehicleMetricsOptionsValidator', function () {
-    it("should return an empty array when the input is empty", function () {
+    it('should return an empty array when the input is empty', function () {
         $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $result = $validator->validate([]);
@@ -14,7 +14,7 @@ describe('AutotraderVehicleMetricsOptionsValidator', function () {
         expect($result)->toBe([]);
     });
 
-    it("should return the validated array when the input is valid", function () {
+    it('should return the validated array when the input is valid', function () {
         $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $dataValidations = collect([
@@ -48,7 +48,7 @@ describe('AutotraderVehicleMetricsOptionsValidator', function () {
         });
     });
 
-    it("should return the validated array with any unexpected fields removed", function () {
+    it('should return the validated array with any unexpected fields removed', function () {
         $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $data = [
@@ -65,7 +65,7 @@ describe('AutotraderVehicleMetricsOptionsValidator', function () {
         expect($result)->not->toHaveKey('unexpectedField');
     });
 
-    it("should throw a validation exception when advertiserIdLocations and coordinateLocations are both set", function () {
+    it('should throw a validation exception when advertiserIdLocations and coordinateLocations are both set', function () {
         $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $data = [
@@ -81,7 +81,7 @@ describe('AutotraderVehicleMetricsOptionsValidator', function () {
         $validator->validate($data);
     });
 
-    it("should throw a validation exception when saleTargetDaysInStock is set without saleTargetDaysToSell", function () {
+    it('should throw a validation exception when saleTargetDaysInStock is set without saleTargetDaysToSell', function () {
         $validator = app(AutotraderVehicleMetricsOptionsValidator::class);
 
         $data = [

@@ -36,9 +36,9 @@ class AutotraderApi
 {
     use AutotraderAdvertisersTrait;
     use AutotraderAuthenticationTrait;
-    use AutotraderDealsTrait;
     use AutotraderCallsTrait;
     use AutotraderCoDriverTrait;
+    use AutotraderDealsTrait;
     use AutotraderDeliveryTrait;
     use AutotraderFinanceTrait;
     use AutotraderFutureValuationsTrait;
@@ -73,7 +73,6 @@ class AutotraderApi
         $this->handleUnsuccessfulResponse($response);
     }
 
-
     protected function performRequestWithoutAdvertiserId(
         HttpMethods $method,
         string $url,
@@ -94,7 +93,6 @@ class AutotraderApi
     /**
      * Handle an unsuccessful response form the Autotrader API.
      *
-     * @param Response $response
      *
      * @throws AutotraderException
      */
@@ -112,13 +110,13 @@ class AutotraderApi
         // and build the message from the warnings
 
         if ($code === null) {
-            $code = $response->getStatusCode();
+            $code = $response->status();
         }
 
         $warnings = $response->json('warnings');
         if ($warnings !== null) {
             $message = collect($warnings)->map(
-                fn($warning) => $warning['message'],
+                fn ($warning) => $warning['message'],
             )->implode('; ');
             throw new AutotraderWarning($message, $code);
         }
@@ -129,7 +127,6 @@ class AutotraderApi
 
         throw new AutotraderException($message, $code);
     }
-
 
     protected function getEndpoint(): string
     {

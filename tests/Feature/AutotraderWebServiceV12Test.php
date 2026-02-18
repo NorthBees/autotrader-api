@@ -17,11 +17,11 @@ describe('Version 1.2 API Changes', function () {
 
         Http::preventStrayRequests();
         Http::fake([
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
                 'expiry' => now()->addMonth(),
                 'access_token' => $token,
             ], 200),
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Deals->value . '*' => Http::response(
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Deals->value.'*' => Http::response(
                 $mockDealResponse,
                 201,
                 ['content_type' => 'application/json']
@@ -45,11 +45,11 @@ describe('Version 1.2 API Changes', function () {
 
         Http::preventStrayRequests();
         Http::fake([
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
                 'expiry' => now()->addMonth(),
                 'access_token' => $token,
             ], 200),
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Stock->value . '/*' => Http::response(
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Stock->value.'/*' => Http::response(
                 $mockSummaryResponse,
                 200,
                 ['content_type' => 'application/json']
@@ -80,11 +80,11 @@ describe('Version 1.2 API Changes', function () {
 
         Http::preventStrayRequests();
         Http::fake([
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
                 'expiry' => now()->addMonth(),
                 'access_token' => $token,
             ], 200),
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Search->value . '*' => Http::response(
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Search->value.'*' => Http::response(
                 $mockSearchResponse,
                 200,
                 ['content_type' => 'application/json']
@@ -110,11 +110,11 @@ describe('Version 1.2 API Changes', function () {
 
         Http::preventStrayRequests();
         Http::fake([
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
                 'expiry' => now()->addMonth(),
                 'access_token' => $token,
             ], 200),
-            AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Search->value . '*' => Http::response(
+            AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Search->value.'*' => Http::response(
                 $mockSearchResponse,
                 200,
                 ['content_type' => 'application/json']
@@ -146,16 +146,16 @@ describe('Version 1.2 API Changes', function () {
     })->group('autotrader-api', 'stock', 'v1.2');
 
     it('getDerivatives accepts oemModelCode parameter', function (): void {
-        $api = new AutotraderApi();
+        $api = new AutotraderApi;
         $reflection = new ReflectionMethod($api, 'getDerivatives');
         $parameters = $reflection->getParameters();
-        $paramNames = array_map(fn($p) => $p->getName(), $parameters);
+        $paramNames = array_map(fn ($p) => $p->getName(), $parameters);
 
         expect($paramNames)->toContain('oemModelCode');
     })->group('autotrader-api', 'taxonomy', 'v1.2');
 
     it('getVehicleMetrics accepts vatStatus option', function (): void {
-        $api = new AutotraderApi();
+        $api = new AutotraderApi;
         $reflection = new ReflectionMethod($api, 'getVehicleMetrics');
         $parameters = $reflection->getParameters();
 

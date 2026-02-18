@@ -11,8 +11,8 @@ it('can authenticate with Autotrader', function (): void {
     $token = fake()->uuid;
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::ProductionUrl->value . '/*',
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response(
+        AutotraderEndpoints::ProductionUrl->value.'/*',
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response(
             [
                 'expiry' => now()->addMonth(),
                 'access_token' => $token,

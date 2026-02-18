@@ -14,14 +14,15 @@ trait AutotraderMessagesTrait
     /**
      * Get messages for a specific message ID.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $messagesId The messages ID to retrieve
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $messagesId  The messages ID to retrieve
      * @return array The messages response
+     *
      * @throws AutotraderException
      */
     public function getMessages(int $advertiserId, string $messagesId): array
     {
-        $url = AutotraderEndpoints::Messages->value . '/' . $messagesId . '?advertiserId=' . $advertiserId;
+        $url = AutotraderEndpoints::Messages->value.'/'.$messagesId.'?advertiserId='.$advertiserId;
 
         return $this->performRequest(HttpMethods::GET, $url, [], []);
     }
@@ -29,17 +30,18 @@ trait AutotraderMessagesTrait
     /**
      * Mark messages as read by updating the advertiser last read status.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $messagesId The messages ID to mark as read
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $messagesId  The messages ID to mark as read
      * @return array The response
+     *
      * @throws AutotraderException
      */
     public function markMessagesAsRead(int $advertiserId, string $messagesId): array
     {
-        $url = AutotraderEndpoints::Messages->value . '/' . $messagesId . '?advertiserId=' . $advertiserId;
-        
+        $url = AutotraderEndpoints::Messages->value.'/'.$messagesId.'?advertiserId='.$advertiserId;
+
         $data = [
-            'advertiserLastReadStatus' => 'Read'
+            'advertiserLastReadStatus' => 'Read',
         ];
 
         return $this->performRequest(HttpMethods::PATCH, $url, [], $data);
@@ -48,9 +50,10 @@ trait AutotraderMessagesTrait
     /**
      * Send a new message.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param array $messageData The message data (must contain either 'dealId' for new conversation or 'messagesId' for existing, plus 'message')
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $messageData  The message data (must contain either 'dealId' for new conversation or 'messagesId' for existing, plus 'message')
      * @return array The response
+     *
      * @throws AutotraderException
      */
     public function sendMessage(int $advertiserId, array $messageData): array
@@ -65,7 +68,7 @@ trait AutotraderMessagesTrait
             throw new AutotraderException((string) $validator->errors());
         }
 
-        $url = AutotraderEndpoints::Messages->value . '?advertiserId=' . $advertiserId;
+        $url = AutotraderEndpoints::Messages->value.'?advertiserId='.$advertiserId;
 
         return $this->performRequest(HttpMethods::POST, $url, [], $messageData);
     }

@@ -22,8 +22,8 @@ describe('AutotraderTaxonomies enum', function () {
 
     it('has all expected taxonomy cases', function () {
         $cases = AutotraderTaxonomies::cases();
-        $values = array_map(fn($case) => $case->value, $cases);
-        
+        $values = array_map(fn ($case) => $case->value, $cases);
+
         expect($values)->toContain(
             'vehicleTypes', 'makes', 'models', 'generations', 'derivatives',
             'features', 'prices', 'fuelTypes', 'transmissionTypes', 'bodyTypes'

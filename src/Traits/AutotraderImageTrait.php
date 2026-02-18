@@ -14,7 +14,7 @@ trait AutotraderImageTrait
     public function addImage(int $advertiserId, $file)
     {
 
-        $url = implode('/', [$this->getEndpoint(), AutotraderEndpoints::Images->value . '?advertiserId=' . $advertiserId]);
+        $url = implode('/', [$this->getEndpoint(), AutotraderEndpoints::Images->value.'?advertiserId='.$advertiserId]);
 
         $response = Http::withToken($this->getAuthenticationCode())->attach(
             'file',

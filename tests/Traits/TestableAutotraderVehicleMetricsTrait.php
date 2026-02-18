@@ -17,12 +17,8 @@ class TestableAutotraderVehicleMetricsTrait
     use AutotraderVehicleMetricsTrait;
 
     /**
-     * @param array $options
-     *
      * @throws ValidationException
      * @throws BindingResolutionException
-     *
-     * @return array
      */
     public function publicFormatVehicleMetricOptions(array $options): array
     {

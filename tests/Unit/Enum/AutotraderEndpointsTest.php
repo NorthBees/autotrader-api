@@ -20,10 +20,10 @@ describe('AutotraderEndpoints enum', function () {
 
     it('has all expected endpoint cases', function () {
         $cases = AutotraderEndpoints::cases();
-        $values = array_map(fn($case) => $case->value, $cases);
-        
+        $values = array_map(fn ($case) => $case->value, $cases);
+
         expect($values)->toContain(
-            'authenticate', 'vehicles', 'taxonomy', 'stock', 
+            'authenticate', 'vehicles', 'taxonomy', 'stock',
             'images', 'search', 'valuations', 'future-valuations',
             'historic-valuations', 'vehicle-metrics', 'advertisers',
             'co-driver/stock', 'finance', 'integrations'

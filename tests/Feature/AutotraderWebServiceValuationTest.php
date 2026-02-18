@@ -7,25 +7,25 @@ use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 
 it('can request valuation', function (): void {
-    
+
     $token = fake()->uuid;
     $mockValuationResponse = [
         'valuations' => [
             'valuation' => [
                 'retail' => 5000,
                 'trade' => 4000,
-                'average' => 4500
-            ]
-        ]
+                'average' => 4500,
+            ],
+        ],
     ];
-    
+
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expiry' => now()->addMonth(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Valuations->value . '*' => Http::response(
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Valuations->value.'*' => Http::response(
             $mockValuationResponse,
             200,
             ['content_type' => 'application/json']

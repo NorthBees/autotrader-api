@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace NorthBees\AutotraderApi\Tests;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use NorthBees\AutotraderApi\AutotraderApiServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {

@@ -14,10 +14,10 @@ describe('VehicleTypes enum', function () {
 
     it('has all vehicle types', function () {
         $cases = VehicleTypes::cases();
-        $values = array_map(fn($case) => $case->value, $cases);
-        
+        $values = array_map(fn ($case) => $case->value, $cases);
+
         expect($values)->toContain(
-            'Bike', 'Car', 'Caravan', 'Crossover', 
+            'Bike', 'Car', 'Caravan', 'Crossover',
             'Farm', 'Motorhome', 'Plant', 'Truck', 'Van'
         );
         expect($cases)->toHaveCount(9);

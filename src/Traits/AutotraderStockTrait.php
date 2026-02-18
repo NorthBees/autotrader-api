@@ -29,19 +29,19 @@ trait AutotraderStockTrait
      * you can now set tradeAdvert to NOT_PUBLISHED to unpublish the record (as of Feb 2026).
      */
     public function getStockList(int $advertiserId, array $filters = [], array $options = [
-        'vehicle' => "true",
-        'advertiser' => "true",
-        'adverts' => "true",
-        'finance' => "false",
-        'metadata' => "true",
-        'features' => "false",
-        'media' => "false",
-        'responseMetrics' => "false",
-        'check' => "false",
-        'motTests' => "false",
-        'factoryCodes' => "false",
-        'priceIndicatorRatingBands' => "false",
-        'wheelbaseMM' => "false",
+        'vehicle' => 'true',
+        'advertiser' => 'true',
+        'adverts' => 'true',
+        'finance' => 'false',
+        'metadata' => 'true',
+        'features' => 'false',
+        'media' => 'false',
+        'responseMetrics' => 'false',
+        'check' => 'false',
+        'motTests' => 'false',
+        'factoryCodes' => 'false',
+        'priceIndicatorRatingBands' => 'false',
+        'wheelbaseMM' => 'false',
     ])
     {
 
@@ -73,7 +73,7 @@ trait AutotraderStockTrait
 
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::Stock->value . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Stock->value.'?advertiserId='.$advertiserId,
             [],
             $vehicleData,
         );
@@ -86,9 +86,10 @@ trait AutotraderStockTrait
      * you can include tradeAdvert status as NOT_PUBLISHED to unpublish the record.
      * Use AutotraderTradeAdvertStates::NOT_PUBLISHED for the tradeAdvert.status value.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param array $vehicleData The vehicle data including metadata.stockId
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $vehicleData  The vehicle data including metadata.stockId
      * @return array
+     *
      * @throws AutotraderException
      */
     public function updateStock(int $advertiserId, array $vehicleData)
@@ -98,7 +99,7 @@ trait AutotraderStockTrait
 
         return $this->performRequest(
             HttpMethods::PATCH,
-            AutotraderEndpoints::Stock->value . '/' . $vehicleData['metadata']['stockId'] . '?advertiserId=' . $advertiserId,
+            AutotraderEndpoints::Stock->value.'/'.$vehicleData['metadata']['stockId'].'?advertiserId='.$advertiserId,
             [],
             $vehicleData,
         );
@@ -109,20 +110,20 @@ trait AutotraderStockTrait
     {
         $url = implode('/', [AutotraderEndpoints::Stock->value, $stockId, 'features']);
 
-        return $this->performRequest(HttpMethods::GET, $url . '?advertiserId=' . $advertiserId, [], []);
+        return $this->performRequest(HttpMethods::GET, $url.'?advertiserId='.$advertiserId, [], []);
     }
 
     /**
      * Get a real-time summary of state related information for a given stock ID
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $stockId The stock ID
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $stockId  The stock ID
      * @return array
      */
     public function getStockSummary(int $advertiserId, string $stockId)
     {
         $url = implode('/', [AutotraderEndpoints::Stock->value, $stockId, 'summary']);
 
-        return $this->performRequest(HttpMethods::GET, $url . '?advertiserId=' . $advertiserId, [], []);
+        return $this->performRequest(HttpMethods::GET, $url.'?advertiserId='.$advertiserId, [], []);
     }
 }

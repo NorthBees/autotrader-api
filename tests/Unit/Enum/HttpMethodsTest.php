@@ -20,8 +20,8 @@ describe('HttpMethods enum', function () {
 
     it('has all expected cases', function () {
         $cases = HttpMethods::cases();
-        $values = array_map(fn($case) => $case->value, $cases);
-        
+        $values = array_map(fn ($case) => $case->value, $cases);
+
         expect($values)->toContain('get', 'post', 'put', 'patch', 'delete');
         expect($cases)->toHaveCount(5);
     });

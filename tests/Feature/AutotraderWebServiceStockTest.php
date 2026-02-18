@@ -7,26 +7,26 @@ use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 
 it('can request stock list', function (): void {
-    
+
     $token = fake()->uuid;
     $mockStockResponse = [
         'results' => [
             [
                 'metadata' => [
-                    'lifecycleState' => 'FORECOURT'
-                ]
-            ]
+                    'lifecycleState' => 'FORECOURT',
+                ],
+            ],
         ],
-        'totalResults' => 1
+        'totalResults' => 1,
     ];
 
     Http::preventStrayRequests();
     Http::fake([
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Authenticate->value => Http::response([
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Authenticate->value => Http::response([
             'expiry' => now()->addMonth(),
             'access_token' => $token,
         ], 200),
-        AutotraderEndpoints::SandboxUrl->value . '/' . AutotraderEndpoints::Stock->value . '*' => Http::response(
+        AutotraderEndpoints::SandboxUrl->value.'/'.AutotraderEndpoints::Stock->value.'*' => Http::response(
             $mockStockResponse,
             200,
             ['content_type' => 'application/json']

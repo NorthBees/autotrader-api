@@ -5,19 +5,18 @@ declare(strict_types=1);
 use Illuminate\Support\Arr;
 use NorthBees\AutotraderApi\Tests\Traits\TestableAutotraderVehicleMetricsTrait;
 
-$trait = new TestableAutotraderVehicleMetricsTrait();
+$trait = new TestableAutotraderVehicleMetricsTrait;
 
 describe('AutotraderVehicleMetricsTrait', function () use ($trait) {
-    it("formatVehicleMetricOptions will transform features to the expected format", function () use ($trait) {
+    it('formatVehicleMetricOptions will transform features to the expected format', function () use ($trait) {
         $features = [
-            "one",
-            "two",
+            'one',
+            'two',
         ];
 
         $options = ['features' => $features];
 
         $result = $trait->publicFormatVehicleMetricOptions($options);
-
 
         $features = $result['features'];
 
@@ -27,12 +26,11 @@ describe('AutotraderVehicleMetricsTrait', function () use ($trait) {
             ->toBe('two');
     });
 
-    it("formatVehicleMetricOptions will set the expected key when totalPrice is provided", function () use ($trait) {
+    it('formatVehicleMetricOptions will set the expected key when totalPrice is provided', function () use ($trait) {
         $price = 123;
         $options = ['totalPrice' => $price];
 
         $result = $trait->publicFormatVehicleMetricOptions($options);
-
 
         expect(Arr::get($result, 'adverts.retailAdverts.price.amountGBP'))
             ->toBe($price)

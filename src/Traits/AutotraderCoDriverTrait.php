@@ -6,16 +6,19 @@ namespace NorthBees\AutotraderApi\Traits;
 
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 use NorthBees\AutotraderApi\Enum\HttpMethods;
-use NorthBees\Vehicles\Models\Vehicle;
 
 trait AutotraderCoDriverTrait
 {
-    public function generateDescription(int $advertiserId, Vehicle $vehicle)
+    /**
+     * Generate a description for a vehicle using CoDriver.
+     *
+     * @param  object  $vehicle  An object with properties: stock_id, derivative_id, first_registered_at, technicalData (battery_range_miles, owners), mileage
+     */
+    public function generateDescription(int $advertiserId, object $vehicle)
     {
-
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?description=true&advertiserId=' . $advertiserId,
+            AutotraderEndpoints::CoDriver->value.'/'.$vehicle->stock_id.'?description=true&advertiserId='.$advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,
@@ -28,12 +31,16 @@ trait AutotraderCoDriverTrait
         );
     }
 
-    public function imageOrder(int $advertiserId, Vehicle $vehicle)
+    /**
+     * Get the recommended image order for a vehicle using CoDriver.
+     *
+     * @param  object  $vehicle  An object with property: stock_id
+     */
+    public function imageOrder(int $advertiserId, object $vehicle)
     {
-
         return $this->performRequest(
             HttpMethods::POST,
-            AutotraderEndpoints::CoDriver->value . '/' . $vehicle->stock_id . '?images=true&advertiserId=' . $advertiserId,
+            AutotraderEndpoints::CoDriver->value.'/'.$vehicle->stock_id.'?images=true&advertiserId='.$advertiserId,
             [],
             [
                 'advertiserId' => $advertiserId,

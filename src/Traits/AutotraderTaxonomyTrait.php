@@ -68,10 +68,10 @@ trait AutotraderTaxonomyTrait
     /**
      * Get derivatives for a generation.
      *
-     * @param int $advertiserId The advertiser ID
-     * @param string $generationId The generation ID
-     * @param string|null $productionStatus Optional production status filter (Current, Discontinued, Future)
-     * @param string|null $oemModelCode Optional OEM model code to search for a specific derivative (e.g. Volvo derivatives)
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $generationId  The generation ID
+     * @param  string|null  $productionStatus  Optional production status filter (Current, Discontinued, Future)
+     * @param  string|null  $oemModelCode  Optional OEM model code to search for a specific derivative (e.g. Volvo derivatives)
      * @return array
      */
     public function getDerivatives(int $advertiserId, string $generationId, ?string $productionStatus = null, ?string $oemModelCode = null)
@@ -89,7 +89,7 @@ trait AutotraderTaxonomyTrait
     }
 
     public function getFeatures(int $advertiserId, string $derivativeId, Carbon $effectiveDate, ?string $productionStatus = null, array $options = [
-        'factoryCodes' => "false",
+        'factoryCodes' => 'false',
     ])
     {
         return $this->getTaxonomy($advertiserId, AutotraderTaxonomies::FEATURES, array_merge([
