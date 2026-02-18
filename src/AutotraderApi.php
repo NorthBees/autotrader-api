@@ -110,7 +110,7 @@ class AutotraderApi
         // and build the message from the warnings
 
         if ($code === null) {
-            $code = $response->getStatusCode();
+            $code = $response->status();
         }
 
         $warnings = $response->json('warnings');

@@ -27,9 +27,8 @@ trait AutotraderFinanceTrait
         return $this->performRequest(
             HttpMethods::POST,
             AutotraderEndpoints::Finance->value,
-            ['advertiserId' => $advertiserId],
             [],
-            $financeData
+            array_merge(['advertiserId' => $advertiserId], $financeData)
         );
     }
 
@@ -69,8 +68,8 @@ trait AutotraderFinanceTrait
         return $this->performRequest(
             HttpMethods::PATCH,
             AutotraderEndpoints::Finance->value.'/'.$applicationId,
-            ['advertiserId' => $advertiserId],
-            $financeData
+            [],
+            array_merge(['advertiserId' => $advertiserId], $financeData)
         );
     }
 }
