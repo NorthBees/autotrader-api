@@ -1,24 +1,52 @@
 # NorthBees Autotrader API
 
-A Laravel wrapper for the Autotrader API [https://developers.autotrader.co.uk/api]
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/northbees/autotrader-api.svg?style=flat-square)](https://packagist.org/packages/northbees/autotrader-api)
+[![Tests](https://github.com/northbees/autotrader-api/actions/workflows/tests.yml/badge.svg)](https://github.com/northbees/autotrader-api/actions/workflows/tests.yml)
+[![License](https://img.shields.io/packagist/l/northbees/autotrader-api.svg?style=flat-square)](LICENSE.md)
+[![PHP Version](https://img.shields.io/packagist/php-v/northbees/autotrader-api.svg?style=flat-square)](composer.json)
 
-## Authentication
+A Laravel SDK for the [Autotrader API](https://developers.autotrader.co.uk/api) - vehicles, valuations, stock management, finance, deals, and more.
 
-Add the following values to your .env
+## Requirements
 
--   `AUTOTRADER_ENVIRONMENT=` either `sandbox` or `production`
--   `AUTOTRADER_KEY=""` as provided
--   `AUTOTRADER_SECRET=` as provided
+- PHP 8.4+
+- Laravel 11 or 12
 
-Authentication is done automatically when any other call is made. The token will be cached.
+## Installation
+
+```bash
+composer require northbees/autotrader-api
+```
+
+The package uses Laravel's auto-discovery, so the service provider will be registered automatically.
+
+Publish the configuration file:
+
+```bash
+php artisan vendor:publish --tag=autotrader.config
+```
+
+## Configuration
+
+Add the following to your `.env` file:
+
+```env
+AUTOTRADER_ENVIRONMENT=sandbox
+AUTOTRADER_KEY=your-api-key
+AUTOTRADER_SECRET=your-api-secret
+```
+
+See [.env.example](.env.example) for all available options.
+
+Authentication is handled automatically when any API call is made. The token will be cached.
 
 ## Usage
 
-The package is a simple lightweight wrapper around the Autotrader API.
+The package is a lightweight wrapper around the Autotrader API.
 
 ### Vehicle Request
 
-```
+```php
 // Basic Request
 $vehicle = app(AutotraderApi::class)->getVehicle($advertiserId, $vrm);
 
@@ -39,7 +67,7 @@ $vehicle = app(AutotraderApi::class)->getVehicle($advertiserId, $vrm, $mileage, 
 
 ### Search Request
 
-```
+```php
 // Basic search
 $results = app(AutotraderApi::class)->searchVehicles($advertiserId);
 
@@ -80,7 +108,7 @@ $results = app(AutotraderApi::class)->searchVehicles($advertiserId, $searchCrite
 
 ### Valuation Request
 
-```
+```php
 // To request a valuation, first complete a vehicle request
 $vehicle = app(AutotraderApi::class)->getVehicle($advertiserId, $vrm);
 
@@ -98,15 +126,14 @@ $valuation = app(AutotraderApi::class)->getValuation($advertiserId, $vehicle->de
 
 ### Future and Historic Valuation Requests
 
-```
+```php
 $historic = app(AutotraderApi::class)->getHistoricValuation($advertiserId, $vehicle->derivativeId, $historicOdometerReadingMiles, $firstRegistrationDate,  $historicValuationDate);
 $future = app(AutotraderApi::class)->getFutureValuation($advertiserId, $vehicle->derivativeId, $futureOdometerReadingMiles, $firstRegistrationDate,  $futureValuationDate);
-
 ```
 
 ### Taxonomy Requests
 
-```
+```php
 $taxonomy = app(AutotraderApi::class)->getVehicleTypes($advertiserId);
 
 /// Production status is optional, and can be Current, Discontinued or Future
@@ -135,13 +162,13 @@ $taxonomy = app(AutotraderApi::class)->getFacets( $advertiserId,  $facet,  $gene
 
 ### Image Upload
 
-```
+```php
 $imageId = app(AutotraderApi::class)->addImage($advertiserId, $filePath);
 ```
 
 ### Vehicle Metrics
 
-```
+```php
 $valuation = app(AutotraderApi::class)->getMetrics($advertiserId, $vehicle->derivativeId, $mileage, $vehicle->firstRegistrationDate);
 
 // With vatStatus for commercial vehicle No VAT valuations
@@ -152,7 +179,7 @@ $valuation = app(AutotraderApi::class)->getVehicleMetrics($advertiserId, $deriva
 
 ### Finance Requests
 
-```
+```php
 // Get finance options (quotes)
 $financeOptions = app(AutotraderApi::class)->getFinanceOptions($advertiserId, $vehicleData);
 
@@ -196,7 +223,7 @@ $updated = app(AutotraderApi::class)->updateFinanceApplication($advertiserId, $a
 
 ### Stock Requests
 
-```
+```php
 // Get stock list with new features
 $stock = app(AutotraderApi::class)->getStockList($advertiserId, $filters, [
     'factoryCodes' => true,
@@ -221,7 +248,7 @@ $updated = app(AutotraderApi::class)->updateStock($advertiserId, [
 
 ### Deals Requests
 
-```
+```php
 // Get all deals for an advertiser
 $deals = app(AutotraderApi::class)->getDeals($advertiserId);
 
@@ -262,9 +289,10 @@ $response = app(AutotraderApi::class)->removeDealFinanceApplication($advertiserI
 - `reservation` object: Replaces deprecated `stock.reservationStatus` and `consumerReservationFeeStatus`. Includes status values Requested and Reserved (Jan 2026)
 - `stock.reservationStatus` is **deprecated** - use `reservation` object instead (Jan 2026)
 - `consumerReservationFeeStatus` is **deprecated** - use `reservation` object instead (Jan 2026)
+
 ### Messages Requests
 
-```
+```php
 // Get messages for a specific message ID
 $messages = app(AutotraderApi::class)->getMessages($advertiserId, $messagesId);
 
@@ -283,6 +311,7 @@ $response = app(AutotraderApi::class)->sendMessage($advertiserId, [
     'message' => 'Your reply message here'
 ]);
 ```
+
 ### Delivery Requests
 
 ```php
@@ -323,3 +352,41 @@ $advertisers = app(AutotraderApi::class)->getAdvertisers();
 
 - `rarityRating`, `valueRating`: Autotrader intelligence ratings for vehicle features (Aug 2025)
 - Manufacturer warranty details (paintwork, standard, corrosion, battery) provided by manufacturer for brand new vehicles (Oct 2025)
+
+## Testing
+
+```bash
+composer test
+```
+
+## Code Style
+
+This package uses [Laravel Pint](https://laravel.com/docs/pint) for code style:
+
+```bash
+composer lint
+```
+
+## Static Analysis
+
+[PHPStan](https://phpstan.org/) with [Larastan](https://github.com/larastan/larastan) is used for static analysis:
+
+```bash
+composer analyse
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](SECURITY.md) on how to report security vulnerabilities.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

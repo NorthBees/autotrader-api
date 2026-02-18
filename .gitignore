@@ -1,13 +1,8 @@
 /vendor/
-node_modules/
-npm-debug.log
-yarn-error.log
-
-storage/*.key
 .env
-Homestead.yaml
-Homestead.json
 /.idea
 /.vagrant
+.phpunit.cache/
 .phpunit.result.cache
+phpunit.xml
 composer.lock

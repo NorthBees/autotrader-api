@@ -16,13 +16,6 @@ class AutotraderApiServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        $this->publishes([
-            __DIR__ . '/../resources/public' => public_path('vendor/northbees'),
-        ], 'public');
-
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
-
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
@@ -61,24 +54,5 @@ class AutotraderApiServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/autotrader.php' => config_path('autotrader.php'),
         ], 'autotrader.config');
-
-        // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/northbees'),
-        ], 'autotraderapi.views');*/
-
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/northbees'),
-        ], 'autotraderapi.views');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/northbees'),
-        ], 'autotraderapi.views');*/
-
-        // Registering package commands.
-        $this->commands([
-        ]);
     }
 }

@@ -28,7 +28,7 @@ describe('Version 1.2 API Changes', function () {
             ),
         ]);
 
-        $response = app(AutotraderApi::class)->createDeal('test-advertiser-id', [
+        $response = app(AutotraderApi::class)->createDeal(123456, [
             'stockId' => 'stock-456',
         ]);
 
@@ -56,7 +56,7 @@ describe('Version 1.2 API Changes', function () {
             ),
         ]);
 
-        $response = app(AutotraderApi::class)->getStockSummary('test-advertiser-id', 'stock-123');
+        $response = app(AutotraderApi::class)->getStockSummary(123456, 'stock-123');
 
         expect($response)->toHaveKey('stockId');
         expect($response['stockId'])->toBe('stock-123');
@@ -91,7 +91,7 @@ describe('Version 1.2 API Changes', function () {
             ),
         ]);
 
-        $response = app(AutotraderApi::class)->searchVehicles('test-advertiser-id', [
+        $response = app(AutotraderApi::class)->searchVehicles(123456, [
             'make' => 'BMW',
         ], [
             'financeOffers' => 'true',
@@ -121,7 +121,7 @@ describe('Version 1.2 API Changes', function () {
             ),
         ]);
 
-        $response = app(AutotraderApi::class)->searchVehicles('test-advertiser-id', [
+        $response = app(AutotraderApi::class)->searchVehicles(123456, [
             'make' => 'Ford',
             'monthlyPriceOption' => [
                 'mileage' => 10000,

@@ -18,8 +18,8 @@ describe('AutotraderTradeAdvertStates enum', function () {
         expect($cases)->toHaveCount(2);
     });
 
-    it('can be used in string context', function () {
-        expect((string) AutotraderTradeAdvertStates::PUBLISHED)->toBe('PUBLISHED');
-        expect((string) AutotraderTradeAdvertStates::NOT_PUBLISHED)->toBe('NOT_PUBLISHED');
+    it('can access value property', function () {
+        expect(AutotraderTradeAdvertStates::PUBLISHED->value)->toBe('PUBLISHED');
+        expect(AutotraderTradeAdvertStates::NOT_PUBLISHED->value)->toBe('NOT_PUBLISHED');
     });
 })->group('enum', 'trade-advert-states');

@@ -52,11 +52,14 @@ Before contributing, please ensure your development environment meets these requ
 1. Clone the repository
 2. Ensure you have PHP 8.4 installed
 3. Run `composer install` to install dependencies
-4. Set up your environment variables for Autotrader API access
-5. Run `./vendor/bin/pest` to execute the test suite
+4. Run `composer test` to execute the test suite
+5. Run `composer lint` to check code style
+6. Run `composer analyse` to run static analysis
 
 ## Code Quality
 
+- Run `composer lint` before submitting - code must pass [Laravel Pint](https://laravel.com/docs/pint) checks
+- Run `composer analyse` - code must pass [PHPStan](https://phpstan.org/) static analysis
 - Follow existing code organization patterns
 - Use the trait-based architecture for new API functionality
 - Implement proper exception handling using the existing exception hierarchy
