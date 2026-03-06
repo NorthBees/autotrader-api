@@ -12,7 +12,7 @@ All notable changes to `AutotraderApi` will be documented in this file.
 
 ### Changed
 
-- Finance API: `financeTerms.product`, `affordability.replacingExistingLoan`, and `affordability.affordableLoan` have been **removed** (previously deprecated in v1.0)
+- Finance API: `financeTerms.product`, `affordability.replacingExistingLoan`, and `affordability.affordableLoan` have been **removed** (`financeTerms.product` and `affordability.replacingExistingLoan` were previously deprecated in v1.0)
 - Finance API: Anonymised finance applications now return HTTP 200 with `{applicationId, status: "Expired"}` instead of HTTP 451 error. The new `getFinanceApplication()` method documents this behaviour.
 
 ### Response-Only Changes (no SDK code changes needed)
