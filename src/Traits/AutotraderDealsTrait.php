@@ -17,6 +17,7 @@ trait AutotraderDealsTrait
      *
      * Response includes (as of Nov 2025):
      * - buyingSignals: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences
+     *   - preferences now includes wheelbaseTypes (Mar 2026) - only available for Van consumer activity
      *
      * Response field deprecations (as of Jan 2026):
      * - stock.reservationStatus is @deprecated - use reservation object instead
@@ -54,6 +55,7 @@ trait AutotraderDealsTrait
      *
      * Response includes (as of Nov 2025):
      * - buyingSignals: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences
+     *   - preferences now includes wheelbaseTypes (Mar 2026) - only available for Van consumer activity
      *
      * Response field deprecations (as of Jan 2026):
      * - stock.reservationStatus is @deprecated - use reservation object instead

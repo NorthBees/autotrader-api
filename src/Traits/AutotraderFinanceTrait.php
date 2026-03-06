@@ -13,14 +13,19 @@ trait AutotraderFinanceTrait
      * Submit finance application data
      * Note: Years fields have been removed - only months fields are used
      *
-     * Field deprecations (as of Feb 2026):
-     * - financeTerms.product is @deprecated - use financeTerms.productType instead
-     * - affordability.replacingExistingLoan is @deprecated - use applicant.replacingExistingLoan instead
+     * Field removals (as of Mar 2026):
+     * - financeTerms.product has been removed - use financeTerms.productType instead
+     * - affordability.replacingExistingLoan has been removed - use applicant.replacingExistingLoan instead
+     * - affordability.affordableLoan has been removed
      *
-     * Field deprecations (as of Oct 2025):
-     * - applicant.surname is @deprecated and removed - use applicant.lastName instead
-     * - applicant.monthlyRentOrMortgageGBP.amountGBP is @deprecated and removed - use applicant.monthlyRentOrMortgage.amountGBP instead
-     * - applicant.monthlyChildCareGBP.amountGBP is @deprecated and removed - use applicant.monthlyChildcare.amountGBP instead
+     * Field removals (as of Oct 2025):
+     * - applicant.surname removed - use applicant.lastName instead
+     * - applicant.monthlyRentOrMortgageGBP.amountGBP removed - use applicant.monthlyRentOrMortgage.amountGBP instead
+     * - applicant.monthlyChildCareGBP.amountGBP removed - use applicant.monthlyChildcare.amountGBP instead
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $financeData  The finance application data
+     * @return array
      */
     public function submitFinanceApplication(int $advertiserId, array $financeData)
     {
@@ -35,17 +40,21 @@ trait AutotraderFinanceTrait
     /**
      * Get finance options for a vehicle (Quotes endpoint)
      *
-     * Response field deprecations (as of Feb 2026):
-     * - product is @deprecated - use productType instead
+     * Response field removals (as of Mar 2026):
+     * - product has been removed - use productType instead
      * - productName has been added to include the lender specific name for the product
      *
-     * Response field deprecations (as of Oct 2025):
-     * - questions is @deprecated and removed - use quotesRequirements instead
-     * - ineligibilityReasons is @deprecated and removed - use quotesRequirements instead
+     * Response field removals (as of Oct 2025):
+     * - questions removed - use quotesRequirements instead
+     * - ineligibilityReasons removed - use quotesRequirements instead
      *
      * Response includes (as of Oct 2025):
      * - proposalRequirements: Details of what an applicant needs to provide to create a finance proposal
      * - quotesRequirements: Details of what additional information may be required to produce finance quotes
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $vehicleData  The vehicle data for finance options lookup
+     * @return array
      */
     public function getFinanceOptions(int $advertiserId, array $vehicleData)
     {
@@ -60,8 +69,13 @@ trait AutotraderFinanceTrait
     /**
      * Update finance application
      *
-     * Field deprecations (as of Feb 2026):
-     * - product is @deprecated in proposals - use productType instead
+     * Field removals (as of Mar 2026):
+     * - product has been removed in proposals - use productType instead
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $applicationId  The finance application ID
+     * @param  array  $financeData  The finance data to update
+     * @return array
      */
     public function updateFinanceApplication(int $advertiserId, string $applicationId, array $financeData)
     {
@@ -70,6 +84,28 @@ trait AutotraderFinanceTrait
             AutotraderEndpoints::Finance->value.'/'.$applicationId,
             [],
             array_merge(['advertiserId' => $advertiserId], $financeData)
+        );
+    }
+
+    /**
+     * Get a finance application by ID
+     *
+     * As of Mar 2026, anonymised finance applications return HTTP 200
+     * with a payload of {applicationId, status: "Expired"} instead of the
+     * previous HTTP 451 error. Check the 'status' field in the response
+     * to determine if an application has been anonymised.
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $applicationId  The finance application ID
+     * @return array
+     */
+    public function getFinanceApplication(int $advertiserId, string $applicationId)
+    {
+        return $this->performRequest(
+            HttpMethods::GET,
+            AutotraderEndpoints::Finance->value.'/'.$applicationId,
+            [],
+            ['advertiserId' => $advertiserId]
         );
     }
 }

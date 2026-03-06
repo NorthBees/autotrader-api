@@ -131,6 +131,9 @@ $historic = app(AutotraderApi::class)->getHistoricValuation($advertiserId, $vehi
 $future = app(AutotraderApi::class)->getFutureValuation($advertiserId, $vehicle->derivativeId, $futureOdometerReadingMiles, $firstRegistrationDate,  $futureValuationDate);
 ```
 
+**Future and Historic Valuation API response notes:**
+- `amountNoVatGBP` fields for retail, trade, and partExchange valuations are now available in Trended Valuations and Future Valuations APIs (Mar 2026) - LCVs only, produced alongside `amountExVatGBP`
+
 ### Taxonomy Requests
 
 ```php
@@ -205,20 +208,29 @@ $application = app(AutotraderApi::class)->submitFinanceApplication($advertiserId
 
 // Update finance application
 $updated = app(AutotraderApi::class)->updateFinanceApplication($advertiserId, $applicationId, $financeData);
+
+// Get a finance application by ID
+// Note: anonymised applications return {applicationId, status: "Expired"} instead of a 451 error
+$application = app(AutotraderApi::class)->getFinanceApplication($advertiserId, $applicationId);
+if (($application['status'] ?? null) === 'Expired') {
+    // Application has been anonymised due to legal reasons
+}
 ```
 
-**Finance API deprecation notes (Feb 2026):**
-- `financeTerms.product` is deprecated - use `financeTerms.productType`
-- `product` in quotes/proposals is deprecated - use `productType`
-- `productName` added to quotes for lender specific product name
-- `affordability.replacingExistingLoan` is deprecated - use `applicant.replacingExistingLoan`
+**Finance API field removals (Mar 2026):**
+- `financeTerms.product` has been **removed** - use `financeTerms.productType`
+- `product` in quotes/proposals has been **removed** - use `productType`
+- `affordability.replacingExistingLoan` has been **removed** - use `applicant.replacingExistingLoan`
+- `affordability.affordableLoan` has been **removed**
+- `productName` has been added to quotes for lender specific product name
+- Anonymised finance applications now return HTTP 200 with `{applicationId, status: "Expired"}` instead of HTTP 451
 
-**Finance API deprecation notes (Oct/Nov 2025):**
-- `applicant.surname` is deprecated and removed - use `applicant.lastName`
-- `applicant.monthlyRentOrMortgageGBP.amountGBP` is deprecated and removed - use `applicant.monthlyRentOrMortgage.amountGBP`
-- `applicant.monthlyChildCareGBP.amountGBP` is deprecated and removed - use `applicant.monthlyChildcare.amountGBP`
-- `questions` in quotes is deprecated and removed - use `quotesRequirements`
-- `ineligibilityReasons` in quotes is deprecated and removed - use `quotesRequirements`
+**Finance API field removals (Oct/Nov 2025):**
+- `applicant.surname` has been removed - use `applicant.lastName`
+- `applicant.monthlyRentOrMortgageGBP.amountGBP` has been removed - use `applicant.monthlyRentOrMortgage.amountGBP`
+- `applicant.monthlyChildCareGBP.amountGBP` has been removed - use `applicant.monthlyChildcare.amountGBP`
+- `questions` in quotes has been removed - use `quotesRequirements`
+- `ineligibilityReasons` in quotes has been removed - use `quotesRequirements`
 - `proposalRequirements` and `quotesRequirements` added to Quotes response
 
 ### Stock Requests
@@ -286,6 +298,7 @@ $response = app(AutotraderApi::class)->removeDealFinanceApplication($advertiserI
 
 **Deals API response notes:**
 - `buyingSignals`: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences (Nov 2025)
+  - `preferences` now includes `wheelbaseTypes` (Mar 2026) - only available for Van consumer activity
 - `reservation` object: Replaces deprecated `stock.reservationStatus` and `consumerReservationFeeStatus`. Includes status values Requested and Reserved (Jan 2026)
 - `stock.reservationStatus` is **deprecated** - use `reservation` object instead (Jan 2026)
 - `consumerReservationFeeStatus` is **deprecated** - use `reservation` object instead (Jan 2026)

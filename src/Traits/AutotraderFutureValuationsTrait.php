@@ -11,6 +11,22 @@ use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
 trait AutotraderFutureValuationsTrait
 {
+    /**
+     * Get a future valuation for a vehicle
+     *
+     * Response includes (as of Mar 2026):
+     * - amountNoVatGBP valuations for retail, trade, and partExchange markets
+     *   Only available for LCVs (Light Commercial Vehicles), produced alongside amountExVatGBP
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $derivativeId  The vehicle derivative ID
+     * @param  int  $futureOdometerReadingMiles  The expected future odometer reading in miles
+     * @param  Carbon  $firstRegistrationDate  The vehicle's first registration date
+     * @param  Carbon  $futureValuationDate  The future date to value the vehicle at (must be in the future)
+     * @return array
+     *
+     * @throws AutotraderException
+     */
     public function getFutureValuation(int $advertiserId, string $derivativeId, int $futureOdometerReadingMiles, Carbon $firstRegistrationDate, Carbon $futureValuationDate)
     {
 

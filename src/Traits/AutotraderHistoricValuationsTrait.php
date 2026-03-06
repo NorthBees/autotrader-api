@@ -11,6 +11,22 @@ use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
 trait AutotraderHistoricValuationsTrait
 {
+    /**
+     * Get a historic valuation for a vehicle
+     *
+     * Response includes (as of Mar 2026):
+     * - amountNoVatGBP valuations for retail, trade, and partExchange markets
+     *   Only available for LCVs (Light Commercial Vehicles), produced alongside amountExVatGBP
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  string  $derivativeId  The vehicle derivative ID
+     * @param  int  $historicOdometerReadingMiles  The historic odometer reading in miles
+     * @param  Carbon  $firstRegistrationDate  The vehicle's first registration date
+     * @param  Carbon  $historicValuationDate  The date to value the vehicle at (must be in the past)
+     * @return array
+     *
+     * @throws AutotraderException
+     */
     public function getHistoricValuation(int $advertiserId, string $derivativeId, int $historicOdometerReadingMiles, Carbon $firstRegistrationDate, Carbon $historicValuationDate)
     {
 
