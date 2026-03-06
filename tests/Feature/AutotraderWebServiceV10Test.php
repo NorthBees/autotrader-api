@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 
-describe('Version 1.2 API Changes', function () {
+describe('Version 1.0 API Changes', function () {
 
     it('can create a deal', function (): void {
         $token = fake()->uuid;
@@ -34,7 +34,7 @@ describe('Version 1.2 API Changes', function () {
 
         expect($response)->toHaveKey('dealId');
         expect($response['dealId'])->toBe('new-deal-123');
-    })->group('autotrader-api', 'deals', 'v1.2');
+    })->group('autotrader-api', 'deals', 'v1.0');
 
     it('can get stock summary', function (): void {
         $token = fake()->uuid;
@@ -60,7 +60,7 @@ describe('Version 1.2 API Changes', function () {
 
         expect($response)->toHaveKey('stockId');
         expect($response['stockId'])->toBe('stock-123');
-    })->group('autotrader-api', 'stock', 'v1.2');
+    })->group('autotrader-api', 'stock', 'v1.0');
 
     it('can search vehicles with financeOffers option', function (): void {
         $token = fake()->uuid;
@@ -98,7 +98,7 @@ describe('Version 1.2 API Changes', function () {
         ]);
 
         expect($response)->toHaveKey('results');
-    })->group('autotrader-api', 'search', 'v1.2');
+    })->group('autotrader-api', 'search', 'v1.0');
 
     it('can search vehicles with monthlyPriceOption', function (): void {
         $token = fake()->uuid;
@@ -131,19 +131,19 @@ describe('Version 1.2 API Changes', function () {
         ]);
 
         expect($response)->toHaveKey('results');
-    })->group('autotrader-api', 'search', 'v1.2');
+    })->group('autotrader-api', 'search', 'v1.0');
 
     it('has getIntegrations method available', function (): void {
         expect(method_exists(app(AutotraderApi::class), 'getIntegrations'))->toBeTrue();
-    })->group('autotrader-api', 'integrations', 'v1.2');
+    })->group('autotrader-api', 'integrations', 'v1.0');
 
     it('has createDeal method available', function (): void {
         expect(method_exists(app(AutotraderApi::class), 'createDeal'))->toBeTrue();
-    })->group('autotrader-api', 'deals', 'v1.2');
+    })->group('autotrader-api', 'deals', 'v1.0');
 
     it('has getStockSummary method available', function (): void {
         expect(method_exists(app(AutotraderApi::class), 'getStockSummary'))->toBeTrue();
-    })->group('autotrader-api', 'stock', 'v1.2');
+    })->group('autotrader-api', 'stock', 'v1.0');
 
     it('getDerivatives accepts oemModelCode parameter', function (): void {
         $api = new AutotraderApi;
@@ -152,7 +152,7 @@ describe('Version 1.2 API Changes', function () {
         $paramNames = array_map(fn ($p) => $p->getName(), $parameters);
 
         expect($paramNames)->toContain('oemModelCode');
-    })->group('autotrader-api', 'taxonomy', 'v1.2');
+    })->group('autotrader-api', 'taxonomy', 'v1.0');
 
     it('getVehicleMetrics accepts vatStatus option', function (): void {
         $api = new AutotraderApi;
@@ -170,6 +170,6 @@ describe('Version 1.2 API Changes', function () {
         expect($optionsParam)->not()->toBeNull();
         $defaultValue = $optionsParam->getDefaultValue();
         expect($defaultValue)->toHaveKey('vatStatus');
-    })->group('autotrader-api', 'vehicle-metrics', 'v1.2');
+    })->group('autotrader-api', 'vehicle-metrics', 'v1.0');
 
-})->group('v1.2');
+})->group('v1.0');

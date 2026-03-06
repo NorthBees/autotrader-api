@@ -49,7 +49,7 @@ describe('AutotraderApi class', function () {
             'getCalls', 'getDelivery', 'getDeals', 'getDeal', 'completeDeal', 'cancelDeal',
             'updateDeal', 'removeDealPartExchange', 'removeDealFinanceApplication', 'createDeal',
             'getMessages', 'markMessagesAsRead', 'sendMessage',
-            'submitFinanceApplication', 'getFinanceOptions', 'updateFinanceApplication',
+            'submitFinanceApplication', 'getFinanceOptions', 'updateFinanceApplication', 'getFinanceApplication',
             'generateDescription', 'imageOrder', 'addImage',
             'searchVehicles', 'getSavedSearches', 'saveSearch',
             'getStockList', 'createStock', 'updateStock', 'getStockFeatures', 'getStockSummary',

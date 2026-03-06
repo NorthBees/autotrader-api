@@ -2,7 +2,27 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
-## Version 1.2
+## Version 1.1.0
+
+### Added
+
+- Added `getFinanceApplication()` method to Finance API for retrieving finance applications by ID
+- Added PHPDoc documentation for `amountNoVatGBP` response fields in Future Valuations API
+- Added PHPDoc documentation for `wheelbaseTypes` in buyingSignals preferences for Deals API
+
+### Changed
+
+- Finance API: `financeTerms.product`, `affordability.replacingExistingLoan`, and `affordability.affordableLoan` have been **removed** (`financeTerms.product` and `affordability.replacingExistingLoan` were previously deprecated in v1.0)
+- Finance API: Anonymised finance applications now return HTTP 200 with `{applicationId, status: "Expired"}` instead of HTTP 451 error. The new `getFinanceApplication()` method documents this behaviour.
+
+### Response-Only Changes (no SDK code changes needed)
+
+These are new response fields from the Autotrader API that are automatically available in API responses:
+
+- `amountNoVatGBP` valuations fields for retail, trade, and partExchange in Historic Valuations and Future Valuations APIs (Mar 2026) - LCVs only, alongside amountExVatGBP
+- `wheelbaseTypes` in buyingSignals preferences in Deals API and Deals Notifications (Mar 2026) - Van consumer activity only
+
+## Version 1.0
 
 ### Added
 
@@ -15,10 +35,21 @@ All notable changes to `AutotraderApi` will be documented in this file.
 - Added `vatStatus` option to Vehicle Metrics API for No VAT commercial vehicle valuations
 - Added `oemModelCode` parameter to `getDerivatives()` in Taxonomy API for OEM model code search (e.g. Volvo)
 - Added `AutotraderTradeAdvertStates` enum with PUBLISHED and NOT_PUBLISHED states
+- Added Finance API support with months-only fields (years fields removed as per API updates)
+- Added Search API support with factoryCodes and wheelbaseMM fields
+- Added factoryCodes support to Stock, Vehicles, and Taxonomy APIs
+- Added priceIndicatorRatingBands support to Stock and Valuations APIs
+- Added wheelbaseMM support to Stock and Search APIs
+- Updated README documentation with new API examples
 
 ### Changed
 
 - Updated Stock API `updateStock()` to document NOT_PUBLISHED tradeAdvert support when marking stock as SOLD
+- Finance API now uses months-only fields instead of years+months (e.g., monthsAtBank: 40 instead of yearsAtBank: 3, monthsAtBank: 4)
+- Extended Stock API options to include factoryCodes, priceIndicatorRatingBands, and wheelbaseMM
+- Extended Vehicles API options to include factoryCodes
+- Extended Taxonomy Features API to support factoryCodes options
+- Extended Valuations API to support priceIndicatorRatingBands
 
 ### Deprecated
 
@@ -59,28 +90,3 @@ These are new response fields from the Autotrader API that are automatically ava
 - `proposalRequirements`, `quotesRequirements` in Quotes API (Oct 2025)
 - `reservation` object in Deals API (Jan 2026)
 - `productType`, `productName` in Quotes response (Feb 2026)
-
-## Version 1.1
-
-### Added
-
-- Added Finance API support with months-only fields (years fields removed as per API updates)
-- Added Search API support with factoryCodes and wheelbaseMM fields
-- Added factoryCodes support to Stock, Vehicles, and Taxonomy APIs
-- Added priceIndicatorRatingBands support to Stock and Valuations APIs
-- Added wheelbaseMM support to Stock and Search APIs
-- Updated README documentation with new API examples
-
-### Changed
-
-- Finance API now uses months-only fields instead of years+months (e.g., monthsAtBank: 40 instead of yearsAtBank: 3, monthsAtBank: 4)
-- Extended Stock API options to include factoryCodes, priceIndicatorRatingBands, and wheelbaseMM
-- Extended Vehicles API options to include factoryCodes
-- Extended Taxonomy Features API to support factoryCodes options
-- Extended Valuations API to support priceIndicatorRatingBands
-
-## Version 1.0
-
-### Added
-
--   Everything
