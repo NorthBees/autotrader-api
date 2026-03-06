@@ -19,7 +19,7 @@ All notable changes to `AutotraderApi` will be documented in this file.
 
 These are new response fields from the Autotrader API that are automatically available in API responses:
 
-- `amountNoVatGBP` valuations fields for retail, trade, and partExchange in Trended Valuations and Future Valuations APIs (Mar 2026) - LCVs only, alongside amountExVatGBP
+- `amountNoVatGBP` valuations fields for retail, trade, and partExchange in Historic Valuations and Future Valuations APIs (Mar 2026) - LCVs only, alongside amountExVatGBP
 - `wheelbaseTypes` in buyingSignals preferences in Deals API and Deals Notifications (Mar 2026) - Van consumer activity only
 
 ## Version 1.0
