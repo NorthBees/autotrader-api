@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\ServiceProvider;
 use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\AutotraderApiServiceProvider;
 
@@ -33,6 +34,6 @@ describe('AutotraderApiServiceProvider', function () {
         $provider = new AutotraderApiServiceProvider($this->app);
 
         expect($provider)->toBeInstanceOf(AutotraderApiServiceProvider::class);
-        expect($provider)->toBeInstanceOf(\Illuminate\Support\ServiceProvider::class);
+        expect($provider)->toBeInstanceOf(ServiceProvider::class);
     });
 })->group('service-provider', 'autotrader');

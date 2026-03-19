@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
+use NorthBees\AutotraderApi\Exceptions\AutotraderException;
 
 it('only accepts future dates', function (): void {
 
@@ -25,10 +27,10 @@ it('only accepts future dates', function (): void {
         123456,
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
-        \Carbon\Carbon::parse('2015-01-30'),
+        Carbon::parse('2015-01-30'),
         now()->subMonth(),
     );
-})->throws(\NorthBees\AutotraderApi\Exceptions\AutotraderException::class);
+})->throws(AutotraderException::class);
 
 it('can request future valuation', function (): void {
 
@@ -60,7 +62,7 @@ it('can request future valuation', function (): void {
         123456,
         '8d0933dd565e328caa7152688f3b18ce',
         90000,
-        \Carbon\Carbon::parse('2015-01-30'),
+        Carbon::parse('2015-01-30'),
         now()->addMonth(),
     );
     expect($response)->toHaveKey('futureValuations');

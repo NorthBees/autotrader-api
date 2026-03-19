@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use NorthBees\AutotraderApi\AutotraderApi;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
@@ -35,6 +36,6 @@ it('can request stock list', function (): void {
 
     $response = app(AutotraderApi::class)->getStockList(123456, ['lifecycleState' => 'FORECOURT']);
     expect($response)->toHaveKey('results')->toHaveKey('totalResults');
-    expect(\Illuminate\Support\Arr::get($response, 'results.0.metadata.lifecycleState'))->toEqual('FORECOURT');
+    expect(Arr::get($response, 'results.0.metadata.lifecycleState'))->toEqual('FORECOURT');
 
 })->group('autotrader-api', 'stock');

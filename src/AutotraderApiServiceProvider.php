@@ -31,7 +31,7 @@ class AutotraderApiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/autotrader.php', 'autotrader');
 
         // Register the service the package provides.
-        $this->app->singleton('autotraderapi', fn ($app): \NorthBees\AutotraderApi\AutotraderApi => new AutotraderApi);
+        $this->app->singleton('autotraderapi', fn ($app): AutotraderApi => new AutotraderApi);
     }
 
     /**
