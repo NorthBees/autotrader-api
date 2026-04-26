@@ -193,13 +193,25 @@ trait AutotraderStockTrait
             'The competitor href URL must contain an advertiserId parameter.',
         );
 
+        throw_if(
+            ($queryParams['searchType'] ?? null) !== 'competitor',
+            AutotraderException::class,
+            'The competitor href URL must contain searchType=competitor.',
+        );
+
+        $validator = new AutotraderCompetitorStockValidator;
+        $validated = $validator->validate(Arr::except($queryParams, ['advertiserId', 'searchType']));
+
         $path = ltrim($parsed['path'] ?? AutotraderEndpoints::Stock->value, '/');
 
         return $this->performRequest(
             HttpMethods::GET,
             $path,
             [],
-            $queryParams,
+            array_merge($validated, [
+                'searchType' => 'competitor',
+                'advertiserId' => $queryParams['advertiserId'],
+            ]),
         );
     }
 }
