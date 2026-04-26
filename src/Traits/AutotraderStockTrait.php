@@ -7,6 +7,7 @@ namespace NorthBees\AutotraderApi\Traits;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\ValidationException;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 use NorthBees\AutotraderApi\Enum\AutotraderLifecycleStates;
 use NorthBees\AutotraderApi\Enum\HttpMethods;
@@ -142,9 +143,8 @@ trait AutotraderStockTrait
      * @param  int  $advertiserId  The advertiser ID
      * @param  array  $filters  Competitor filter parameters (standardMake, standardModel, minPlate, etc.)
      * @param  array  $options  Additional options (valuations, page, pageSize, etc.)
-     * @return array
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function getCompetitorStock(int $advertiserId, array $filters = [], array $options = []): array
     {
@@ -173,7 +173,6 @@ trait AutotraderStockTrait
      * https://api.autotrader.co.uk/stock?searchType=competitor&valuations=true&advertiserId=12345&...
      *
      * @param  string  $competitorHref  The full competitor href URL from links.competitors.href
-     * @return array
      *
      * @throws AutotraderException
      */
