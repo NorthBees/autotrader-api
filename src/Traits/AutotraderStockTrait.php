@@ -7,10 +7,12 @@ namespace NorthBees\AutotraderApi\Traits;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\ValidationException;
 use NorthBees\AutotraderApi\Enum\AutotraderEndpoints;
 use NorthBees\AutotraderApi\Enum\AutotraderLifecycleStates;
 use NorthBees\AutotraderApi\Enum\HttpMethods;
 use NorthBees\AutotraderApi\Exceptions\AutotraderException;
+use NorthBees\AutotraderApi\Validators\AutotraderCompetitorStockValidator;
 
 trait AutotraderStockTrait
 {
@@ -42,6 +44,7 @@ trait AutotraderStockTrait
         'factoryCodes' => 'false',
         'priceIndicatorRatingBands' => 'false',
         'wheelbaseMM' => 'false',
+        'competitors' => 'false',
     ])
     {
 
@@ -125,5 +128,90 @@ trait AutotraderStockTrait
         $url = implode('/', [AutotraderEndpoints::Stock->value, $stockId, 'summary']);
 
         return $this->performRequest(HttpMethods::GET, $url.'?advertiserId='.$advertiserId, [], []);
+    }
+
+    /**
+     * Search for competitor stock using the searchType=competitor parameter.
+     *
+     * AutoTrader's competitor search is limited to a maximum page size of 20 and
+     * allows pagination up to 10 pages, giving a total of up to 200 vehicles.
+     *
+     * The competitor href URL returned by getStockList() or getVehicle() with
+     * competitors=true (via links.competitors.href) can also be executed directly
+     * using getCompetitorStockFromUrl().
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $filters  Competitor filter parameters (standardMake, standardModel, minPlate, etc.)
+     * @param  array  $options  Additional options (valuations, page, pageSize, etc.)
+     *
+     * @throws ValidationException
+     */
+    public function getCompetitorStock(int $advertiserId, array $filters = [], array $options = []): array
+    {
+        $validator = new AutotraderCompetitorStockValidator;
+        $validated = $validator->validate(array_merge($filters, $options));
+
+        return $this->performRequest(
+            HttpMethods::GET,
+            AutotraderEndpoints::Stock->value,
+            [],
+            array_merge($validated, [
+                'searchType' => 'competitor',
+                'advertiserId' => $advertiserId,
+            ]),
+        );
+    }
+
+    /**
+     * Execute a pre-built competitor stock search URL returned by the AutoTrader API.
+     *
+     * When calling getStockList() or getVehicle() with competitors=true, the response
+     * includes a links.competitors.href URL. Pass that URL directly to this method to
+     * retrieve the competitor vehicles without having to re-assemble the parameters.
+     *
+     * Example href:
+     * https://api.autotrader.co.uk/stock?searchType=competitor&valuations=true&advertiserId=12345&...
+     *
+     * @param  string  $competitorHref  The full competitor href URL from links.competitors.href
+     *
+     * @throws AutotraderException
+     */
+    public function getCompetitorStockFromUrl(string $competitorHref): array
+    {
+        $parsed = parse_url($competitorHref);
+
+        throw_if(
+            $parsed === false,
+            AutotraderException::class,
+            'The competitor href URL is invalid and could not be parsed.',
+        );
+        parse_str($parsed['query'] ?? '', $queryParams);
+
+        throw_if(
+            empty($queryParams['advertiserId']),
+            AutotraderException::class,
+            'The competitor href URL must contain an advertiserId parameter.',
+        );
+
+        throw_if(
+            ($queryParams['searchType'] ?? null) !== 'competitor',
+            AutotraderException::class,
+            'The competitor href URL must contain searchType=competitor.',
+        );
+
+        $validator = new AutotraderCompetitorStockValidator;
+        $validated = $validator->validate(Arr::except($queryParams, ['advertiserId', 'searchType']));
+
+        $path = ltrim($parsed['path'] ?? AutotraderEndpoints::Stock->value, '/');
+
+        return $this->performRequest(
+            HttpMethods::GET,
+            $path,
+            [],
+            array_merge($validated, [
+                'searchType' => 'competitor',
+                'advertiserId' => $queryParams['advertiserId'],
+            ]),
+        );
     }
 }
