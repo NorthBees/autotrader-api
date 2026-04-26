@@ -179,6 +179,12 @@ trait AutotraderStockTrait
     public function getCompetitorStockFromUrl(string $competitorHref): array
     {
         $parsed = parse_url($competitorHref);
+
+        throw_if(
+            $parsed === false,
+            AutotraderException::class,
+            'The competitor href URL is invalid and could not be parsed.',
+        );
         parse_str($parsed['query'] ?? '', $queryParams);
 
         throw_if(
