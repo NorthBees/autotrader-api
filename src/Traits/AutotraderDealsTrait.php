@@ -19,9 +19,9 @@ trait AutotraderDealsTrait
      * - buyingSignals: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences
      *   - preferences now includes wheelbaseTypes (Mar 2026) - only available for Van consumer activity
      *
-     * Response field deprecations (as of Jan 2026):
-     * - stock.reservationStatus is @deprecated - use reservation object instead
-     * - consumerReservationFeeStatus is @deprecated - use reservation object instead
+     * Removed fields (as of May 2026):
+     * - stock.reservationStatus has been removed - use reservation object instead
+     * - consumerReservationFeeStatus has been removed - use reservation object instead
      * The reservation object provides reservation status values including Requested and Reserved.
      *
      * @param  int  $advertiserId  The advertiser ID
@@ -57,9 +57,9 @@ trait AutotraderDealsTrait
      * - buyingSignals: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences
      *   - preferences now includes wheelbaseTypes (Mar 2026) - only available for Van consumer activity
      *
-     * Response field deprecations (as of Jan 2026):
-     * - stock.reservationStatus is @deprecated - use reservation object instead
-     * - consumerReservationFeeStatus is @deprecated - use reservation object instead
+     * Removed fields (as of May 2026):
+     * - stock.reservationStatus has been removed - use reservation object instead
+     * - consumerReservationFeeStatus has been removed - use reservation object instead
      * The reservation object provides reservation status values including Requested and Reserved.
      *
      * @param  int  $advertiserId  The advertiser ID

@@ -299,9 +299,11 @@ $response = app(AutotraderApi::class)->removeDealFinanceApplication($advertiserI
 **Deals API response notes:**
 - `buyingSignals`: Consumer behaviour indicators including dealIntentScore, intent, localCustomer, advertSaved, preferences (Nov 2025)
   - `preferences` now includes `wheelbaseTypes` (Mar 2026) - only available for Van consumer activity
-- `reservation` object: Replaces deprecated `stock.reservationStatus` and `consumerReservationFeeStatus`. Includes status values Requested and Reserved (Jan 2026)
-- `stock.reservationStatus` is **deprecated** - use `reservation` object instead (Jan 2026)
-- `consumerReservationFeeStatus` is **deprecated** - use `reservation` object instead (Jan 2026)
+- `reservation` object: Provides reservation status values Requested and Reserved. Replaces the now-removed `stock.reservationStatus` and `consumerReservationFeeStatus` fields (removed May 2026)
+
+**Deal Notifications:**
+- Notification `type` field now uses `DEAL_CREATE` (initial deal creation) or `DEAL_UPDATE` (any subsequent update) instead of the previous `DEAL` value (May 2026)
+- Use the `AutotraderDealNotificationTypes` enum to match against received notification types
 
 ### Messages Requests
 

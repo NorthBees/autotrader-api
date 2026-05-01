@@ -2,6 +2,13 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
+## Version 1.2.0
+
+### Breaking Changes (Autotrader API — May 2026)
+
+- **Deal notification type field**: The `type` field in Deal Notifications now returns `DEAL_CREATE` or `DEAL_UPDATE` instead of `DEAL`. Added new `AutotraderDealNotificationTypes` enum with `DEAL_CREATE` and `DEAL_UPDATE` cases.
+- **Removed deprecated fields**: `stock.reservationStatus` and `consumerReservationFeeStatus` have been removed from the Deals API response and Deal Notifications. Use the `reservation` object instead (available since Jan 2026).
+
 ## Version 1.1.0
 
 ### Added
