@@ -17,6 +17,12 @@ trait AutotraderIntegrationsTrait
      * If the integration is an API, the response will show all the capabilities
      * the integration has access to, including which APIs and methods can be accessed.
      *
+     * Response includes (as of Jun 2026):
+     * - notifications: The notifications set up against a given integration. May include
+     *   advertiserNotification, dealsNotification, and stockNotification, each with a
+     *   url, rateLimit (nullable), and enabled flag. See AutotraderNotificationTypes for
+     *   the available notification keys.
+     *
      * @param  array  $options  Optional query parameters
      * @return array
      */

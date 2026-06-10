@@ -23,6 +23,12 @@ trait AutotraderFinanceTrait
      * - applicant.monthlyRentOrMortgageGBP.amountGBP removed - use applicant.monthlyRentOrMortgage.amountGBP instead
      * - applicant.monthlyChildCareGBP.amountGBP removed - use applicant.monthlyChildcare.amountGBP instead
      *
+     * New fields (as of Jun 2026):
+     * - applicant.existingLoanMonthlyPayment.amountGBP - the applicant's existing loan monthly payment.
+     *   If not provided, a lender may not be able to progress the quote to proposals depending on their
+     *   own criteria; where this is the case the requirement is listed under proposalRequirements in the
+     *   quotes response.
+     *
      * @param  int  $advertiserId  The advertiser ID
      * @param  array  $financeData  The finance application data
      * @return array
@@ -51,6 +57,11 @@ trait AutotraderFinanceTrait
      * Response includes (as of Oct 2025):
      * - proposalRequirements: Details of what an applicant needs to provide to create a finance proposal
      * - quotesRequirements: Details of what additional information may be required to produce finance quotes
+     *
+     * Response includes (as of Jun 2026):
+     * - financeTerms: The terms used to produce the quote response from the given lender panel
+     *   (e.g. productType, termMonths, estimatedAnnualMileage, cashPrice, deposit, partExchange,
+     *   outstandingFinance). Previously only available as part of the finance application process.
      *
      * @param  int  $advertiserId  The advertiser ID
      * @param  array  $vehicleData  The vehicle data for finance options lookup

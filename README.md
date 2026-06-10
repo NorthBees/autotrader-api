@@ -202,6 +202,7 @@ $application = app(AutotraderApi::class)->submitFinanceApplication($advertiserId
         'replacingExistingLoan' => true, // Use this, not deprecated affordability.replacingExistingLoan
         'monthlyRentOrMortgage' => ['amountGBP' => 800], // Use this, not deprecated monthlyRentOrMortgageGBP
         'monthlyChildcare' => ['amountGBP' => 200], // Use this, not deprecated monthlyChildCareGBP
+        'existingLoanMonthlyPayment' => ['amountGBP' => 100], // Jun 2026 - existing loan monthly payment
     ],
     // ... other finance data
 ]);
@@ -216,6 +217,10 @@ if (($application['status'] ?? null) === 'Expired') {
     // Application has been anonymised due to legal reasons
 }
 ```
+
+**Finance API changes (Jun 2026):**
+- `applicant.existingLoanMonthlyPayment.amountGBP` added to the applications endpoint - the applicant's existing loan monthly payment. If not provided, a lender may not be able to progress the quote to proposals depending on their own criteria; where this is the case the requirement is listed under `proposalRequirements` in the quotes response
+- `financeTerms` object added to the Quotes response - exposes the terms used to produce the quote (e.g. `productType`, `termMonths`, `estimatedAnnualMileage`, `cashPrice`, `deposit`, `partExchange`, `outstandingFinance`). Previously only available as part of the finance application process
 
 **Finance API field removals (Mar 2026):**
 - `financeTerms.product` has been **removed** - use `financeTerms.productType`
@@ -347,6 +352,7 @@ $integrations = app(AutotraderApi::class)->getIntegrations();
 - Returns a view of what integrations a partner has access to (API, Datafeeds, Exports)
 - For API integrations, shows all capabilities the integration has access to
 - Introduced Nov 2025
+- `notifications` object added (Jun 2026) - shows which notifications are set up against a given integration. May include `advertiserNotification`, `dealsNotification`, and `stockNotification`, each with a `url`, `rateLimit` (nullable) and `enabled` flag. Use the `AutotraderNotificationTypes` enum (`ADVERTISER`, `DEALS`, `STOCK`) to reference the notification keys
 
 ### Advertisers Requests
 
