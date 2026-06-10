@@ -2,7 +2,7 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
-## Version 1.3.0
+## Version 1.1.5
 
 ### Added (Autotrader API — Jun 2026)
 
@@ -19,7 +19,7 @@ These are new response fields from the Autotrader API that are automatically ava
 
 - `applicant.existingLoanMonthlyPayment.amountGBP` added to the Applications endpoint (Jun 2026) - the applicant's existing loan monthly payment. If not provided, a lender may not be able to progress the quote to proposals depending on their own criteria; where this is the case the requirement is listed under `proposalRequirements` in the quotes response
 
-## Version 1.2.0
+## Version 1.1.4
 
 ### Breaking Changes (Autotrader API — May 2026)
 
