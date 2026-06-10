@@ -2,6 +2,23 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
+## Version 1.3.0
+
+### Added (Autotrader API — Jun 2026)
+
+- **Integration notifications**: Added `AutotraderNotificationTypes` enum (`ADVERTISER`, `DEALS`, `STOCK`) to reference the notification keys exposed by the new `notifications` object on the Integrations API response.
+
+### Response-Only Changes (no SDK code changes needed)
+
+These are new response fields from the Autotrader API that are automatically available in API responses:
+
+- `financeTerms` object added to the Quotes response (Jun 2026) - exposes the terms used to produce the quote (`productType`, `termMonths`, `estimatedAnnualMileage`, `cashPrice`, `deposit`, `partExchange`, `outstandingFinance`). Previously only available as part of the finance application process
+- `notifications` object added to the Integrations API response (Jun 2026) - shows which notifications are set up against a given integration (`advertiserNotification`, `dealsNotification`, `stockNotification`), each with a `url`, `rateLimit` (nullable) and `enabled` flag
+
+### New Request Fields (optional)
+
+- `applicant.existingLoanMonthlyPayment.amountGBP` added to the Applications endpoint (Jun 2026) - the applicant's existing loan monthly payment. If not provided, a lender may not be able to progress the quote to proposals depending on their own criteria; where this is the case the requirement is listed under `proposalRequirements` in the quotes response
+
 ## Version 1.2.0
 
 ### Breaking Changes (Autotrader API — May 2026)
