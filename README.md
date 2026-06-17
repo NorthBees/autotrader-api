@@ -262,6 +262,7 @@ $updated = app(AutotraderApi::class)->updateStock($advertiserId, [
 - `eligibleContractAllowances`, `allocatedContractAllowance`: Contract allowance information (Aug 2025)
 - `vehicle.origin`: Indicates if the vehicle is UK or Non UK specification (Oct 2025)
 - tradeAdvert can now be set to NOT_PUBLISHED when updating stock lifecycle to SOLD (Feb 2026)
+- `responseMetrics` now includes a natural/paid breakdown when requested with `responseMetrics => 'true'` (Jun 2026). Each of the `yesterday` and `lastWeek` objects now exposes `naturalAdvertViews` and `paidPPCAdvertViews` (totalling `advertViews`), plus `naturalSearchViews` and `paidPPCSearchViews` (totalling `searchViews`)
 
 ### Deals Requests
 

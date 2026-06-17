@@ -2,6 +2,14 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
+## Version 1.1.6
+
+### Response-Only Changes (no SDK code changes needed)
+
+These are new response fields from the Autotrader API that are automatically available in API responses:
+
+- `responseMetrics` breakdown added to the Stock API response (Jun 2026) - the `yesterday` and `lastWeek` objects now expose a natural/paid split alongside the existing totals: `naturalAdvertViews` and `paidPPCAdvertViews` (which sum to `advertViews`), and `naturalSearchViews` and `paidPPCSearchViews` (which sum to `searchViews`). Enable by passing `responseMetrics => 'true'` to `getStockList()`. See [Response Metrics](https://developers.autotrader.co.uk/api#response-metrics)
+
 ## Version 1.1.5
 
 ### Added (Autotrader API — Jun 2026)
