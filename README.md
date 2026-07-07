@@ -105,6 +105,7 @@ $results = app(AutotraderApi::class)->searchVehicles($advertiserId, $searchCrite
 - `vehicle.origin`: Indicates if the vehicle is UK or Non UK specification (Oct 2025)
 - `rarityRating`, `valueRating`: Autotrader intelligence ratings for vehicle features (Aug 2025)
 - `financeOption` search parameter is **deprecated** - use `monthlyPriceOption` instead (Feb 2026)
+- `adverts.retailAdverts.advertiserVehicleHighlight1`, `advertiserVehicleHighlight2`, `advertiserVehicleHighlight3` and `adverts.retailAdverts.priceCommentary` (26 Jun 2026) - Seller Highlights and Seller Comments configured by the advertiser
 
 ### Valuation Request
 
@@ -263,6 +264,7 @@ $updated = app(AutotraderApi::class)->updateStock($advertiserId, [
 - `vehicle.origin`: Indicates if the vehicle is UK or Non UK specification (Oct 2025)
 - tradeAdvert can now be set to NOT_PUBLISHED when updating stock lifecycle to SOLD (Feb 2026)
 - `responseMetrics` now includes a natural/paid breakdown when requested with `responseMetrics => 'true'` (Jun 2026). Each of the `yesterday` and `lastWeek` objects now exposes `naturalAdvertViews` and `paidPPCAdvertViews` (totalling `advertViews`), plus `naturalSearchViews` and `paidPPCSearchViews` (totalling `searchViews`)
+- `adverts.retailAdverts.advertiserVehicleHighlight1`, `advertiserVehicleHighlight2`, `advertiserVehicleHighlight3` and `adverts.retailAdverts.priceCommentary` (26 Jun 2026) - up to 3 Seller Highlights plus Seller Comments shown on the Autotrader website. Also returned in Stock Notifications. As advertiser-settable fields they can be sent through `createStock()` / `updateStock()` under `adverts.retailAdverts`
 
 ### Deals Requests
 
@@ -364,6 +366,7 @@ $advertisers = app(AutotraderApi::class)->getAdvertisers();
 
 **Advertisers API response notes:**
 - `capabilities` object: Lists atConnect capabilities a partner's application is permitted to use on behalf of an advertiser (Oct 2025)
+- `priceCommentary` and `priceCommentaryManufacturerApproved` (26 Jun 2026): Seller Comments templates configured at retailer (site) level. `priceCommentaryManufacturerApproved` is an array of `{ make, manufacturerApproved, priceCommentary }` entries; `priceCommentary` is the default applied when a vehicle is not a specified make or approved. Optional configuration, so may be empty
 
 ### Valuation API Response Notes
 
