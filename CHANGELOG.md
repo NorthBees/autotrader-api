@@ -2,6 +2,15 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
+## Version 1.1.7
+
+### Response-Only Changes (no SDK code changes needed)
+
+These are new response fields from the Autotrader API that are automatically available in API responses:
+
+- `advertiserVehicleHighlight1`, `advertiserVehicleHighlight2`, `advertiserVehicleHighlight3` and `priceCommentary` added to `adverts.retailAdverts` in the Stock API, Search API and Stock Notifications (26 Jun 2026) - the highlight fields surface up to 3 Seller Highlights and `priceCommentary` appears as Seller Comments on the Autotrader website. These are advertiser-settable fields, so they can also be sent through `createStock()` / `updateStock()` under `adverts.retailAdverts`. See [Stock API](https://developers.autotrader.co.uk/api#stock-api)
+- `priceCommentary` and `priceCommentaryManufacturerApproved` added to the Advertisers API (26 Jun 2026) - exposes the Seller Comments templates configured at retailer (site) level. `priceCommentaryManufacturerApproved` is an array of `{ make, manufacturerApproved, priceCommentary }` entries defining the copy used based on make and manufacturer-approved status; `priceCommentary` is the default used when a vehicle is not a specified make or approved. Configuring these templates is optional, so content may not be populated. See [Advertiser API](https://developers.autotrader.co.uk/api#search-advertisers)
+
 ## Version 1.1.6
 
 ### Response-Only Changes (no SDK code changes needed)
