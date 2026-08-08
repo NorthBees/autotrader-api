@@ -10,17 +10,22 @@ it('can request vehicles data', function (): void {
 
     $token = fake()->uuid;
     $mockVehicleResponse = [
-        'vehicle' => [
-            'ownershipCondition' => 'Used',
-            'registration' => 'DC64AGZ',
-            'vin' => 'YV1MV8461F2194079',
-            'make' => 'Volvo',
-            'model' => 'V40',
-            'generation' => 'Hatchback (2012 - 2016)',
-            'derivative' => '1.6 D2 R-Design Hatchback 5dr Diesel Manual (88 g/km, 115 bhp)',
-            'derivativeId' => '8d0933dd565e328caa7152688f3b18ce',
-            'vehicleType' => 'Car',
+        'results' => [
+            [
+                'vehicle' => [
+                    'ownershipCondition' => 'Used',
+                    'registration' => 'DC64AGZ',
+                    'vin' => 'YV1MV8461F2194079',
+                    'make' => 'Volvo',
+                    'model' => 'V40',
+                    'generation' => 'Hatchback (2012 - 2016)',
+                    'derivative' => '1.6 D2 R-Design Hatchback 5dr Diesel Manual (88 g/km, 115 bhp)',
+                    'derivativeId' => '8d0933dd565e328caa7152688f3b18ce',
+                    'vehicleType' => 'Car',
+                ],
+            ],
         ],
+        'totalResults' => 1,
     ];
 
     Http::preventStrayRequests();
@@ -38,5 +43,6 @@ it('can request vehicles data', function (): void {
 
     $response = app(AutotraderApi::class)->getVehicle(123456, 'dc64agz', 85000);
 
-    expect($response)->toHaveKey('vehicle');
+    expect($response)->toHaveKey('results')
+        ->and($response['results'][0])->toHaveKey('vehicle');
 })->group('autotrader-api', 'vehicle');

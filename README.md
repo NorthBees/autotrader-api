@@ -377,20 +377,37 @@ $advertisers = app(AutotraderApi::class)->getAdvertisers();
 
 - `rarityRating`, `valueRating`: Autotrader intelligence ratings for vehicle features (Aug 2025)
 - Manufacturer warranty details (paintwork, standard, corrosion, battery) provided by manufacturer for brand new vehicles (Oct 2025)
-- **Response envelope (Aug 2026)**: the API now returns `{"results": [{"vehicle": {...}}], "totalResults": 1}`. The historic `vehicle` root is served alongside it until 28 October 2026. `getVehicle()` accepts either and always returns the historic flat shape, so no caller changes are needed
-- **Warnings (Aug 2026)**: warnings are now split between service level (root `warnings`) and record level (`results[].warnings`). They are currently duplicated at both levels; record warnings leave the root on 28 October 2026
+- **Response envelope (Aug 2026)**: the API returns `{"results": [{"vehicle": {...}}], "totalResults": 1}`. The historic `vehicle` root was served alongside it until 28 October 2026
+- **Warnings (Aug 2026)**: warnings are split between service level (root `warnings`) and record level (`results[].warnings`)
 - `vehicle.previousOwners` is withdrawn (28 October 2026). Read `history.previousOwners` instead — request it with the `history` option
 
-`getVehicle()` adds three keys to the flattened response:
+From 2.0.0 `getVehicle()` returns the response exactly as the API sends it, with nothing
+added, removed or reshaped. Read record data from `results.0`:
 
-| Key | Meaning |
-| --- | --- |
-| `totalResults` | `0` when no vehicle matched the registration — the `vehicle` key is absent in that case |
-| `serviceWarnings` | Warnings about the service, e.g. an endpoint the token cannot access |
-| `recordWarnings` | Warnings about this vehicle, e.g. derivative information that could not be sourced |
+```php
+$response = app(AutotraderApi::class)->getVehicle($advertiserId, $vrm, $mileage, [
+    'history' => 'true',
+]);
 
-`warnings` remains the union of the two, de-duplicated, and is omitted when empty. Search
-and Stock responses are not normalised — they keep their multi-record `results` array.
+$record = $response['results'][0] ?? null;
+
+if ($record === null) {
+    // totalResults is 0 — no vehicle matched the registration
+}
+
+$make = $record['vehicle']['make'];
+$previousOwners = $record['history']['previousOwners'] ?? null;
+
+$serviceWarnings = $response['warnings'] ?? [];   // e.g. a token that cannot reach an endpoint
+$recordWarnings = $record['warnings'] ?? [];      // e.g. derivative information not sourced
+```
+
+1.x flattened this response onto the root and added `serviceWarnings` / `recordWarnings`
+keys. See [UPGRADING.md](UPGRADING.md) to migrate.
+
+**Odometer readings.** `valuations` and `vehicleMetrics` are derived from mileage, so
+requesting either without `$odometerReadingMiles` throws `AutotraderMissingOdometerException`.
+Every other option works without one.
 
 ## Testing
 
