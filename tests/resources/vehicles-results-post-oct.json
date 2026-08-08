@@ -1,0 +1,124 @@
+{
+  "warnings": [
+    {
+      "message": "Token: [Partner Details] is not allowed to access endpoint: [vehicles]"
+    }
+  ],
+  "results": [
+    {
+      "vehicle": {
+        "ownershipCondition": "Used",
+        "registration": "DC64AGZ",
+        "vin": "YV1MV8461F2194079",
+        "make": "Volvo",
+        "model": "V40",
+        "generation": "Hatchback (2012 - 2016)",
+        "derivative": "1.6 D2 R-Design Hatchback 5dr Diesel Manual (88 g/km, 115 bhp)",
+        "derivativeId": "8d0933dd565e328caa7152688f3b18ce",
+        "vehicleType": "Car",
+        "trim": "R-Design",
+        "bodyType": "Hatchback",
+        "fuelType": "Diesel",
+        "transmissionType": "Manual",
+        "doors": 5,
+        "seats": 5,
+        "owners": 3,
+        "odometerReadingMiles": 85000,
+        "firstRegistrationDate": "2014-09-01",
+        "yearOfManufacture": 2014,
+        "colour": "Blue"
+      },
+      "advertiser": {
+        "advertiserId": "123456",
+        "name": "Test Motors"
+      },
+      "metadata": {
+        "stockId": "abc123",
+        "lifecycleState": "FORECOURT"
+      },
+      "features": [
+        {
+          "name": "Air Conditioning",
+          "genericName": "Air Conditioning",
+          "type": "Standard",
+          "category": "Comfort and Convenience",
+          "factoryFitted": true,
+          "valueRating": "High Value"
+        },
+        {
+          "name": "Panoramic Roof",
+          "genericName": "Panoramic Roof",
+          "type": "Optional",
+          "category": "Exterior",
+          "factoryFitted": true,
+          "rarityRating": "Rare"
+        }
+      ],
+      "motTests": [
+        {
+          "motTestNumber": "1234567890",
+          "completedDate": "2025-04-01",
+          "expiryDate": "2026-04-01",
+          "testResult": "Passed",
+          "odometerValue": 82000,
+          "odometerUnit": "mi",
+          "rfrAndComments": []
+        },
+        {
+          "motTestNumber": "0987654321",
+          "completedDate": "2024-03-28",
+          "expiryDate": "2025-03-28",
+          "testResult": "Passed",
+          "odometerValue": 71000,
+          "odometerUnit": "mi",
+          "rfrAndComments": []
+        }
+      ],
+      "chargeTimes": [
+        {
+          "chargerType": "Standard",
+          "chargerDescription": "3-pin plug",
+          "chargerSupplyType": "AC",
+          "connectorType": "Type 2",
+          "startBatteryPercentage": 0,
+          "endBatteryPercentage": 100,
+          "durationMinutes": 480
+        }
+      ],
+      "valuations": {
+        "retail": {
+          "amountGBP": 7495
+        },
+        "partExchange": {
+          "amountGBP": 5900
+        },
+        "trade": {
+          "amountGBP": 6200
+        }
+      },
+      "check": {
+        "insuranceWriteoffCategory": "N",
+        "scrapped": false,
+        "stolen": false,
+        "highRisk": false,
+        "privateFinance": false,
+        "tradeFinance": false,
+        "mileageDiscrepancy": false
+      },
+      "history": {
+        "scrapped": false,
+        "stolen": false,
+        "imported": false,
+        "exported": false,
+        "previousOwners": 2
+      },
+      "warnings": [
+        {
+          "feature": "valuations",
+          "message": "Cannot source derivative information for DC64AGZ"
+        }
+      ]
+    }
+  ],
+  "totalResults": 1
+}

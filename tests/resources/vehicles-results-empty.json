@@ -1,0 +1,9 @@
+{
+  "warnings": [
+    {
+      "message": "Token: [Partner Details] is not allowed to access endpoint: [vehicles]"
+    }
+  ],
+  "results": [],
+  "totalResults": 0
+}
