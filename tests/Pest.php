@@ -44,4 +44,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-// Removed the unnecessary `something()` function.
+/**
+ * Load a canned Autotrader API response from `tests/resources`.
+ *
+ * @return array<string, mixed>
+ */
+function getAutotraderFixture(string $file): array
+{
+    return json_decode((string) file_get_contents(__DIR__.'/resources/'.$file), true);
+}

@@ -377,6 +377,20 @@ $advertisers = app(AutotraderApi::class)->getAdvertisers();
 
 - `rarityRating`, `valueRating`: Autotrader intelligence ratings for vehicle features (Aug 2025)
 - Manufacturer warranty details (paintwork, standard, corrosion, battery) provided by manufacturer for brand new vehicles (Oct 2025)
+- **Response envelope (Aug 2026)**: the API now returns `{"results": [{"vehicle": {...}}], "totalResults": 1}`. The historic `vehicle` root is served alongside it until 28 October 2026. `getVehicle()` accepts either and always returns the historic flat shape, so no caller changes are needed
+- **Warnings (Aug 2026)**: warnings are now split between service level (root `warnings`) and record level (`results[].warnings`). They are currently duplicated at both levels; record warnings leave the root on 28 October 2026
+- `vehicle.previousOwners` is withdrawn (28 October 2026). Read `history.previousOwners` instead — request it with the `history` option
+
+`getVehicle()` adds three keys to the flattened response:
+
+| Key | Meaning |
+| --- | --- |
+| `totalResults` | `0` when no vehicle matched the registration — the `vehicle` key is absent in that case |
+| `serviceWarnings` | Warnings about the service, e.g. an endpoint the token cannot access |
+| `recordWarnings` | Warnings about this vehicle, e.g. derivative information that could not be sourced |
+
+`warnings` remains the union of the two, de-duplicated, and is omitted when empty. Search
+and Stock responses are not normalised — they keep their multi-record `results` array.
 
 ## Testing
 

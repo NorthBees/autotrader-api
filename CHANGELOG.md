@@ -2,6 +2,22 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
+## Version 1.2.0
+
+### Breaking Changes (Autotrader API — 28 Oct 2026)
+
+- **`vehicle.previousOwners` removed** from the Stock API, Search API and Stock Notifications, on both the read and write paths. Read `history.previousOwners` instead. When completing a POST or PATCH supply only `vehicle.owners`, and ensure the value is inclusive of the current owner as per the field definition. Already removed from sandbox; removed from production on 28 Oct 2026. No SDK code change is required — `createStock()` and `updateStock()` pass request bodies through verbatim — but callers must update their own field mappings. See [Stock API](https://developers.autotrader.co.uk/api#stock-api)
+- **New payload structure for the Vehicles API**: the response root changes from `vehicle` to `results.vehicle`, so that all Autotrader Connect APIs share a consistent structure. Both roots are served today; the `vehicle` root is removed on 28 Oct 2026. `getVehicle()` now normalises either shape back to the historic flat shape, so existing callers need no changes. See [Vehicles API](https://developers.autotrader.co.uk/api#vehicles-api)
+- **Warnings error handling in the Vehicles API**: warnings are now listed at service level (root `warnings`) or at record level (`results.warnings`). Record-based warnings are currently duplicated at the root and are removed from it on 28 Oct 2026; service-level warnings are unaffected. `getVehicle()` merges both into the flat `warnings` array without duplication. See [Vehicles API](https://developers.autotrader.co.uk/api#vehicles-api)
+
+### Changed
+
+- `getVehicle()` normalises the Vehicles API response through `NorthBees\AutotraderApi\Support\VehicleResponseNormaliser`. The whole of `results[0]` is merged into the response root, so `vehicle`, `features`, `motTests`, `valuations`, `check`, `history` and `chargeTimes` stay where callers already expect them. Three keys are added: `totalResults` (`0` when no vehicle matched, in which case there is no `vehicle` key), plus `serviceWarnings` and `recordWarnings` for callers that need the distinction. Search and Stock responses are deliberately left alone — they return genuinely multi-record `results` arrays.
+
+### Fixed
+
+- `handleUnsuccessfulResponse()` no longer fatals when a `warnings` entry is a plain string or omits its `message` key, and now also collects `results[].warnings`. Repeated messages are de-duplicated, and an empty `warnings` array produces `'An unknown warning occurred'` rather than an empty message. An empty array still throws `AutotraderWarning` rather than `AutotraderException`, so callers that catch the former to swallow soft failures are unaffected.
+
 ## Version 1.1.7
 
 ### Response-Only Changes (no SDK code changes needed)

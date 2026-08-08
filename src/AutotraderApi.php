@@ -113,12 +113,29 @@ class AutotraderApi
             $code = $response->status();
         }
 
-        $warnings = $response->json('warnings');
-        if ($warnings !== null) {
-            $message = collect($warnings)->map(
-                fn ($warning) => $warning['message'],
-            )->implode('; ');
-            throw new AutotraderWarning($message, $code);
+        // Warnings sit at the root, and — since August 2026 — also against each record.
+        $rootWarnings = $response->json('warnings');
+        $warnings = is_array($rootWarnings) ? $rootWarnings : [];
+        $hasWarnings = $rootWarnings !== null;
+
+        foreach ((array) $response->json('results') as $result) {
+            if (is_array($result) && is_array($result['warnings'] ?? null)) {
+                $warnings = array_merge($warnings, $result['warnings']);
+                $hasWarnings = true;
+            }
+        }
+
+        // An empty `warnings` array still throws AutotraderWarning rather than falling
+        // through to AutotraderException: callers catch the former to swallow soft
+        // failures, so promoting it would turn a quiet path into a hard error.
+        if ($hasWarnings) {
+            $message = collect($warnings)->map(fn ($warning) => match (true) {
+                is_array($warning) => $warning['message'] ?? $warning['warning'] ?? json_encode($warning),
+                is_scalar($warning) => (string) $warning,
+                default => null,
+            })->filter()->unique()->implode('; ');
+
+            throw new AutotraderWarning($message !== '' ? $message : 'An unknown warning occurred', $code);
         }
 
         if ($message === null) {
