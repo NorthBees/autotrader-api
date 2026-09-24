@@ -8,7 +8,7 @@ Finance and the rest were always pass-through and are untouched.
 
 The 1.x line remains supported on the `1.x` branch. If you are not ready to migrate your
 readers, stay on `^1.2.0` — it accepts both the old and new API payloads and keeps working
-after 28 October 2026.
+after 30 November 2026.
 
 ### 1. `getVehicle()` no longer flattens the response
 
@@ -71,7 +71,7 @@ $service = $response['warnings'] ?? [];              // service level
 $record = $response['results'][0]['warnings'] ?? []; // record level
 ```
 
-Until 28 October 2026 the API duplicates record level warnings at the root, so the root
+Until 30 November 2026 the API duplicates record level warnings at the root, so the root
 array may contain both. After that date the root holds service level warnings only. 1.x
 de-duplicated this for you; 2.0.0 does not, so de-duplicate yourself if you merge the two.
 
