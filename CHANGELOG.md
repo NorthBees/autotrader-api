@@ -6,13 +6,13 @@ All notable changes to `AutotraderApi` will be documented in this file.
 
 The 2.x line mirrors the Autotrader API response shape. The 1.x line stays available on the
 `1.x` branch for integrators who want the flattened Vehicles payload; it is not going away
-and keeps working after 28 October 2026. See [UPGRADING.md](UPGRADING.md) for a migration
+and keeps working after 30 November 2026. See [UPGRADING.md](UPGRADING.md) for a migration
 guide.
 
 ### Breaking Changes
 
 - **`getVehicle()` returns the raw API response.** The Vehicles payload is no longer flattened onto the response root. Read record data from `results.0` — `vehicle`, `advertiser`, `metadata`, `features`, `motTests`, `chargeTimes`, `valuations`, `check`, `history`, `competitors`, `vehicleMetrics` and `factoryCodes` all move with it. A response with no match is now `{"results": [], "totalResults": 0}` rather than a payload missing its `vehicle` key, so callers detecting "not found" via `empty($response['vehicle'])` must switch to `totalResults` or an empty `results` array.
-- **`serviceWarnings` and `recordWarnings` are no longer added.** Service level warnings stay at the response root under `warnings`, record level warnings sit on the record under `results.0.warnings`. Until 28 October 2026 the API duplicates record level warnings at the root; 2.0.0 no longer de-duplicates them for you.
+- **`serviceWarnings` and `recordWarnings` are no longer added.** Service level warnings stay at the response root under `warnings`, record level warnings sit on the record under `results.0.warnings`. Until 30 November 2026 the API duplicates record level warnings at the root; 2.0.0 no longer de-duplicates them for you.
 - **`NorthBees\AutotraderApi\Support\VehicleResponseNormaliser` has been removed**, along with the `Support` namespace it introduced in 1.2.0.
 - **The odometer guard now fires correctly**, which changes when `AutotraderMissingOdometerException` is thrown. 1.x tested the option for truthiness, but option values are the strings `'true'` and `'false'` — so `'false'` counted as enabled and `getVehicle($advertiserId, $vrm)` threw on the documented basic request. It also checked a `metrics` key while the option is named `vehicleMetrics`, so metrics never triggered the guard. Requesting `valuations` or `vehicleMetrics` without an odometer reading now throws; everything else no longer does.
 
@@ -23,11 +23,11 @@ guide.
 
 ## Version 1.2.0
 
-### Breaking Changes (Autotrader API — 28 Oct 2026)
+### Breaking Changes (Autotrader API — 30 Nov 2026)
 
-- **`vehicle.previousOwners` removed** from the Stock API, Search API and Stock Notifications, on both the read and write paths. Read `history.previousOwners` instead. When completing a POST or PATCH supply only `vehicle.owners`, and ensure the value is inclusive of the current owner as per the field definition. Already removed from sandbox; removed from production on 28 Oct 2026. No SDK code change is required — `createStock()` and `updateStock()` pass request bodies through verbatim — but callers must update their own field mappings. See [Stock API](https://developers.autotrader.co.uk/api#stock-api)
-- **New payload structure for the Vehicles API**: the response root changes from `vehicle` to `results.vehicle`, so that all Autotrader Connect APIs share a consistent structure. Both roots are served today; the `vehicle` root is removed on 28 Oct 2026. `getVehicle()` now normalises either shape back to the historic flat shape, so existing callers need no changes. See [Vehicles API](https://developers.autotrader.co.uk/api#vehicles-api)
-- **Warnings error handling in the Vehicles API**: warnings are now listed at service level (root `warnings`) or at record level (`results.warnings`). Record-based warnings are currently duplicated at the root and are removed from it on 28 Oct 2026; service-level warnings are unaffected. `getVehicle()` merges both into the flat `warnings` array without duplication. See [Vehicles API](https://developers.autotrader.co.uk/api#vehicles-api)
+- **`vehicle.previousOwners` removed** from the Stock API, Search API and Stock Notifications, on both the read and write paths. Read `history.previousOwners` instead. When completing a POST or PATCH supply only `vehicle.owners`, and ensure the value is inclusive of the current owner as per the field definition. Already removed from sandbox; removed from production on 30 Nov 2026. No SDK code change is required — `createStock()` and `updateStock()` pass request bodies through verbatim — but callers must update their own field mappings. See [Stock API](https://developers.autotrader.co.uk/api#stock-api)
+- **New payload structure for the Vehicles API**: the response root changes from `vehicle` to `results.vehicle`, so that all Autotrader Connect APIs share a consistent structure. Both roots are served today; the `vehicle` root is removed on 30 Nov 2026. `getVehicle()` now normalises either shape back to the historic flat shape, so existing callers need no changes. See [Vehicles API](https://developers.autotrader.co.uk/api#vehicles-api)
+- **Warnings error handling in the Vehicles API**: warnings are now listed at service level (root `warnings`) or at record level (`results.warnings`). Record-based warnings are currently duplicated at the root and are removed from it on 30 Nov 2026; service-level warnings are unaffected. `getVehicle()` merges both into the flat `warnings` array without duplication. See [Vehicles API](https://developers.autotrader.co.uk/api#vehicles-api)
 
 ### Changed
 

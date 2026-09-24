@@ -377,9 +377,10 @@ $advertisers = app(AutotraderApi::class)->getAdvertisers();
 
 - `rarityRating`, `valueRating`: Autotrader intelligence ratings for vehicle features (Aug 2025)
 - Manufacturer warranty details (paintwork, standard, corrosion, battery) provided by manufacturer for brand new vehicles (Oct 2025)
-- **Response envelope (Aug 2026)**: the API returns `{"results": [{"vehicle": {...}}], "totalResults": 1}`. The historic `vehicle` root was served alongside it until 28 October 2026
+- **Response envelope (Aug 2026)**: the API returns `{"results": [{"vehicle": {...}}], "totalResults": 1}`. The historic `vehicle` root was served alongside it until 30 November 2026
 - **Warnings (Aug 2026)**: warnings are split between service level (root `warnings`) and record level (`results[].warnings`)
-- `vehicle.previousOwners` is withdrawn (28 October 2026). Read `history.previousOwners` instead — request it with the `history` option
+- **Failed lookups (30 November 2026)**: a registration that matches no vehicle returns `200 OK` with empty `results` rather than `404 Not Found`, so `getVehicle()` no longer throws — check `totalResults` (or an empty `results` array) instead
+- `vehicle.previousOwners` is withdrawn (30 November 2026). Read `history.previousOwners` instead — request it with the `history` option
 
 From 2.0.0 `getVehicle()` returns the response exactly as the API sends it, with nothing
 added, removed or reshaped. Read record data from `results.0`:
