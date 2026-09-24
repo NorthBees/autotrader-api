@@ -377,9 +377,10 @@ $advertisers = app(AutotraderApi::class)->getAdvertisers();
 
 - `rarityRating`, `valueRating`: Autotrader intelligence ratings for vehicle features (Aug 2025)
 - Manufacturer warranty details (paintwork, standard, corrosion, battery) provided by manufacturer for brand new vehicles (Oct 2025)
-- **Response envelope (Aug 2026)**: the API now returns `{"results": [{"vehicle": {...}}], "totalResults": 1}`. The historic `vehicle` root is served alongside it until 28 October 2026. `getVehicle()` accepts either and always returns the historic flat shape, so no caller changes are needed
-- **Warnings (Aug 2026)**: warnings are now split between service level (root `warnings`) and record level (`results[].warnings`). They are currently duplicated at both levels; record warnings leave the root on 28 October 2026
-- `vehicle.previousOwners` is withdrawn (28 October 2026). Read `history.previousOwners` instead — request it with the `history` option
+- **Response envelope (Aug 2026)**: the API now returns `{"results": [{"vehicle": {...}}], "totalResults": 1}`. The historic `vehicle` root is served alongside it until 30 November 2026. `getVehicle()` accepts either and always returns the historic flat shape, so no caller changes are needed
+- **Warnings (Aug 2026)**: warnings are now split between service level (root `warnings`) and record level (`results[].warnings`). They are currently duplicated at both levels; record warnings leave the root on 30 November 2026
+- **Failed lookups (30 November 2026)**: a registration that matches no vehicle returns `200 OK` with empty `results` rather than `404 Not Found`, so `getVehicle()` no longer throws — check `totalResults` (or the absent `vehicle` key) instead
+- `vehicle.previousOwners` is withdrawn (30 November 2026). Read `history.previousOwners` instead — request it with the `history` option
 
 `getVehicle()` adds three keys to the flattened response:
 
