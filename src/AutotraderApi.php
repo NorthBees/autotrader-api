@@ -53,6 +53,20 @@ class AutotraderApi
     use AutotraderVehicleMetricsTrait;
     use AutotraderVehiclesTrait;
 
+    protected ?string $environment = null;
+
+    /**
+     * Return a copy of this client that targets the given environment (`production` or
+     * `sandbox`) instead of `autotrader.environment`.
+     */
+    public function withEnvironment(string $environment): static
+    {
+        $clone = clone $this;
+        $clone->environment = $environment;
+
+        return $clone;
+    }
+
     protected function performRequest(HttpMethods $method, string $url, array $headers = [], array $data = [])
     {
         throw_if(
@@ -147,7 +161,7 @@ class AutotraderApi
 
     protected function getEndpoint(): string
     {
-        return match (config('autotrader.environment')) {
+        return match ($this->environment ?? config('autotrader.environment')) {
             'production' => AutotraderEndpoints::ProductionUrl->value,
             default => AutotraderEndpoints::SandboxUrl->value,
         };
