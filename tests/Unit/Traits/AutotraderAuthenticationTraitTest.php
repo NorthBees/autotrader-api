@@ -27,7 +27,7 @@ describe('AutotraderAuthenticationTrait', function () {
 
     it('returns cached token when available', function () {
         $cachedToken = 'cached-token-123';
-        Cache::put('autotrader_api_auth', $cachedToken, now()->addHour());
+        Cache::put($this->testInstance->getAuthenticationCacheKey(), $cachedToken, now()->addHour());
 
         $result = $this->testInstance->getAuthenticationCode();
 
@@ -48,7 +48,7 @@ describe('AutotraderAuthenticationTrait', function () {
         $result = $this->testInstance->getAuthenticationCode();
 
         expect($result)->toBe($newToken);
-        expect(Cache::get('autotrader_api_auth'))->toBe($newToken);
+        expect(Cache::get($this->testInstance->getAuthenticationCacheKey()))->toBe($newToken);
     });
 
     it('throws AutotraderFailedConnectionException on failed response', function () {

@@ -16,25 +16,43 @@ trait AutotraderAuthenticationTrait
 {
     protected string $authCacheKey = 'autotrader_api_auth';
 
+    protected ?string $credentialKey = null;
+
+    protected ?string $credentialSecret = null;
+
+    /**
+     * Return a copy of this client that authenticates with the given key and secret
+     * instead of `autotrader.key` / `autotrader.secret`.
+     */
+    public function withCredentials(string $key, string $secret): static
+    {
+        $clone = clone $this;
+        $clone->credentialKey = $key;
+        $clone->credentialSecret = $secret;
+
+        return $clone;
+    }
+
     public function getAuthenticationCode()
     {
+        $cacheKey = $this->getAuthenticationCacheKey();
 
-        if (Cache::has($this->authCacheKey)) {
-            return Cache::get($this->authCacheKey);
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
         }
 
         $url = implode('/', [$this->getEndpoint(), AutotraderEndpoints::Authenticate->value]);
         $response = Http::asForm()->post(
             $url,
             [
-                'key' => config('autotrader.key'),
-                'secret' => config('autotrader.secret'),
+                'key' => $this->getCredentialKey(),
+                'secret' => $this->getCredentialSecret(),
             ],
         );
 
         if ($response->successful()) {
             $expiry = Carbon::parse($response->json('expires_at'));
-            Cache::put($this->authCacheKey, $response->json('access_token'), $expiry);
+            Cache::put($cacheKey, $response->json('access_token'), $expiry);
 
             return $response->json('access_token');
         }
@@ -47,5 +65,24 @@ trait AutotraderAuthenticationTrait
         }
 
         throw new AutotraderException('Unable to connect to Autotrader');
+    }
+
+    /**
+     * The cache key for the access token, unique per endpoint and API key so that
+     * different credentials (or sandbox and production) never share a token.
+     */
+    public function getAuthenticationCacheKey(): string
+    {
+        return $this->authCacheKey.':'.hash('sha256', $this->getEndpoint().'|'.$this->getCredentialKey());
+    }
+
+    protected function getCredentialKey(): string
+    {
+        return (string) ($this->credentialKey ?? config('autotrader.key'));
+    }
+
+    protected function getCredentialSecret(): string
+    {
+        return (string) ($this->credentialSecret ?? config('autotrader.secret'));
     }
 }

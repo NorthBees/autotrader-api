@@ -2,6 +2,18 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
+## Version 1.3.0
+
+### Added
+
+- `withCredentials(string $key, string $secret)` returns a copy of the client that authenticates with the given API key and secret instead of `autotrader.key` / `autotrader.secret`. Useful for multi-tenant applications where each tenant has its own Autotrader account. Clients without per-instance credentials keep using config.
+- `withEnvironment(string $environment)` returns a copy of the client that targets `production` or `sandbox` instead of `autotrader.environment`.
+- `getAuthenticationCacheKey()` exposes the cache key the access token is stored under.
+
+### Changed
+
+- The access token is now cached under `autotrader_api_auth:<sha256 of endpoint and API key>` rather than the fixed `autotrader_api_auth`, so different credentials, or sandbox and production, never share a token. The API key itself is not stored in the key. Existing cached tokens are ignored and a fresh token is requested on first use after upgrading.
+
 ## Version 1.2.0
 
 ### Breaking Changes (Autotrader API — 30 Nov 2026)
