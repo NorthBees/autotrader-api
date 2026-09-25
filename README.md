@@ -40,6 +40,16 @@ See [.env.example](.env.example) for all available options.
 
 Authentication is handled automatically when any API call is made. The token will be cached.
 
+To use different credentials or a different environment for a single client — for example one
+Autotrader account per tenant — call `withCredentials()` and/or `withEnvironment()`. Both return a
+copy, leaving the original client on config. Tokens are cached per endpoint and API key.
+
+```php
+$api = app(AutotraderApi::class)
+    ->withCredentials($tenantKey, $tenantSecret)
+    ->withEnvironment('production');
+```
+
 ## Usage
 
 The package is a lightweight wrapper around the Autotrader API.
