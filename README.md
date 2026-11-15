@@ -275,6 +275,7 @@ $updated = app(AutotraderApi::class)->updateStock($advertiserId, [
 - tradeAdvert can now be set to NOT_PUBLISHED when updating stock lifecycle to SOLD (Feb 2026)
 - `responseMetrics` now includes a natural/paid breakdown when requested with `responseMetrics => 'true'` (Jun 2026). Each of the `yesterday` and `lastWeek` objects now exposes `naturalAdvertViews` and `paidPPCAdvertViews` (totalling `advertViews`), plus `naturalSearchViews` and `paidPPCSearchViews` (totalling `searchViews`)
 - `adverts.retailAdverts.advertiserVehicleHighlight1`, `advertiserVehicleHighlight2`, `advertiserVehicleHighlight3` and `adverts.retailAdverts.priceCommentary` (26 Jun 2026) - up to 3 Seller Highlights plus Seller Comments shown on the Autotrader website. Also returned in Stock Notifications. As advertiser-settable fields they can be sent through `createStock()` / `updateStock()` under `adverts.retailAdverts`
+- Make and model standardisation for Truck, Motorhome and Caravan (7 Dec 2026): `vehicle.standard.make` / `vehicle.standard.model` hold Autotrader's standard value. A make or model outside the standard list still creates the stock (2xx) but returns a root `warnings` entry with `type: ERROR` and `feature: stock`, a `null` standard value, and a `REJECTED` advert status (`AutotraderAdvertStates::REJECTED`) until corrected. `createStock()` / `updateStock()` return these warnings rather than throwing, so check `$response['warnings']`
 
 ### Deals Requests
 
