@@ -71,6 +71,20 @@ trait AutotraderStockTrait
 
     }
 
+    /**
+     * Create a stock item
+     *
+     * Make and model standardisation (7 Dec 2026): for Truck, Motorhome and Caravan, a make
+     * or model that is not in Autotrader's standard list no longer fails the request. The
+     * stock is still created (2xx) but the response carries a root `warnings` entry such as
+     * `{"type": "ERROR", "feature": "stock", "message": "Rejected due to invalid model: 1234"}`,
+     * `vehicle.standard.make` / `vehicle.standard.model` is null, and a PUBLISHED advert is
+     * listed as REJECTED. These warnings are returned as-is, not thrown — inspect them.
+     *
+     * @param  int  $advertiserId  The advertiser ID
+     * @param  array  $vehicleData  The stock record to create
+     * @return array
+     */
     public function createStock(int $advertiserId, array $vehicleData)
     {
 
@@ -88,6 +102,10 @@ trait AutotraderStockTrait
      * When updating lifecycle state to SOLD and the vehicle has a published tradeAdvert,
      * you can include tradeAdvert status as NOT_PUBLISHED to unpublish the record.
      * Use AutotraderTradeAdvertStates::NOT_PUBLISHED for the tradeAdvert.status value.
+     *
+     * As with createStock(), a Truck, Motorhome or Caravan make or model that fails
+     * standardisation returns 2xx with a root `warnings` entry of type ERROR (7 Dec 2026),
+     * and the advert stays REJECTED until an accepted make and/or model is sent.
      *
      * @param  int  $advertiserId  The advertiser ID
      * @param  array  $vehicleData  The vehicle data including metadata.stockId

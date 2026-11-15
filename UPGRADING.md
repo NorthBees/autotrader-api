@@ -1,5 +1,27 @@
 # Upgrading
 
+## 2.1.0 to 2.2.0 (and 1.3.0 to 1.4.0)
+
+No SDK method changed shape, but Autotrader's 7 December 2026 make and model
+standardisation for Truck, Motorhome and Caravan changes what a successful stock
+write can mean:
+
+```php
+$response = $api->createStock($advertiserId, $payload); // or updateStock()
+
+$rejections = collect($response['warnings'] ?? [])
+    ->filter(fn ($w) => ($w['type'] ?? null) === 'ERROR' && ($w['feature'] ?? null) === 'stock');
+
+if ($rejections->isNotEmpty()) {
+    // The stock exists (metadata.stockId is set) but its advert is REJECTED
+    // until the make and/or model is updated to an accepted value.
+}
+```
+
+Retail advert statuses can now be `REJECTED`; compare against
+`AutotraderAdvertStates::REJECTED` rather than assuming anything that is not `PUBLISHED`
+was unpublished on purpose.
+
 ## 1.x to 2.0.0
 
 2.0.0 makes `getVehicle()` return the Vehicles API response exactly as Autotrader sends it.

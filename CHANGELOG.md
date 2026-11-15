@@ -2,6 +2,22 @@
 
 All notable changes to `AutotraderApi` will be documented in this file.
 
+## Version 2.2.0
+
+### Breaking Changes (Autotrader API — 7 Dec 2026)
+
+- **Make and model standardisation for Truck, Motorhome and Caravan.** These vehicle types now go through the same `make` / `model` standardisation as Car, Van and Bike. Already live in sandbox. See [Stock API](https://developers.autotrader.co.uk/api#stock-api)
+  - A make or model in Autotrader's standard list populates `vehicle.standard.make` / `vehicle.standard.model` with the standard value, which may differ from what was sent (e.g. `model: "XF 450"` → `standard.model: "XF"`). Existing stock is corrected in place and a stock notification is sent.
+  - A make or model that is not in the list does **not** fail the request. The stock is still created (2xx) with a root `warnings` entry of `type: ERROR`, `feature: stock` (e.g. `Rejected due to invalid model: 1234`), the matching `vehicle.standard.*` field is `null`, and a `PUBLISHED` advert is listed as `REJECTED` until the make and/or model is updated to an accepted value.
+  - Published stock that already fails standardisation is set to `REJECTED`, with a stock notification.
+  - `createStock()` and `updateStock()` return these responses as-is and do **not** throw `AutotraderWarning`, because the HTTP status is successful. Callers must inspect `warnings` on stock create/update responses.
+
+### Added
+
+- `NorthBees\AutotraderApi\Enum\AutotraderAdvertStates` (`PUBLISHED`, `NOT_PUBLISHED`, `REJECTED`) for retail advert channel statuses under `adverts.retailAdverts.*Advert.status`.
+
+Also released for the 1.x line as 1.4.0.
+
 ## Version 2.1.0
 
 ### Added
